@@ -123,7 +123,6 @@ const LoginForm = () => {
             onSubmit={handleLogin}
             className="w-full flex flex-col items-center text-gray-700 space-y-6"
           >
-            <h1 className="text-2xl font-semibold text-blue-500">Login</h1>
 
             {/* Campo de email */}
             <div className={inputContainerStyle}>
