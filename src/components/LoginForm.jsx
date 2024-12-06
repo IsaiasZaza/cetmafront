@@ -198,8 +198,6 @@ const LoginForm = () => {
             onSubmit={handleRegister}
             className="w-full flex flex-col items-center text-gray-700 space-y-6"
           >
-            <h1 className="text-2xl font-semibold text-blue-500">Cadastro</h1>
-
             {/* Campo de nome */}
             <div className={inputContainerStyle}>
               <FaUser className="text-gray-400 ml-3" />
@@ -243,6 +241,17 @@ const LoginForm = () => {
                 required
                 className={inputStyle}
               />
+              {showPassword ? (
+                <FaEye
+                  className="text-gray-400 cursor-pointer mr-3"
+                  onClick={togglePasswordVisibility}
+                />
+              ) : (
+                <FaEyeSlash
+                  className="text-gray-400 cursor-pointer mr-3"
+                  onClick={togglePasswordVisibility}
+                />
+              )}
             </div>
 
             {/* Campo de confirmar senha */}
@@ -258,12 +267,23 @@ const LoginForm = () => {
                 required
                 className={inputStyle}
               />
+              {showPassword ? (
+                <FaEye
+                  className="text-gray-400 cursor-pointer mr-3"
+                  onClick={togglePasswordVisibility}
+                />
+              ) : (
+                <FaEyeSlash
+                  className="text-gray-400 cursor-pointer mr-3"
+                  onClick={togglePasswordVisibility}
+                />
+              )}
             </div>
 
             {/* Botão de cadastro */}
             <button
               type="submit"
-              className="w-4/5 h-12 bg-gradient-to-r from-green-400 to-teal-600 text-white rounded-md font-medium transform transition duration-200 hover:scale-105 hover:from-teal-600 hover:to-green-400"
+              className="w-4/5 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 text-white rounded-md font-medium transform transition duration-200 hover:scale-105 hover:from-blue-600 hover:to-cyan-400"
             >
               Cadastrar
             </button>
