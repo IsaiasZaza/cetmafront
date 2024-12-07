@@ -66,9 +66,9 @@ const ResetPassword = () => {
             <div className="w-1/2 p-10"></div>
             <div className="w-2/5 h-[85vh] bg-white flex flex-col justify-center items-center px-8 shadow-lg rounded-bl-[40%] rounded-tl-lg">
                 <h1 className="text-3xl font-semibold text-gray-700 mb-6">Redefinir Senha</h1>
-                <form onSubmit={handleSubmit} className="w-full flex flex-col items-center space-y-6">
+                <form onSubmit={handleSubmit} className="w-full flex flex-col items-center text-gray-700 space-y-6">
                     {/* Campo para Nova Senha */}
-                    <div className="w-full flex items-center border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-400">
+                    <div className="w-4/5 flex items-center border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-400">
                         <FaLock className="text-gray-400 ml-3" />
                         <input
                             type={showPassword ? "text" : "password"}
@@ -85,7 +85,7 @@ const ResetPassword = () => {
                         )}
                     </div>
                     {/* Campo para Confirmar Nova Senha */}
-                    <div className="w-full flex items-center border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-400">
+                    <div className="w-4/5 flex items-center border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-400">
                         <FaLock className="text-gray-400 ml-3" />
                         <input
                             type={showConfirmPassword ? "text" : "password"}
