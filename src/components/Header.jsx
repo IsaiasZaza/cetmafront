@@ -56,7 +56,7 @@ const Header = () => {
               <li><a href="/oQueFazemos" className="text-gray-900 hover:text-blue-400">Aluno</a></li>
               <li><a href="/nossa-equipe" className="text-gray-900 hover:text-blue-400">Contato</a></li>
               <li>
-                <a href="/LoginForm" className="flex items-center justify-center px-4 py-2 text-gray-900 rounded hover:bg-blue-400">
+                <a href="/login" className="flex items-center justify-center px-4 py-2 text-gray-900 rounded hover:bg-blue-400">
                   <FaUser className="text-xl mr-2" />
                   Login
                 </a>
