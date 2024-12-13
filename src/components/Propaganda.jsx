@@ -21,7 +21,7 @@ const Propaganda = () => {
         </div>
 
         {/* Imagem à direita */}
-        <div className="w-72 h-72 rounded-full overflow-hidden">
+        <div className="w-72 h-72 rounded-3xl overflow-hidden">
           <img
             src="/ppg3.png"
             alt="Profissional 2"

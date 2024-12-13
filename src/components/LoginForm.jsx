@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { FaEnvelope, FaEye, FaEyeSlash, FaUser, FaLock } from "react-icons/fa";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
+
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,7 +28,7 @@ const LoginForm = () => {
     setMessage(null);
 
     try {
-      const response = await fetch("http://localhost:3001/api/forgot-password", {
+      const response = await fetch("https://crud-usuario.vercel.app/api/forgot-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,26 +55,31 @@ const LoginForm = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     setMessage(null);
-
+  
+    // Verifica se as senhas são iguais
     if (password !== confirmPassword) {
-      setMessage({ type: "error", text: "As senhas não coincidem." });
+      setMessage({ type: "error", text: "As senhas não coincidem. Tente novamente." });
       return;
     }
-
+  
     try {
-      const response = await fetch("http://localhost:3001/api/register", {
+      const response = await fetch("https://crud-usuario.vercel.app/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, name, password }),
+        body: JSON.stringify({ 
+          nome: name, // Nome em português
+          email: email, // Email
+          senha: password // Senha
+        }),
       });
-
+  
       if (response.ok) {
         const data = await response.json();
         setMessage({ type: "success", text: "Cadastro realizado com sucesso!" });
         console.log("Cadastro realizado:", data);
-        handleFormSwitch("login"); // Volta ao login após sucesso
+        handleFormSwitch("login"); // Voltar para a tela de login após sucesso
       } else {
         const errorData = await response.json();
         setMessage({ type: "error", text: errorData.message });
@@ -301,9 +308,10 @@ const LoginForm = () => {
       className="min-h-screen flex justify-between items-stretch bg-cover bg-center"
       style={{ backgroundImage: "url('banner3.jpg')" }}
     >
+      <a href="/"><FaArrowAltCircleLeft className="text-4xl m-6"/> </a>
       <div className="w-1/2 p-10"></div>
-      <div className="w-2/5 h-[85vh] bg-white flex flex-col justify-center items-center px-8 shadow-lg rounded-bl-[40%] rounded-tl-lg">
-        <Image width={150} height={150} src="/logo.png" />
+      <div className="w-2/5 h-[85vh] bg-white flex flex-col justify-center items-center px-8 shadow-lg rounded-bl-[40%] rounded-tl-lg pb-24">
+        <a href="/"><Image width={250} height={150} src="/logoOficial.png" /></a>
         {renderForm()}
         {message && (
           <div

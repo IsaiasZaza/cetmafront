@@ -21,7 +21,7 @@ export default function BannerHome() {
           <div className="w-full max-w-[480px] mx-auto">
             <iframe
               className="rounded-lg w-full h-[240px]" // Ajusta o tamanho do vídeo
-              src="https://www.youtube.com/embed/VIDEO_ID"
+              src="https://www.youtube.com/embed/338LKGdz6SY?si=wEGIW7tiHtWPquL8"
               title="YouTube video"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

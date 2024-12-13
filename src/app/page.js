@@ -6,6 +6,8 @@ import CourseCarousel from "@/components/CursosHome";
 import Novidades from "@/components/NewsHome";
 import CeoSection from "@/components/CeoHome";
 import Propaganda from "@/components/Propaganda";
+import Footer from "@/components/Footer";
+import WhatsappVoador from "@/components/WhatsappVoador";
 
 export default function Home() {
   return (
@@ -16,7 +18,8 @@ export default function Home() {
       <CourseCarousel />
       <Novidades />
       <CeoSection />
-      
+      <Footer />
+      <WhatsappVoador />
     </>
   );
 }

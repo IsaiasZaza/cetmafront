@@ -15,9 +15,9 @@ const Header = () => {
             <Image
               src="/logo.png"
               alt="Logo Vaga Lume"
-              width={90}
+              width={150}
               height={60}
-              className="mr-3 w-2/3 md:w-[90px] lg:w-[90px]"
+              className="mr-3 w-2/3 md:w-[90px] lg:w-[100px]"
             />
           </a>
         </div>
@@ -34,7 +34,7 @@ const Header = () => {
         </div>
 
         <div className="hidden lg:flex items-center space-x-4">
-          <a href="/LoginForm.jsx" className="flex items-center text-gray-800 border border-black rounded px-3 py-1 hover:text-blue-400 hover:border-blue-400">
+          <a href="/login" className="flex items-center text-gray-800 border border-black rounded px-3 py-1 hover:text-blue-400 hover:border-blue-400">
             <FaUser className="text-xl mr-2" />
             Login
           </a>
