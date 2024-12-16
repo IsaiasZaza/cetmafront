@@ -11,6 +11,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("ALUNO"); // Valor padrão para o seletor de função
   const [name, setName] = useState("");
   const [message, setMessage] = useState(null);
 
@@ -101,7 +102,7 @@ const LoginForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, senha: password }), // Altere 'password' para 'senha'
+        body: JSON.stringify({ email, senha: password, role }), // Altere 'password' para 'senha'
       });
   
       if (response.ok) {
@@ -128,63 +129,91 @@ const LoginForm = () => {
     if (formType === "login") {
       return (
         <form
-          onSubmit={handleLogin}
-          className="w-full flex flex-col items-center text-gray-700 space-y-6"
+        onSubmit={handleLogin}
+        className="w-full flex flex-col items-center text-gray-700 space-y-6"
+      >
+        {/* Campo de email */}
+        <div className={inputContainerStyle}>
+          <FaEnvelope className="text-gray-400 ml-3" />
+          <input
+            type="email"
+            placeholder="Digite seu email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className={inputStyle}
+          />
+        </div>
+        {/* Campo de senha */}
+        <div className={inputContainerStyle}>
+          <FaLock className="text-gray-400 ml-3" />
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Digite sua senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className={inputStyle}
+          />
+          {showPassword ? (
+            <FaEye className="text-gray-400 cursor-pointer mr-3" onClick={togglePasswordVisibility} />
+          ) : (
+            <FaEyeSlash className="text-gray-400 cursor-pointer mr-3" onClick={togglePasswordVisibility} />
+          )}
+        </div>
+        {/* Seletor de função */}
+        <div className="w-4/5 flex flex-col items-start space-y-2">
+          <span className="text-gray-500 font-medium">Logar como:</span>
+          <div className="flex space-x-4">
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                name="role"
+                value="ALUNO"
+                checked={role === "ALUNO"}
+                onChange={(e) => setRole(e.target.value)}
+                className="form-radio h-4 w-4 text-blue-600"
+              />
+              <span>Aluno</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                name="role"
+                value="PROFESSOR"
+                checked={role === "PROFESSOR"}
+                onChange={(e) => setRole(e.target.value)}
+                className="form-radio h-4 w-4 text-blue-600"
+              />
+              <span>Professor</span>
+            </label>
+          </div>
+        </div>
+        {/* Botão de login */}
+        <button
+          type="submit"
+          className="w-4/5 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 text-white rounded-md font-medium transform transition duration-200 hover:scale-105 hover:from-blue-600 hover:to-cyan-400"
         >
-          {/* Campo de email */}
-          <div className={inputContainerStyle}>
-            <FaEnvelope className="text-gray-400 ml-3" />
-            <input
-              type="email"
-              placeholder="Digite seu email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className={inputStyle}
-            />
-          </div>
-          {/* Campo de senha */}
-          <div className={inputContainerStyle}>
-            <FaLock className="text-gray-400 ml-3" />
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Digite sua senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className={inputStyle}
-            />
-            {showPassword ? (
-              <FaEye className="text-gray-400 cursor-pointer mr-3" onClick={togglePasswordVisibility} />
-            ) : (
-              <FaEyeSlash className="text-gray-400 cursor-pointer mr-3" onClick={togglePasswordVisibility} />
-            )}
-          </div>
-          {/* Botão de login */}
-          <button
-            type="submit"
-            className="w-4/5 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 text-white rounded-md font-medium transform transition duration-200 hover:scale-105 hover:from-blue-600 hover:to-cyan-400"
-          >
-            Entrar
-          </button>
-          <div className="text-sm text-gray-500 flex justify-between w-4/5">
-            <span>
-              Não tem conta?{" "}
-              <span
-                className="text-blue-600 cursor-pointer hover:underline"
-                onClick={() => handleFormSwitch("register")}
-              >
-                Cadastre-se
-              </span>
-            </span>
+          Entrar
+        </button>
+        <div className="text-sm text-gray-500 flex justify-between w-4/5">
+          <span>
+            Não tem conta?{" "}
             <span
               className="text-blue-600 cursor-pointer hover:underline"
-              onClick={() => handleFormSwitch("forgotPassword")}
+              onClick={() => handleFormSwitch("register")}
             >
-              Esqueci minha senha
+              Cadastre-se
             </span>
-          </div>
-        </form>
+          </span>
+          <span
+            className="text-blue-600 cursor-pointer hover:underline"
+            onClick={() => handleFormSwitch("forgotPassword")}
+          >
+            Esqueci minha senha
+          </span>
+        </div>
+      </form>
       );
     }
 
