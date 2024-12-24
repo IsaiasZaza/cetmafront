@@ -13,7 +13,7 @@ const CeoSection = () => {
             xs={12} 
             md={4} 
             sx={{ 
-              bgcolor: 'primary.main', 
+              backgroundImage: 'linear-gradient(to bottom, #3b82f6, #1e3a8a)', 
               color: 'white', 
               display: 'flex', 
               flexDirection: 'column', 
@@ -22,15 +22,16 @@ const CeoSection = () => {
               px: { xs: 2, md: 5 } 
             }}
           >
-            <CardMedia
-              component="img"
-              src="/teste-cursos.jpg"
-              alt="Foto do CEO"
-              sx={{ width: 150, height: 150, borderRadius: '50%', mb: 3, objectFit: 'cover' }}
-            />
+              <CardMedia
+                component="img"
+                src="/teste-cursos.jpg"
+                alt="Foto do CEO"
+                sx={{ width: '100%', height: 'auto', borderRadius: 2, mb: 3, objectFit: 'cover' }}
+              />
+
             <Typography variant="h6" gutterBottom>Qualificações</Typography>
             <List>
-              {["Primeira", "Segunda", "Terceira", "Quarta"].map((item, index) => (
+              {["Lorem ipsum dolor sit amet", "Lorem ipsum dolor sit amet", "Lorem ipsum dolor sit amet", "Lorem ipsum dolor sit amet"].map((item, index) => (
                 <ListItem key={index} disablePadding>
                   <ListItemIcon sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}>
                     <CheckCircleIcon sx={{ color: 'white' }} />
