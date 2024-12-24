@@ -27,7 +27,7 @@ const Header = () => {
             <ul className="flex space-x-6 lg:text-lg md:text-base text-base">
               <li><a href="/LoginForm.jsx" className="text-gray-900 hover:text-blue-400">Cursos</a></li>
               <li><a href="" className="text-gray-900 hover:text-blue-400">Quem Somos</a></li>
-              <li><a href="" className="text-gray-900 hover:text-blue-400">Aluno</a></li>
+              <li><a href="/aluno" className="text-gray-900 hover:text-blue-400">Aluno</a></li>
               <li><a href="" className="text-gray-900 hover:text-blue-400">Contato</a></li>
             </ul>
           </nav>

@@ -1,9 +1,9 @@
 const Footer = () => {
     return (
       <footer className="bg-black text-blue-500 py-6">
-        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-4">
+        <div className="container mx-auto flex flex-col md:flex-row justify-center items-center px-4 ">
           {/* Texto principal */}
-          <div className="text-center md:text-left mb-4 md:mb-0">
+          <div className="text-center md:text-center mb-4 md:mb-0">
             <p className="text-lg font-semibold">
               Construído com muito café e amor por 3 jovens
             </p>
