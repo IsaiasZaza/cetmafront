@@ -67,24 +67,35 @@ const Aluno = () => {
           <div className="grid grid-cols-3 gap-4 ">
             {/* Curso em Progresso */}
             <div className="bg-gray-200 p-6 rounded shadow hover:shadow-lg transition-shadow">
-              <div className="flex items-center gap-2 text-blue-500 font-bold">
+            <div className="flex items-center gap-2 text-blue-500 font-bold">
                 <FiClock />
                 <p>Progresso</p>
-              </div>
-              <h3 className="text-lg text-gray-700 font-bold border-b-2 pb-3 mt-2 border-gray-900">
-                Cardiologia e Hemodinâmica
-              </h3>
-              <div className="flex items-center justify-between mt-4 text-gray-700">
-                <div className="flex items-center gap-1">
-                  <BsFileText />
-                  <p>0%</p>
-                </div>
-                <div className="flex items-center gap-1">
-                  <BsPlayCircle />
-                  <p>1/10</p>
-                </div>
-              </div>
             </div>
+            <h3 className="text-lg text-gray-700 font-bold border-b-2 pb-3 mt-2 border-gray-900">
+                Cardiologia e Hemodinâmica
+            </h3>
+            <div className="flex items-center justify-between mt-4 text-gray-700">
+                <div className="flex gap-4">
+                <div className="flex items-center gap-1">
+                    <BsFileText />
+                    <p>0%</p>
+                </div>
+                <div className="flex items-center gap-1">
+                    <BsPlayCircle />
+                    <p>1/10</p>
+                </div>
+                </div>
+                <div>
+                <a
+                    href="#"
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow inline-block text-center"
+                >
+                    Assistir
+                </a>
+                </div>
+            </div>
+            </div>
+
 
             {/* Curso Concluído */}
             <div className="bg-gray-200 p-6 rounded shadow hover:shadow-lg transition-shadow">
