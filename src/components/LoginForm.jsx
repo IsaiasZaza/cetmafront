@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { FaEnvelope, FaEye, FaEyeSlash, FaUser, FaLock } from "react-icons/fa";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { redirect } from "next/navigation";
+
 
 
 const LoginForm = () => {
@@ -14,6 +16,7 @@ const LoginForm = () => {
   const [role, setRole] = useState("ALUNO"); // Valor padrão para o seletor de função
   const [name, setName] = useState("");
   const [message, setMessage] = useState(null);
+
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -109,6 +112,9 @@ const LoginForm = () => {
         const data = await response.json();
         setMessage({ type: "success", text: "Login realizado com sucesso!" });
         console.log("Login bem-sucedido:", data);
+
+        window.location.href = "/aluno";
+
       } else {
         const errorData = await response.json();
         setMessage({ type: "error", text: errorData.message });

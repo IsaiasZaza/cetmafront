@@ -1,56 +1,69 @@
 import React from "react";
+import { Card, CardMedia, CardContent, Typography, Box, Grid, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const CeoSection = () => {
   return (
-    <div className="flex justify-center items-center p-20 bg-zinc-200">
-        <div className="flex flex-col items-center py-10 bg-blue-500 text-white">
-        <div className="w-full max-w-6xl px-4 flex flex-col md:flex-row items-center">
-            <div className="flex flex-col items-center md:items-start w-full pl-10 md:w-1/3">
-            <div className="w-48 h-48 rounded-full overflow-hidden mb-4 ">
-                <img
-                src="/teste-cursos.jpg"
-                alt="CEO"
-                className="w-full h-full object-cover"
-                />
-            </div>
-            <h2 className="text-xl font-bold mb-2">Qualificação:</h2>
-            <ul className="list-disc pl-5 text-lg">
-                <li>Primeira</li>
-                <li>Segunda</li>
-                <li>Terceira</li>
-                <li>Quarta</li>
-            </ul>
-            </div>
-            <div className="mt-6 md:mt-0 md:ml-8 w-full md:w-2/3">
-            <h2 className="text-2xl font-bold mb-4 text-center">Biografia do CEO:</h2>
-            <p className="text-lg leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-                accumsan lacus vel facilisis.
-            </p>
-            <p className="text-lg leading-relaxed mt-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-                accumsan lacus vel facilisis.
-            </p>
-            <p className="text-lg leading-relaxed mt-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-                accumsan lacus vel facilisis.
-            </p>
-            <p className="text-lg leading-relaxed mt-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-                accumsan lacus vel facilisis.
-            </p>
-            </div>
-        </div>
-        </div>
-    </div>
+    <Box sx={{ display: 'flex', justifyContent: 'center', py: { xs: 5, md: 10 }, px: { xs: 2, md: 0 }, bgcolor: 'grey.200' }}>
+      <Card sx={{ maxWidth: 1200, width: '100%', boxShadow: 3, borderRadius: 4, overflow: 'hidden' }}>
+        <Grid container>
+          {/* CEO Image and Qualifications */}
+          <Grid 
+            item 
+            xs={12} 
+            md={4} 
+            sx={{ 
+              bgcolor: 'primary.main', 
+              color: 'white', 
+              display: 'flex', 
+              flexDirection: 'column', 
+              alignItems: { xs: 'center', md: 'start' }, 
+              py: 5, 
+              px: { xs: 2, md: 5 } 
+            }}
+          >
+            <CardMedia
+              component="img"
+              src="/teste-cursos.jpg"
+              alt="Foto do CEO"
+              sx={{ width: 150, height: 150, borderRadius: '50%', mb: 3, objectFit: 'cover' }}
+            />
+            <Typography variant="h6" gutterBottom>Qualificações</Typography>
+            <List>
+              {["Primeira", "Segunda", "Terceira", "Quarta"].map((item, index) => (
+                <ListItem key={index} disablePadding>
+                  <ListItemIcon sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                    <CheckCircleIcon sx={{ color: 'white' }} />
+                  </ListItemIcon>
+                  <ListItemText 
+                    primary={item} 
+                    primaryTypographyProps={{ color: 'white', textAlign: { xs: 'center', md: 'left' } }} 
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </Grid>
+
+          {/* CEO Biography */}
+          <Grid item xs={12} md={8} sx={{ p: { xs: 3, md: 5 } }}>
+            <Typography variant="h4" component="h2" gutterBottom>
+              Biografia do CEO
+            </Typography>
+            <CardContent sx={{ px: 0 }}>
+              <Typography variant="body1" paragraph>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
+              </Typography>
+              <Typography variant="body1" paragraph>
+                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.
+              </Typography>
+              <Typography variant="body1" paragraph>
+                Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam.
+              </Typography>
+            </CardContent>
+          </Grid>
+        </Grid>
+      </Card>
+    </Box>
   );
 };
 
