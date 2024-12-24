@@ -19,7 +19,7 @@ const courses = [
 
 const CursosHome = () => {
   return (
-    <div className="bg-blue-500 flex flex-col items-center py-10">
+    <div className="bg-gradient-to-b from-blue-500 to-blue-700 flex flex-col items-center py-10">
       <div className="flex flex-col md:flex-row w-full max-w-6xl items-start px-4">
         <div className="text-white text-left mb-6 md:mb-0 md:mr-8 md:w-1/3">
           <h2 className="text-3xl font-bold">Cursos:</h2>
