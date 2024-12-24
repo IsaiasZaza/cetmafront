@@ -2,8 +2,8 @@ import React from "react";
 
 const Propaganda = () => {
   return (
-    <div className="w-screen py-10 bg-white flex justify-center">
-      <div className="flex items-center justify-between w-full max-w-[1280px] px-8">
+    <div className=" py-10 bg-white flex justify-center">
+      <div className="flex items-center justify-between w-full max-w-[1280px]">
         {/* Imagem à esquerda */}
         <div className="w-72 h-72 rounded-full overflow-hidden">
           <img
