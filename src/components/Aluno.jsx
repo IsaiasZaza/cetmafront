@@ -1,7 +1,11 @@
+"use client";
+import { useState, useEffect } from "react";
 import { FaHome, FaBook, FaCertificate, FaUser } from "react-icons/fa";
 import { FiPhone, FiClock, FiCheckCircle } from "react-icons/fi";
 import { BsFileText, BsPlayCircle } from "react-icons/bs";
+import { decodeJwt } from 'jose';
 
+// Componente CardCurso
 const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, link }) => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
@@ -40,6 +44,54 @@ const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, lin
 };
 
 const Aluno = () => {
+  const [userData, setUserData] = useState({
+    nome: "Carregando...",
+    estado: "Carregando...",
+    sobre: "Carregando...",
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        if (token) {
+          // Decodificando o token usando jose
+          const decodedToken = decodeJwt(token);
+          console.log("Decoded Token:", decodedToken);  // Verifica a estrutura do token decodificado
+
+          const userId = decodedToken.id;  // Supondo que o id esteja no token
+
+          // Fazendo a requisição para a API com o id
+          const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}`, {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error("Erro ao buscar dados do usuário");
+          }
+
+          const data = await response.json();
+
+          setUserData({
+            nome: data.user.nome || "Nome não disponível",
+            estado: data.user.estado || "Estado não disponível",
+            sobre: data.user.sobre || "Sobre não disponível",
+          });
+        } else {
+          console.warn("Token não encontrado no localStorage.");
+        }
+      } catch (error) {
+        console.error("Erro ao buscar dados do usuário:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Menu Lateral */}
@@ -48,22 +100,22 @@ const Aluno = () => {
           <img src="/logo_branca.png" alt="Logo" className="w-48 h-44" />
         </div>
         <nav className="flex-grow">
-          <ul className="space-y-4 px-4">
-            <li className="flex items-center gap-3">
-              <FaHome />
-              <a href="/home" className="hover:underline">Página Inicial</a>
+          <ul className="space-y-6 px-4"> 
+            <li className="flex items-center gap-4 hover:bg-blue-700 rounded-lg py-1 px-4 transition-all duration-200">
+              <FaHome className="text-2xl text-white" />
+              <a href="/home" className="text-white font-medium hover:text-gray-200">Página Inicial</a>
             </li>
-            <li className="flex items-center gap-3">
-              <FaBook />
-              <a href="/cursos" className="hover:underline">Cursos</a>
+            <li className="flex items-center gap-4 hover:bg-blue-700 rounded-lg py-1 px-4 transition-all duration-200">
+              <FaBook className="text-2xl text-white" />
+              <a href="/cursos" className="text-white font-medium hover:text-gray-200">Cursos</a>
             </li>
-            <li className="flex items-center gap-3">
-              <FaCertificate />
-              <a href="/certificados" className="hover:underline">Certificados</a>
+            <li className="flex items-center gap-4 hover:bg-blue-700 rounded-lg py-1 px-4 transition-all duration-200">
+              <FaCertificate className="text-2xl text-white" />
+              <a href="/certificados" className="text-white font-medium hover:text-gray-200">Certificados</a>
             </li>
-            <li className="flex items-center gap-3">
-              <FaUser />
-              <a href="/meus-dados" className="hover:underline">Meus Dados</a>
+            <li className="flex items-center gap-4 hover:bg-blue-700 rounded-lg py-1 px-4 transition-all duration-200">
+              <FaUser className="text-2xl text-white" />
+              <a href="/meus-dados" className="text-white font-medium hover:text-gray-200">Meus Dados</a>
             </li>
           </ul>
         </nav>
@@ -77,16 +129,23 @@ const Aluno = () => {
       <main className="flex-grow p-8">
         {/* Perfil do Usuário */}
         <section className="p-6 flex flex-col md:flex-row items-center gap-6 mb-8 border-b-2 border-gray-300">
-          <img src="/aluno.jpg" alt="Foto do usuário" className="w-32 h-32 rounded-full shadow-lg" />
-          <div className="w-full md:w-1/2 text-center md:text-left">
-            <h1 className="text-2xl text-gray-900 font-bold">Adam Elias</h1>
-            <p className="text-gray-600">Brasília DF, Brasil</p>
-            <p className="text-gray-500 mt-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+          {/* Imagem do Usuário */}
+          <div className="w-48 h-48 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full p-1 shadow-lg flex items-center justify-center">
+            <img
+              src="/aluno.jpg"
+              alt="Foto do usuário"
+              className="w-44 h-44 rounded-full object-cover shadow-md border-4 border-white"
+            />
+          </div>
+
+          {/* Informações do Usuário */}
+          <div className="w-full md:w-1/2 text-center md:text-left space-y-4">
+            <h1 className="text-3xl text-gray-900 font-semibold">{userData.nome}</h1>
+            <p className="text-xl text-gray-600">{userData.estado}</p>
+            <p className="text-md text-gray-500 mt-2">{userData.sobre}</p>
+
+            {/* Ações ou Links adicionais */}
+
           </div>
         </section>
 
