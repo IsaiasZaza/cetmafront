@@ -25,10 +25,10 @@ const Header = () => {
         <div className="hidden lg:flex space-x-6">
           <nav>
             <ul className="flex space-x-6 lg:text-lg md:text-base text-base">
-              <li><a href="/LoginForm.jsx" className="text-gray-900 hover:text-blue-400">Cursos</a></li>
-              <li><a href="" className="text-gray-900 hover:text-blue-400">Quem Somos</a></li>
-              <li><a href="/aluno" className="text-gray-900 hover:text-blue-400">Aluno</a></li>
-              <li><a href="" className="text-gray-900 hover:text-blue-400">Contato</a></li>
+              <li><a href="/LoginForm.jsx" className="text-gray-900 hover:text-blue-400">Meus Cursos</a></li>
+              <li><a href="" className="text-gray-900 hover:text-blue-400">Área do Aluno</a></li>
+              <li><a href="/aluno" className="text-gray-900 hover:text-blue-400">Sobre Nós</a></li>
+              <li><a href="" className="text-gray-900 hover:text-blue-400">Fale com a CETMA</a></li>
             </ul>
           </nav>
         </div>
@@ -51,9 +51,10 @@ const Header = () => {
         <div className="lg:hidden bg-white text-gray-800 flex flex-col items-center">
           <nav>
             <ul className="space-y-4 px-4 py-2 text-center">
-              <li><a href="/comoDoar" className="text-gray-900 hover:text-blue-400">Cursos</a></li>
-              <li><a href="/quemSomos" className="text-gray-900 hover:text-blue-400">Quem Somos</a></li>
-              <li><a href="/oQueFazemos" className="text-gray-900 hover:text-blue-400">Aluno</a></li>
+              <li><a href="/comoDoar" className="text-gray-900 hover:text-blue-400">Meus Cursos</a></li>
+              <li><a href="/quemSomos" className="text-gray-900 hover:text-blue-400">Sobre Nós</a></li>
+              <li><a href="/oQueFazemos" className="text-gray-900 hover:text-blue-400">Área do Aluno</a></li>
+              <li><a href="/oQueFazemos" className="text-gray-900 hover:text-blue-400">Fale com a CETMA</a></li>
               <li><a href="/nossa-equipe" className="text-gray-900 hover:text-blue-400">Contato</a></li>
               <li>
                 <a href="/login" className="flex items-center justify-center px-4 py-2 text-gray-900 rounded hover:bg-blue-400">
