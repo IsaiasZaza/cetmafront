@@ -8,7 +8,7 @@ import { decodeJwt } from 'jose';
 // Componente CardCurso
 const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, link }) => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+    <div className="bg p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
       <div className={`flex items-center gap-2 font-bold ${status === "Concluído" ? "text-green-500" : "text-blue-500"}`}>
         {status === "Concluído" ? <FiCheckCircle /> : <FiClock />}
         <p>{status}</p>
@@ -93,7 +93,11 @@ const Aluno = () => {
   }, []);
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div
+      className="flex h-screen"
+      style={{ background: "linear-gradient(120deg, #f8fafc 0%, #e7ebf0 100%)" }}
+    >
+
       {/* Menu Lateral */}
       <aside className="w-1/6 bg-gradient-to-b from-blue-500 to-blue-700 text-white flex flex-col flex-shrink-0 overflow-y-auto">
         <div className="flex items-center justify-center">

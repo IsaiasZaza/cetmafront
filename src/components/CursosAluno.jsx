@@ -1,112 +1,212 @@
-import React from "react";
-import { FaHome, FaBook, FaCertificate, FaUser } from "react-icons/fa";
-import { FiPhone } from "react-icons/fi";
+"use client";
+
+import React, { useEffect } from "react";
+import MenuLateral from "./MenuLateral";
+import { motion } from "framer-motion";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const CoursesPage = () => {
-  const courses = Array(8).fill({
-    title: "Enfermagem em Pediatria",
-    oldPrice: "R$ 1299,99",
-    price: "R$ 999,99",
-    installment: "em 6x sem juros",
-  });
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+
+  // Cursos mais comprados
+  const bestSellingCourses = [
+    {
+      title: "Enfermagem em Pediatria",
+      oldPrice: "R$ 1299,99",
+      price: "R$ 999,99",
+      installment: "em 6x sem juros",
+      image: "/curso1.jpg",
+      discount: "-20%",
+    },
+    {
+      title: "Nutrição Esportiva",
+      oldPrice: "R$ 1499,99",
+      price: "R$ 1099,99",
+      installment: "em 6x sem juros",
+      image: "/curso2.jpg",
+      discount: "-25%",
+    },
+    {
+      title: "Primeiros Socorros",
+      oldPrice: "R$ 899,99",
+      price: "R$ 649,99",
+      installment: "em 3x sem juros",
+      image: "/curso3.jpg",
+      discount: "-30%",
+    },
+    {
+      title: "Saúde Mental para Profissionais",
+      oldPrice: "R$ 1199,99",
+      price: "R$ 899,99",
+      installment: "em 5x sem juros",
+      image: "/curso04.jpg",
+      discount: "-15%",
+    },
+  ];
+
+  // Todos os cursos
+  const allCourses = [
+    {
+      title: "Medicina Alternativa",
+      oldPrice: "R$ 1799,99",
+      price: "R$ 1399,99",
+      installment: "em 7x sem juros",
+      image: "/todos01.jpg",
+      discount: "-20%",
+    },
+    {
+      title: "Terapias Holísticas",
+      oldPrice: "R$ 1299,99",
+      price: "R$ 999,99",
+      installment: "em 5x sem juros",
+      image: "/todos01.jpg",
+      discount: "-23%",
+    },
+    {
+      title: "Gestão de Saúde",
+      oldPrice: "R$ 2499,99",
+      price: "R$ 1999,99",
+      installment: "em 10x sem juros",
+      image: "/todos01.jpg",
+      discount: "-20%",
+    },
+    {
+      title: "Farmacologia",
+      oldPrice: "R$ 1699,99",
+      price: "R$ 1299,99",
+      installment: "em 6x sem juros",
+      image: "/todos01.jpg",
+      discount: "-24%",
+    },
+    {
+      title: "Psicologia Clínica",
+      oldPrice: "R$ 2199,99",
+      price: "R$ 1699,99",
+      installment: "em 8x sem juros",
+      image: "/todos01.jpg",
+      discount: "-23%",
+    },
+    {
+      title: "Bioética na Saúde",
+      oldPrice: "R$ 899,99",
+      price: "R$ 649,99",
+      installment: "em 4x sem juros",
+      image: "/todos01.jpg",
+      discount: "-28%",
+    },
+    {
+      title: "Cuidados Paliativos",
+      oldPrice: "R$ 1299,99",
+      price: "R$ 999,99",
+      installment: "em 5x sem juros",
+      image: "/todos01.jpg",
+      discount: "-20%",
+    },
+    {
+      title: "Administração Hospitalar",
+      oldPrice: "R$ 1599,99",
+      price: "R$ 1199,99",
+      installment: "em 6x sem juros",
+      image: "/todos01.jpg",
+      discount: "-25%",
+    },
+  ];
 
   return (
-    <div className="bg-gray-100 min-h-screen flex">
-      {/* Sidebar */}
-      <aside className="w-1/5 bg-gradient-to-b from-blue-500 to-blue-700 text-white flex flex-col">
-        <div className="flex items-center justify-center py-8">
-          <img src="/logo_branca.png" alt="Logo Cetma" className="w-40 h-auto" />
-        </div>
-        <nav className="flex-grow">
-          <ul className="space-y-6 px-6">
-            <li>
-              <a
-                href="/home"
-                className="flex items-center gap-4 hover:bg-blue-600 rounded-lg py-2 px-4 transition-all duration-200"
-              >
-                <FaHome className="text-2xl" />
-                <span className="text-lg font-medium">Página Inicial</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="/cursos"
-                className="flex items-center gap-4 hover:bg-blue-600 rounded-lg py-2 px-4 transition-all duration-200"
-              >
-                <FaBook className="text-2xl" />
-                <span className="text-lg font-medium">Cursos</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="/certificados"
-                className="flex items-center gap-4 hover:bg-blue-600 rounded-lg py-2 px-4 transition-all duration-200"
-              >
-                <FaCertificate className="text-2xl" />
-                <span className="text-lg font-medium">Certificados</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="/meus-dados"
-                className="flex items-center gap-4 hover:bg-blue-600 rounded-lg py-2 px-4 transition-all duration-200"
-              >
-                <FaUser className="text-2xl" />
-                <span className="text-lg font-medium">Meus Dados</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <div className="p-6 border-t border-blue-600">
-          <a
-            href="/atendimento"
-            className="flex items-center gap-3 text-lg hover:underline"
-          >
-            <FiPhone className="text-2xl" />
-            Atendimento
-          </a>
-        </div>
-      </aside>
+    <div
+      className="min-h-screen flex"
+      style={{ background: "linear-gradient(120deg, #f8fafc 0%, #e7ebf0 100%)" }}
+    >
+
+      <MenuLateral />
 
       {/* Main Content */}
       <main className="flex-grow p-8">
         {/* Section: Cursos mais comprados */}
         <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">Cursos mais comprados</h2>
+          <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
+            Cursos mais comprados
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {courses.map((course, index) => (
-              <div
+            {bestSellingCourses.map((course, index) => (
+              <motion.div
                 key={index}
-                className="bg-white rounded-lg shadow-md p-4 transition hover:shadow-lg"
+                className="bg-white rounded-lg shadow-md p-4 relative transition hover:shadow-2xl hover:scale-105"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
               >
-                <div className="h-40 bg-gray-300 rounded mb-4"></div>
-                <h3 className="text-lg font-semibold">{course.title}</h3>
+                {/* Badge de desconto */}
+                <span className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                  {course.discount}
+                </span>
+
+                <div className="w-full aspect-square bg-gray-300 rounded mb-4 flex items-center justify-center">
+                  <img
+                    src={course.image}
+                    alt={course.title}
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                <h3 className="text-lg font-semibold mb-2 text-gray-800">
+                  {course.title}
+                </h3>
                 <p className="text-sm text-gray-500 line-through">
                   {course.oldPrice}
                 </p>
                 <p className="text-xl font-bold text-blue-600">{course.price}</p>
-                <p className="text-sm text-gray-500">{course.installment}</p>
-              </div>
+                <p className="text-sm text-gray-500 mb-4">
+                  {course.installment}
+                </p>
+                <button className="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition">
+                  Saiba mais
+                </button>
+              </motion.div>
             ))}
           </div>
         </section>
 
         {/* Section: Todos os cursos */}
         <section>
-          <h2 className="text-2xl font-bold mb-6">Todos os cursos</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {courses.map((course, index) => (
+          <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
+            Todos os cursos
+          </h2>
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            data-aos="fade-up"
+          >
+            {allCourses.map((course, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg shadow-md p-4 transition hover:shadow-lg"
+                className="bg-white rounded-lg shadow-md p-4 relative transition hover:shadow-2xl hover:scale-105"
               >
-                <div className="h-40 bg-gray-300 rounded mb-4"></div>
-                <h3 className="text-lg font-semibold">{course.title}</h3>
+                <span className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                  {course.discount}
+                </span>
+
+                <div className="w-full aspect-square bg-gray-300 rounded mb-4 flex items-center justify-center">
+                  <img
+                    src={course.image}
+                    alt={course.title}
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                <h3 className="text-lg font-semibold mb-2 text-gray-800">
+                  {course.title}
+                </h3>
                 <p className="text-sm text-gray-500 line-through">
                   {course.oldPrice}
                 </p>
                 <p className="text-xl font-bold text-blue-600">{course.price}</p>
-                <p className="text-sm text-gray-500">{course.installment}</p>
+                <p className="text-sm text-gray-500 mb-4">
+                  {course.installment}
+                </p>
+                <button className="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition">
+                  Saiba Mais
+                </button>
               </div>
             ))}
           </div>
