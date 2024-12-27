@@ -10,7 +10,7 @@ const MenuLateral = () => {
       <ul className="flex-grow space-y-6 px-4">
         <li className="flex items-center gap-4 hover:bg-blue-700 rounded-lg py-1 px-4 transition-all duration-200">
           <FaHome className="text-2xl text-white" />
-          <a href="/home" className="text-white font-medium hover:text-gray-200">
+          <a href="/aluno" className="text-white font-medium hover:text-gray-200">
             Página Inicial
           </a>
         </li>
@@ -32,7 +32,7 @@ const MenuLateral = () => {
         <li className="flex items-center gap-4 hover:bg-blue-700 rounded-lg py-1 px-4 transition-all duration-200">
           <FaUser className="text-2xl text-white" />
           <a
-            href="/meus-dados"
+            href="/dados"
             className="text-white font-medium hover:text-gray-200"
           >
             Meus Dados
