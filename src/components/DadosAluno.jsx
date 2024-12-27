@@ -1,33 +1,129 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaEdit, FaSave, FaCamera, FaTrash, FaLock } from "react-icons/fa";
+import { decodeJwt } from "jose";
 import MenuLateral from "./MenuLateral";
 
 const ProfilePage = () => {
-  const [profilePhoto, setProfilePhoto] = useState(
-    "https://via.placeholder.com/150"
-  );
+  const [profilePhoto, setProfilePhoto] = useState("");
   const [formData, setFormData] = useState({
-    name: "Adam Elias",
-    location: "Brasília DF",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam.",
-    email: "adam.elias@example.com",
+    name: "Carregando...",
+    location: "Carregando...",
+    bio: "Carregando...",
+    email: "Carregando...",
     password: "********",
   });
   const [editingField, setEditingField] = useState("");
   const [modalValue, setModalValue] = useState("");
 
-  const handleRemovePhoto = () => {
-    setProfilePhoto("https://via.placeholder.com/150");
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        if (token) {
+          // Decodifica o token usando jose
+          const decodedToken = decodeJwt(token);
+          console.log("Decoded Token:", decodedToken);
+
+          const userId = decodedToken.id; // Supondo que o id esteja no token
+
+          // Faz a requisição para a API com o id do usuário
+          const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error("Erro ao buscar dados do usuário");
+          }
+
+          const data = await response.json();
+
+          // Atualiza a foto do perfil e os outros dados
+          setProfilePhoto(data.user.profilePicture);
+          setFormData({
+            name: data.user.nome || "Nome não disponível",
+            location: data.user.estado || "Estado não disponível",
+            bio: data.user.sobre || "Sobre não disponível",
+            email: data.user.email || "Email não disponível",
+            password: "********",
+          });
+        } else {
+          console.warn("Token não encontrado no localStorage.");
+        }
+      } catch (error) {
+        console.error("Erro ao buscar dados do usuário:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const handleRemovePhoto = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const userId = decodeJwt(token).id;
+
+      const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}/profile-picture`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao remover foto de perfil");
+      }
+
+      // Após remover, definimos a foto como a padrão novamente
+      setProfilePhoto(""); // O backend irá gerenciar a foto padrão
+    } catch (error) {
+      console.error("Erro ao remover foto:", error);
+    }
   };
 
-  const handlePhotoChange = (event) => {
+  const handlePhotoChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => setProfilePhoto(e.target.result);
-      reader.readAsDataURL(file);
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          console.error("Token não encontrado.");
+          return;
+        }
+  
+        const userId = decodeJwt(token).id;
+  
+        const formData = new FormData();
+        formData.append("profilePicture", file);
+  
+        const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}/profile-picture`, {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        });
+  
+        if (!response.ok) {
+          throw new Error("Erro ao atualizar foto de perfil");
+        }
+  
+        const data = await response.json();
+        setProfilePhoto(data.user.profilePicture); // Atualiza a foto com a nova URL retornada
+  
+        // Atualizar token, se necessário
+        const updatedToken = localStorage.getItem("token"); // Verifica se o token foi alterado
+        if (updatedToken !== token) {
+          console.log("Token foi atualizado.");
+        }
+      } catch (error) {
+        console.error("Erro ao atualizar foto:", error);
+      }
     }
   };
 
@@ -50,7 +146,7 @@ const ProfilePage = () => {
           <div className="flex gap-6 items-center">
             <div className="relative w-40 h-40 rounded-lg overflow-hidden shadow-lg">
               <img
-                src={profilePhoto}
+                src={profilePhoto || "https://via.placeholder.com/150"} // Foto padrão caso a foto esteja vazia
                 alt="Foto do Perfil"
                 className="w-full h-full object-cover"
               />
@@ -105,7 +201,7 @@ const ProfilePage = () => {
                     className="ml-4 text-blue-600 hover:underline flex items-center gap-2"
                     onClick={() => handleEditField(field)}
                   >
-                    <FaEdit /> Edit
+                    <FaEdit /> Editar
                   </button>
                 )}
               </div>
