@@ -107,11 +107,11 @@ const Aluno = () => {
         {/* Perfil do Usuário */}
         <section className="p-6 flex flex-col md:flex-row items-center gap-6 mb-8 border-b-2 border-gray-300">
           {/* Imagem do Usuário */}
-          <div className="w-48 h-48 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full p-1 shadow-lg flex items-center justify-center">
+          <div className="relative w-40 h-40 rounded-lg overflow-hidden shadow-lg">
             <img
-              src="/aluno.jpg"
+              src="https://via.placeholder.com/150"
               alt="Foto do usuário"
-              className="w-44 h-44 rounded-full object-cover shadow-md border-4 border-white"
+              className="w-full h-full object-cover"
             />
           </div>
 
