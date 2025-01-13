@@ -32,13 +32,16 @@ const Novidades = () => {
       </p>
 
       <div className="w-full max-w-6xl px-4">
-      <Swiper
-          navigation={true}
-          spaceBetween={20}
-          slidesPerView={1}
+        <Swiper
+          navigation={{
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          }}
           pagination={{
             clickable: true,
           }}
+          spaceBetween={20}
+          slidesPerView={1}
           modules={[Navigation, Autoplay, Pagination]}
           breakpoints={{
             640: {
@@ -51,26 +54,41 @@ const Novidades = () => {
           className="w-full"
         >
           {courses.map((course) => (
-            <SwiperSlide key={course.id} className="p-2">
+            <SwiperSlide
+              key={course.id}
+              className={`p-2 transition-all ${
+                showDescription === course.id ? "border-2 border-blue-500" : ""
+              }`}
+            >
               <div
-                className="w-full h-80 flex items-center justify-center overflow-hidden rounded-lg shadow-md bg-white relative cursor-pointer"
+                className="w-full h-80 flex items-center justify-center overflow-hidden rounded-lg shadow-md bg-white relative cursor-pointer hover:scale-105 transition-all"
                 onClick={() => toggleDescription(course.id)}
               >
                 {showDescription === course.id ? (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-80 text-white">
-                    <p className="text-center p-4">{course.description}</p>
+                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-80 text-white transition-all">
+                    <p className="text-center text-sm md:text-base p-4">
+                      {course.description}
+                    </p>
                   </div>
                 ) : (
-                  <img
-                    src={course.image}
-                    alt={course.title}
-                    className="w-full h-full object-cover"
-                  />
+                  <>
+                    <img
+                      src={course.image}
+                      alt={course.title}
+                      className="w-full h-full object-cover"
+                      aria-label={`Curso: ${course.title}`}
+                    />
+                    <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-4 text-white">
+                      <h2 className="text-lg font-semibold">{course.title}</h2>
+                    </div>
+                  </>
                 )}
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
+        <div className="swiper-button-next text-blue-500 bg-white rounded-full shadow-md hover:bg-blue-500 hover:text-white transition"></div>
+        <div className="swiper-button-prev text-blue-500 bg-white rounded-full shadow-md hover:bg-blue-500 hover:text-white transition"></div>
       </div>
     </div>
   );

@@ -1,12 +1,15 @@
 "use client";
 
 import React, { useEffect } from "react";
+import { useRouter } from "next/navigation"; // Importa o roteador do Next.js
 import MenuLateral from "./MenuLateral";
 import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const CoursesPage = () => {
+  const router = useRouter(); // Inicializa o roteador
+
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
@@ -14,12 +17,13 @@ const CoursesPage = () => {
   // Cursos mais comprados
   const bestSellingCourses = [
     {
-      title: "Enfermagem em Pediatria",
+      title: "Cardiologia e Hemodinâmica",
       oldPrice: "R$ 1299,99",
       price: "R$ 999,99",
       installment: "em 6x sem juros",
       image: "/curso1.jpg",
       discount: "-20%",
+      url: "/cardiologia",
     },
     {
       title: "Nutrição Esportiva",
@@ -28,6 +32,7 @@ const CoursesPage = () => {
       installment: "em 6x sem juros",
       image: "/curso2.jpg",
       discount: "-25%",
+      url: "/courses/nutricao-esportiva",
     },
     {
       title: "Primeiros Socorros",
@@ -36,6 +41,7 @@ const CoursesPage = () => {
       installment: "em 3x sem juros",
       image: "/curso3.jpg",
       discount: "-30%",
+      url: "/courses/primeiros-socorros",
     },
     {
       title: "Saúde Mental para Profissionais",
@@ -44,6 +50,7 @@ const CoursesPage = () => {
       installment: "em 5x sem juros",
       image: "/curso04.jpg",
       discount: "-15%",
+      url: "/courses/saude-mental",
     },
   ];
 
@@ -56,6 +63,7 @@ const CoursesPage = () => {
       installment: "em 7x sem juros",
       image: "/todos01.jpg",
       discount: "-20%",
+      url: "/courses/medicina-alternativa",
     },
     {
       title: "Terapias Holísticas",
@@ -64,6 +72,7 @@ const CoursesPage = () => {
       installment: "em 5x sem juros",
       image: "/todos01.jpg",
       discount: "-23%",
+      url: "/courses/terapias-holisticas",
     },
     {
       title: "Gestão de Saúde",
@@ -72,6 +81,7 @@ const CoursesPage = () => {
       installment: "em 10x sem juros",
       image: "/todos01.jpg",
       discount: "-20%",
+      url: "/courses/gestao-saude",
     },
     {
       title: "Farmacologia",
@@ -80,6 +90,7 @@ const CoursesPage = () => {
       installment: "em 6x sem juros",
       image: "/todos01.jpg",
       discount: "-24%",
+      url: "/courses/farmacologia",
     },
     {
       title: "Psicologia Clínica",
@@ -88,6 +99,7 @@ const CoursesPage = () => {
       installment: "em 8x sem juros",
       image: "/todos01.jpg",
       discount: "-23%",
+      url: "/courses/psicologia-clinica",
     },
     {
       title: "Bioética na Saúde",
@@ -96,6 +108,7 @@ const CoursesPage = () => {
       installment: "em 4x sem juros",
       image: "/todos01.jpg",
       discount: "-28%",
+      url: "/courses/bioetica-saude",
     },
     {
       title: "Cuidados Paliativos",
@@ -104,6 +117,7 @@ const CoursesPage = () => {
       installment: "em 5x sem juros",
       image: "/todos01.jpg",
       discount: "-20%",
+      url: "/courses/cuidados-paliativos",
     },
     {
       title: "Administração Hospitalar",
@@ -112,15 +126,19 @@ const CoursesPage = () => {
       installment: "em 6x sem juros",
       image: "/todos01.jpg",
       discount: "-25%",
+      url: "/courses/administracao-hospitalar",
     },
   ];
+
+  const handleRedirect = (url) => {
+    router.push(url); // Redireciona para a URL do curso
+  };
 
   return (
     <div
       className="min-h-screen flex"
       style={{ background: "linear-gradient(120deg, #f8fafc 0%, #e7ebf0 100%)" }}
     >
-
       <MenuLateral />
 
       {/* Main Content */}
@@ -139,7 +157,6 @@ const CoursesPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                {/* Badge de desconto */}
                 <span className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                   {course.discount}
                 </span>
@@ -161,7 +178,10 @@ const CoursesPage = () => {
                 <p className="text-sm text-gray-500 mb-4">
                   {course.installment}
                 </p>
-                <button className="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition">
+                <button
+                  className="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition"
+                  onClick={() => handleRedirect(course.url)}
+                >
                   Saiba mais
                 </button>
               </motion.div>
@@ -204,7 +224,10 @@ const CoursesPage = () => {
                 <p className="text-sm text-gray-500 mb-4">
                   {course.installment}
                 </p>
-                <button className="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition">
+                <button
+                  className="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition"
+                  onClick={() => handleRedirect(course.url)}
+                >
                   Saiba Mais
                 </button>
               </div>
