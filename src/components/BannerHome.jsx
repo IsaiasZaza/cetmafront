@@ -3,7 +3,7 @@ export default function BannerHome() {
     <section
       className="relative flex items-center justify-around bg-cover bg-center h-[80vh]"
       style={{
-        backgroundImage: "url('/banner-home.png')", // Substitua pelo caminho da sua imagem
+        backgroundImage: "url('/homeban.png')", // Substitua pelo caminho da sua imagem
       }}
     >
       {/* Overlay para conteúdo */}
@@ -29,7 +29,7 @@ export default function BannerHome() {
             ></iframe>
             {/* Botão ajustado à largura do vídeo */}
             <a
-              href="#"
+              href="/login"
               className="bg-blue-500 text-white font-bold py-3 px-6 mt-4 rounded-lg hover:bg-blue-600 transition flex items-center justify-center gap-2 shadow-lg w-full"
             >
               <svg

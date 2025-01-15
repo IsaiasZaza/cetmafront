@@ -1,9 +1,10 @@
-"use client"; // Adicione isso no início do arquivo
+"use client";
 
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
+import 'swiper/css/autoplay';
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
@@ -17,80 +18,63 @@ const courses = [
   { id: 7, title: "Curso 7", description: "Descrição do curso 7.", image: "/teste-cursos.jpg" },
 ];
 
-const Novidades = () => {
-  const [showDescription, setShowDescription] = useState(null);
+const NewsHome = () => {
+  const [activeCourse, setActiveCourse] = useState(null);
 
   const toggleDescription = (id) => {
-    setShowDescription((prev) => (prev === id ? null : id));
+    setActiveCourse((prev) => (prev === id ? null : id));
   };
 
   return (
-    <div className="flex flex-col items-center py-10">
-      <h1 className="text-4xl font-bold mb-4 text-gray-900 text-center">Novidades</h1>
+    <div className="flex flex-col items-center py-10 bg-gray-50">
+      <h1 className="text-4xl font-bold mb-6 text-gray-900 text-center">Novidades</h1>
       <p className="text-lg mb-8 text-center text-gray-700 max-w-3xl">
-        Explore nossos cursos mais recentes e descubra como eles podem ajudá-lo a alcançar seus objetivos. Clique nas imagens para mais informações!
+        Descubra as últimas novidades dos nossos cursos e atualizações.
       </p>
 
       <div className="w-full max-w-6xl px-4">
         <Swiper
-          navigation={{
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          }}
-          pagination={{
-            clickable: true,
+          navigation={true}
+          pagination={{ clickable: true }}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
           }}
           spaceBetween={20}
           slidesPerView={1}
           modules={[Navigation, Autoplay, Pagination]}
           breakpoints={{
-            640: {
-              slidesPerView: 2,
-            },
-            1024: {
-              slidesPerView: 4,
-            },
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 4 },
           }}
+          loop={true}
           className="w-full"
         >
           {courses.map((course) => (
-            <SwiperSlide
-              key={course.id}
-              className={`p-2 transition-all ${
-                showDescription === course.id ? "border-2 border-blue-500" : ""
-              }`}
-            >
+            <SwiperSlide key={course.id}>
               <div
-                className="w-full h-80 flex items-center justify-center overflow-hidden rounded-lg shadow-md bg-white relative cursor-pointer hover:scale-105 transition-all"
+                className="relative w-full h-80 rounded-lg overflow-hidden shadow-md bg-white cursor-pointer transition-transform duration-300"
                 onClick={() => toggleDescription(course.id)}
               >
-                {showDescription === course.id ? (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-80 text-white transition-all">
-                    <p className="text-center text-sm md:text-base p-4">
-                      {course.description}
-                    </p>
-                  </div>
-                ) : (
-                  <>
-                    <img
-                      src={course.image}
-                      alt={course.title}
-                      className="w-full h-full object-cover"
-                      aria-label={`Curso: ${course.title}`}
-                    />
-                    <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-4 text-white">
-                      <h2 className="text-lg font-semibold">{course.title}</h2>
-                    </div>
-                  </>
-                )}
+                <img
+                  src={course.image}
+                  alt={course.title}
+                  className="w-full h-full object-cover"
+                  aria-label={`Curso: ${course.title}`}
+                />
+                <div
+                  className={`absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black via-transparent to-transparent p-4 transition-opacity duration-300 ${activeCourse === course.id ? "opacity-100" : "opacity-0 hover:opacity-100"}`}
+                >
+                  <h2 className="text-lg font-semibold text-white mb-1">{course.title}</h2>
+                  <p className="text-sm text-gray-200">{course.description}</p>
+                </div>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
-      
       </div>
     </div>
   );
 };
 
-export default Novidades;
+export default NewsHome;
