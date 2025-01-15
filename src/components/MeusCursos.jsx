@@ -9,6 +9,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import PorqueEstudarCetma from "./PorqueEstudarCetma";
 
 const HomePage = () => {
     const [courses, setCourses] = useState([]); // Estado para armazenar os cursos
@@ -55,9 +56,7 @@ const HomePage = () => {
                     </p>
                 </div>
             </div>
-
-            {/* Seção de Cursos */}
-            <div className="py-24 px-8">
+            <div className="py-24 px-8 mx-auto max-w-7xl">
                 <h3 className="text-3xl font-bold text-gray-800 text-center">
                     Conheça todos os cursos que nós CETMA oferecemos:
                 </h3>
@@ -72,10 +71,9 @@ const HomePage = () => {
                     </div>
                 ) : (
                     <Swiper
-                        modules={[Navigation, Pagination]}
+                        modules={[Pagination]}
                         spaceBetween={30}
                         slidesPerView={1}
-                        navigation
                         pagination={{ clickable: true }}
                         breakpoints={{
                             640: {
@@ -126,12 +124,12 @@ const HomePage = () => {
                         aria-label="Conheça mais sobre a CETMA"
                         className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-600 py-3 px-8 text-white rounded-lg hover:scale-105 transform transition duration-200 ease-in-out"
                     >
-                        Conheça mais sobre a CETMA
+                        <a href="/sobre">Conheça mais sobre a CETMA</a>
                         <FiArrowRight className="ml-2" />
                     </button>
                 </div>
             </div>
-
+            <PorqueEstudarCetma />
             <Footer /> {/* Componente Footer */}
         </div>
     );

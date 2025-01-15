@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import WhatsappVoador from "./WhatsappVoador";
+import Footer from "./Footer";
 
 const SobreNos = () => {
   return (
@@ -85,6 +86,7 @@ const SobreNos = () => {
           </p>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

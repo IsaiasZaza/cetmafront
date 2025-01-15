@@ -25,9 +25,9 @@ const Header = () => {
         <div className="hidden lg:flex space-x-6">
           <nav>
             <ul className="flex space-x-6 lg:text-lg md:text-base text-base">
-              <li><a href="/meusCursos" className="text-gray-900 hover:text-blue-400">Meus Cursos</a></li>
-              <li><a href="/aluno" className="text-gray-900 hover:text-blue-400">Área do Aluno</a></li>
-              <li><a href="/sobre" className="text-gray-900 hover:text-blue-400">Sobre Nós</a></li>
+              <li><a href="/meusCursos" className="text-gray-900 hover:text-blue-400">Nossos cursos</a></li>
+              <li><a href="/aluno" className="text-gray-900 hover:text-blue-400">Área do aluno</a></li>
+              <li><a href="/sobre" className="text-gray-900 hover:text-blue-400">Sobre nós</a></li>
               <li><a href="" className="text-gray-900 hover:text-blue-400">Fale com a CETMA</a></li>
             </ul>
           </nav>

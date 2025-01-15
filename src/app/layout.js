@@ -13,7 +13,7 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "CETMA",
+  title: "Cetma",
   description: "CETMA",
 };
 
