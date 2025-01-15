@@ -87,8 +87,7 @@ const Novidades = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="swiper-button-next text-blue-500 bg-white rounded-full shadow-md hover:bg-blue-500 hover:text-white transition"></div>
-        <div className="swiper-button-prev text-blue-500 bg-white rounded-full shadow-md hover:bg-blue-500 hover:text-white transition"></div>
+      
       </div>
     </div>
   );

@@ -5,7 +5,29 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const CeoSection = () => {
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', py: { xs: 5, md: 10 }, px: { xs: 2, md: 0 }, bgcolor: 'grey.200' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        py: { xs: 5, md: 10 },
+        px: { xs: 2, md: 0 },
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundImage: 'url("/Retangulo_20.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+
+          zIndex: -1,
+        },
+      }}
+    >
       <Card sx={{ maxWidth: 1200, width: '100%', boxShadow: 3, borderRadius: 4, overflow: 'hidden' }}>
         <Grid container>
           {/* CEO Image and Qualifications */}
@@ -86,7 +108,6 @@ const CeoSection = () => {
                 Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. <span style={{ fontWeight: 'bold' }}>Pellentesque nibh</span>. Aenean quam.
               </Typography>
             </CardContent>
-         
           </Grid>
         </Grid>
       </Card>

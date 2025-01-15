@@ -1,5 +1,7 @@
 import React from "react";
 import { FiArrowRight } from "react-icons/fi";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const HomePage = () => {
   // Dados individuais dos cards
