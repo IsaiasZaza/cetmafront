@@ -18,6 +18,9 @@ const ProfilePage = () => {
   const [editingField, setEditingField] = useState(""); // Estado para o campo sendo editado
   const [modalValue, setModalValue] = useState(""); // Valor do campo no modal
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [senhaAtual, setSenhaAtual] = useState("");
+  const [novaSenha, setNovaSenha] = useState("");
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
   // Carregar os dados do usuário
   useEffect(() => {
@@ -113,6 +116,31 @@ const ProfilePage = () => {
       setIsSubmitting(false);
     }
   };
+  const handleChangePassword = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Usuário não autenticado.");
+
+      const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}/change-password`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ senhaAtual, novaSenha }),
+      });
+
+      if (!response.ok) throw new Error("Erro ao alterar a senha.");
+
+      alert("Senha alterada com sucesso!");
+      setIsPasswordModalOpen(false);
+      setSenhaAtual("");
+      setNovaSenha("");
+    } catch (error) {
+      console.error("Erro ao alterar a senha:", error);
+      alert("Erro ao alterar a senha. Verifique as informações e tente novamente.");
+    }
+  };
 
   // Alterar foto de perfil
   const handleRemovePhoto = () => {
@@ -178,11 +206,18 @@ const ProfilePage = () => {
               .map(([field, value]) => (
                 <div
                   key={field}
-                  className="flex items-center bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                  className="flex items-center bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow border border-gray-200"
                 >
-                  <label className="w-40 text-gray-700 font-medium capitalize">{field === "bio" ? "Biografia" : field}</label>
+                  <span className="text-gray-500 text-lg mr-4">
+                    {field === "nome" && <FaEdit />}
+                    {field === "email" && <FaLock />}
+                    {field === "estado" && <FaCamera />}
+                    {field === "sobre" && <FaEdit />}
+                  </span>
+                  <label className="w-40 text-gray-700 font-medium capitalize">
+                    {field === "bio" ? "Biografia" : field}
+                  </label>
                   <p className="flex-grow text-gray-600">{value}</p>
-
                   {field === "email" ? (
                     <div className="flex items-center gap-2 text-gray-400">
                       <FaLock />
@@ -198,40 +233,108 @@ const ProfilePage = () => {
                   )}
                 </div>
               ))}
+            <div className="mt-4">
+              <button
+                className="text-blue-600 flex items-center gap-2 hover:underline bg-white px-4 py-2 rounded-lg shadow hover:shadow-lg border border-blue-500"
+                onClick={() => setIsPasswordModalOpen(true)}
+              >
+                <FaLock /> Alterar senha
+              </button>
+            </div>
           </div>
         </div>
       </div>
-
-      {editingField && (
+      {isPasswordModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
           <div className="bg-white w-96 rounded-lg shadow-xl p-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">
-              {editingField === "senha" ? "Alterar Senha" : `Editar ${editingField === "bio" ? "Biografia" : editingField}`}
-            </h2>
-            <input
-              type={editingField === "senha" ? "password" : "text"} // Campo de senha será do tipo 'password'
-              className="w-full p-3 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md"
-              value={modalValue}
-              onChange={(e) => setModalValue(e.target.value)}
-            />
-            <div className="flex justify-end mt-4 gap-2">
+            <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">Alterar Senha</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-gray-700 font-medium">Senha Atual</label>
+                <input
+                  type="password"
+                  className="w-full p-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={senhaAtual}
+                  onChange={(e) => setSenhaAtual(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-gray-700 font-medium">Nova Senha</label>
+                <input
+                  type="password"
+                  className="w-full p-3 border text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={novaSenha}
+                  onChange={(e) => setNovaSenha(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="flex justify-end mt-6 gap-2">
               <button
                 className="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400"
-                onClick={() => setEditingField("")}
+                onClick={() => setIsPasswordModalOpen(false)}
               >
                 Cancelar
               </button>
               <button
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                onClick={handleChangePassword}
+              >
+                Alterar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+      {editingField && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 transition-opacity duration-300">
+          <div className="bg-white w-full max-w-md rounded-lg shadow-lg p-6 mx-4 relative">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
+              {editingField === "senha"
+                ? "Alterar Senha"
+                : `Editar ${editingField === "bio" ? "Biografia" : editingField}`}
+            </h2>
+            <input
+              type={editingField === "senha" ? "password" : "text"}
+              className="w-full p-3 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow duration-300"
+              value={modalValue}
+              onChange={(e) => setModalValue(e.target.value)}
+            />
+            <div className="flex justify-end mt-6 gap-4">
+              <button
+                className="bg-gray-100 px-6 py-2 rounded-lg text-gray-700 hover:bg-gray-200 transition-colors duration-300"
+                onClick={() => setEditingField("")}
+              >
+                Cancelar
+              </button>
+              <button
+                className={`px-6 py-2 rounded-lg text-white ${isSubmitting ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+                  } transition-colors duration-300`}
                 onClick={handleSaveField}
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Salvando..." : "Salvar"}
               </button>
             </div>
+            <button
+              className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition-colors duration-300"
+              onClick={() => setEditingField("")}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
         </div>
       )}
+
     </div>
   );
 };
