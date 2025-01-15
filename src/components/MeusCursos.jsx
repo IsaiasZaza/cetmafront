@@ -19,7 +19,7 @@ const HomePage = () => {
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const response = await fetch("http://localhost:3001/api/cursos"); // URL da API
+                const response = await fetch("https://crud-usuario.vercel.app/api/cursos");
                 const data = await response.json();
                 setCourses(data);
             } catch (error) {

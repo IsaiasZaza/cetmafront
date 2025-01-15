@@ -17,7 +17,7 @@ const Novidades = () => {
     // Função para buscar cursos da API
     const fetchCourses = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/cursos");
+        const response = await fetch("https://crud-usuario.vercel.app/api/cursos");
         if (!response.ok) {
           throw new Error("Erro ao buscar os cursos.");
         }
