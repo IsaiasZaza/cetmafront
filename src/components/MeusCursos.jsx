@@ -5,9 +5,8 @@ import { ImSpinner8 } from "react-icons/im";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
 import PorqueEstudarCetma from "./PorqueEstudarCetma";
 
@@ -56,6 +55,8 @@ const HomePage = () => {
                     </p>
                 </div>
             </div>
+
+            {/* Seção de Cursos */}
             <div className="py-24 px-8 mx-auto max-w-7xl">
                 <h3 className="text-3xl font-bold text-gray-800 text-center">
                     Conheça todos os cursos que nós CETMA oferecemos:
@@ -91,9 +92,9 @@ const HomePage = () => {
                         {courses.map((course, index) => (
                             <SwiperSlide
                                 key={index}
-                                className="flex flex-col justify-between border rounded-lg p-8 text-center shadow hover:shadow-2xl hover:-translate-y-1 transition transform duration-200 h-[300px]"
+                                className="flex flex-col justify-between border rounded-lg p-8 text-center shadow hover:shadow-2xl hover:-translate-y-1 transition transform duration-200 h-[400px]"
                             >
-                                <div className="flex flex-col flex-grow">
+                                <div className="flex flex-col flex-grow h-[250px]">
                                     <h4 className="text-2xl font-bold text-gray-800">
                                         {course.title}
                                     </h4>
@@ -101,9 +102,11 @@ const HomePage = () => {
                                         {course.description}
                                     </p>
                                 </div>
-                                <button className="bg-gradient-to-r from-blue-500 to-blue-600 w-full text-white py-3 px-6 rounded-lg hover:from-blue-600 hover:to-blue-700 transition mt-4">
-                                    Saiba mais sobre
-                                </button>
+                                <div className="mt-4">
+                                    <button className="bg-gradient-to-r from-blue-500 to-blue-600 w-full text-white py-3 px-6 rounded-lg hover:from-blue-600 hover:to-blue-700 transition">
+                                        Saiba mais sobre
+                                    </button>
+                                </div>
                             </SwiperSlide>
                         ))}
                     </Swiper>
@@ -129,6 +132,8 @@ const HomePage = () => {
                     </button>
                 </div>
             </div>
+
+            {/* Componentes adicionais */}
             <PorqueEstudarCetma />
             <Footer /> {/* Componente Footer */}
         </div>

@@ -8,8 +8,8 @@ import "swiper/css/pagination";
 
 const FeatureCard = ({ icon, title, description }) => {
   return (
-    <div className="bg-white p-6 shadow-lg rounded-lg">
-      <div className="text-center mb-4">{icon}</div>
+    <div className="bg-white p-6 shadow-lg rounded-lg flex flex-col justify-between h-[270px]">
+      <div className="text-center mb-4 text-4xl">{icon}</div>
       <h3 className="text-lg font-semibold text-gray-800 text-center mb-2">{title}</h3>
       <p className="text-gray-600 text-center">{description}</p>
     </div>

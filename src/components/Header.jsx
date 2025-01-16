@@ -28,7 +28,7 @@ const Header = () => {
               <li><a href="/meusCursos" className="text-gray-900 hover:text-blue-400">Nossos cursos</a></li>
               <li><a href="/aluno" className="text-gray-900 hover:text-blue-400">Área do aluno</a></li>
               <li><a href="/sobre" className="text-gray-900 hover:text-blue-400">Sobre nós</a></li>
-              <li><a href="" className="text-gray-900 hover:text-blue-400">Fale com a CETMA</a></li>
+              <li><a href="/fale" className="text-gray-900 hover:text-blue-400">Fale com a CETMA</a></li>
             </ul>
           </nav>
         </div>
@@ -51,11 +51,11 @@ const Header = () => {
         <div className="lg:hidden bg-white text-gray-800 flex flex-col items-center">
           <nav>
             <ul className="space-y-4 px-4 py-2 text-center">
-              <li><a href="/comoDoar" className="text-gray-900 hover:text-blue-400">Meus Cursos</a></li>
-              <li><a href="/quemSomos" className="text-gray-900 hover:text-blue-400">Sobre Nós</a></li>
-              <li><a href="/oQueFazemos" className="text-gray-900 hover:text-blue-400">Área do Aluno</a></li>
-              <li><a href="/oQueFazemos" className="text-gray-900 hover:text-blue-400">Fale com a CETMA</a></li>
-              <li><a href="/nossa-equipe" className="text-gray-900 hover:text-blue-400">Contato</a></li>
+              <li><a href="/meusCursos" className="text-gray-900 hover:text-blue-400">Nossos cursos</a></li>
+              <li><a href="/aluno" className="text-gray-900 hover:text-blue-400">Área do aluno</a></li>
+              <li><a href="/sobre" className="text-gray-900 hover:text-blue-400">Sobre nós</a></li>
+              <li><a href="/fale" className="text-gray-900 hover:text-blue-400">Fale com a CETMA</a></li>
+
               <li>
                 <a href="/login" className="flex items-center justify-center px-4 py-2 text-gray-900 rounded hover:bg-blue-400">
                   <FaUser className="text-xl mr-2" />
