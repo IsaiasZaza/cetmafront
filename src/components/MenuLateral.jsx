@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react";
 import { FaHome, FaBook, FaCertificate, FaUser, FaBars, FaTimes } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
