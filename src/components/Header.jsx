@@ -12,7 +12,7 @@ const Header = () => {
   }
 
   return (
-    <header className="bg-white mx-auto w-full z-50 ">
+    <header className="bg-white mx-auto w-full  ">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-20 flex justify-between items-center">
         <div className="flex items-center">
           <a href="/">

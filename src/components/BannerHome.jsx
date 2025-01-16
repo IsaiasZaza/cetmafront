@@ -1,23 +1,22 @@
 export default function BannerHome() {
   return (
     <section
-      className="relative flex items-center bg-cover bg-center h-[80vh]"
+      className="relative flex items-center bg-cover bg-center lg:h-[85vh]"
       style={{
-        backgroundImage: "url('/bannerHome.png')", // Substitua pelo caminho da sua imagem
+        backgroundImage: "url('/bannerHome.png')",
       }}
     >
       {/* Gradiente de sobreposição */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-700/0 to-blue-500/20"></div>
 
       {/* Conteúdo principal */}
-      <div className="relative text-center text-white p-8 rounded-lg max-w-4xl z-10">
-        <h1 className="text-4xl mb-4 font-extrabold font-poppins">
+      <div className="relative text-center text-white p-4 sm:p-8 rounded-lg max-w-4xl z-100">
+        <h1 className="text-3xl sm:text-4xl lg:text-4xl mb-4 font-extrabold font-poppins leading-tight lg:mt-12">
         Seja o Melhor na Enfermagem<br></br> com a <span className="font-extrabold text-blue-300">CETMA</span> 
         </h1>
-        <p className="text-lg mb-6 w-1/2 mx-auto">
+        <p className="text-lg mb-6 lg:w-1/2 mx-auto md:w-full">
         Cursos online com os melhores especialistas em enfermagem. Conquiste seu certificado MEC e invista no seu futuro com o CETMA.
         </p>
-        {/* Contêiner para vídeo e botão */}
         <div className="mb-6">
           <div className="w-full max-w-[480px] mx-auto">
             <iframe

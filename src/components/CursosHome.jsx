@@ -42,8 +42,8 @@ const Novidades = () => {
 
   return (
     <div className="flex flex-col items-center py-10">
-      <h1 className="text-4xl font-bold mb-4 text-blue-500 text-center">Cursos</h1>
-      <p className="text-lg mb-8 text-center text-gray-700 max-w-3xl">
+      <h1 className="lg:text-4xl md:text-3xl text-2xl font-bold mb-4 text-blue-500 text-center">Cursos</h1>
+      <p className="lg:text-lg text-base mb-8 text-center text-gray-700 max-w-3xl px-4">
         Explore nossos cursos e descubra como eles podem ajudá-lo a alcançar seus objetivos. Clique nas imagens para mais informações!
       </p>
 
