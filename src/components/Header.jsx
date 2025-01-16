@@ -7,6 +7,10 @@ import { FaBars, FaTimes, FaUser } from 'react-icons/fa';
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handlerClick = () => {
+    alert('Em manutencao');
+  }
+
   return (
     <header className="bg-white mx-auto w-full z-50 ">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-20 flex justify-between items-center">
@@ -26,7 +30,7 @@ const Header = () => {
           <nav>
             <ul className="flex space-x-6 lg:text-lg md:text-base text-base">
               <li><a href="/meusCursos" className="text-gray-900 hover:text-blue-400">Nossos cursos</a></li>
-              <li><a href="/aluno" className="text-gray-900 hover:text-blue-400">Área do aluno</a></li>
+              <li><a onClick={handlerClick} className="text-gray-900 hover:text-blue-400 cursor-pointer">Área do aluno</a></li>
               <li><a href="/sobre" className="text-gray-900 hover:text-blue-400">Sobre nós</a></li>
               <li><a href="/fale" className="text-gray-900 hover:text-blue-400">Fale com a CETMA</a></li>
             </ul>

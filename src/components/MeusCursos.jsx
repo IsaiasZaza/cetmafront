@@ -5,7 +5,7 @@ import { ImSpinner8 } from "react-icons/im";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import PorqueEstudarCetma from "./PorqueEstudarCetma";
@@ -32,7 +32,7 @@ const HomePage = () => {
     }, []);
 
     return (
-        <div className="font-sans">
+        <div>
             <Header /> {/* Componente Header */}
 
             {/* Banner Principal */}
@@ -41,25 +41,23 @@ const HomePage = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
                 {/* Conteúdo do banner */}
                 <div className="relative w-full md:w-1/2 text-left space-y-6">
-                    <h2 className="text-lg md:text-xl font-extrabold">
+                    <h2 className="text-lg md:text-xl font-extrabold text-blue-400">
                         Desconto de inauguração
                     </h2>
                     <p className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
                         Na compra de 2 cursos, <br /> o segundo sai com <br />{" "}
-                        <span className="font-extrabold">30% de desconto</span>
+                        <span className="font-extrabold"><span className="text-blue-400">30%</span> de desconto</span>
                     </p>
                     <p className="text-md md:text-lg text-gray-200">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing <br /> elit, sed
-                        do eiusmod tempor incididunt ut labore et <br /> dolore magna
-                        aliqua.
+                        Aproveite esta oferta especial para começar a sua jornada <br /> de aprendizado com os melhores cursos do mercado. <br /> Invista no seu futuro hoje mesmo!
                     </p>
                 </div>
             </div>
 
             {/* Seção de Cursos */}
             <div className="py-24 px-8 mx-auto max-w-7xl">
-                <h3 className="text-3xl font-bold text-gray-800 text-center">
-                    Conheça todos os cursos que nós CETMA oferecemos:
+                <h3 className="text-3xl text-blue-500 text-center">
+                    Conheça todos os cursos que nós <span className="font-extrabold">CETMA</span> oferecemos:
                 </h3>
                 <p className="text-center text-xl text-gray-600 mt-4">
                     Todos os cursos são técnicos, com rápida conclusão e certificado
@@ -68,14 +66,13 @@ const HomePage = () => {
                 {loading ? (
                     <div className="flex flex-col items-center justify-center mt-12">
                         <ImSpinner8 className="animate-spin text-blue-500 text-6xl" />
-                        <p className="text-lg text-gray-600 mt-4">Carregando cursos...</p>
                     </div>
                 ) : (
                     <Swiper
-                        modules={[Pagination]}
+                        modules={[Autoplay]}
                         spaceBetween={30}
+                        autoplay={{ delay: 2500 }}
                         slidesPerView={1}
-                        pagination={{ clickable: true }}
                         breakpoints={{
                             640: {
                                 slidesPerView: 2,
@@ -87,25 +84,27 @@ const HomePage = () => {
                                 slidesPerView: 4,
                             },
                         }}
+                        loop={true}
                         className="mt-12"
                     >
                         {courses.map((course, index) => (
                             <SwiperSlide
                                 key={index}
-                                className="flex flex-col justify-between border rounded-lg p-8 text-center shadow hover:shadow-2xl hover:-translate-y-1 transition transform duration-200 h-[400px]"
+                                className="flex flex-col justify-between border rounded-xl p-6 text-center shadow-lg hover:shadow-xl hover:-translate-y-2 transition transform duration-300 h-[400px] bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600"
                             >
                                 <div className="flex flex-col flex-grow h-[250px]">
-                                    <h4 className="text-2xl font-bold text-gray-800">
+                                    <h4 className="text-2xl text-white mb-2">
                                         {course.title}
                                     </h4>
-                                    <p className="text-lg mt-4 text-gray-600 flex-grow line-clamp-3">
+                                    <p className="text-lg mt-2 text-white/90 flex-grow line-clamp-3">
                                         {course.description}
                                     </p>
                                 </div>
                                 <div className="mt-4">
-                                    <button className="bg-gradient-to-r from-blue-500 to-blue-600 w-full text-white py-3 px-6 rounded-lg hover:from-blue-600 hover:to-blue-700 transition">
+                                    <button className="bg-white text-blue-600 py-3 px-6 rounded-lg shadow hover:bg-blue-500 hover:text-white hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out">
                                         Saiba mais sobre
                                     </button>
+
                                 </div>
                             </SwiperSlide>
                         ))}
@@ -119,17 +118,18 @@ const HomePage = () => {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent"></div>
                 {/* Conteúdo do banner */}
                 <div className="relative w-full md:w-1/2 text-left space-y-6">
-                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+                    <h3 className="text-3xl md:text-4xl lg:text-5xl ">
                         Ainda tem alguma <br /> dúvida se deve <br />
-                        aprender com a CETMA?
+                        aprender com a <span className="font-extrabold text-blue-400">CETMA?</span>
                     </h3>
-                    <button
+                    <a
                         aria-label="Conheça mais sobre a CETMA"
-                        className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-600 py-3 px-8 text-white rounded-lg hover:scale-105 transform transition duration-200 ease-in-out"
+                        href="/sobre"
+                        className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-600 py-3 px-8 text-white rounded-lg hover:bg-blue-700 hover:shadow-lg hover:opacity-90 transition duration-200 ease-in-out w-1/2"
                     >
-                        <a href="/sobre">Conheça mais sobre a CETMA</a>
+                        Conheça mais sobre a CETMA
                         <FiArrowRight className="ml-2" />
-                    </button>
+                    </a>
                 </div>
             </div>
 

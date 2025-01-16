@@ -42,7 +42,7 @@ const Novidades = () => {
 
   return (
     <div className="flex flex-col items-center py-10">
-      <h1 className="text-4xl font-bold mb-4 text-gray-900 text-center">Cursos</h1>
+      <h1 className="text-4xl font-bold mb-4 text-blue-500 text-center">Cursos</h1>
       <p className="text-lg mb-8 text-center text-gray-700 max-w-3xl">
         Explore nossos cursos e descubra como eles podem ajudá-lo a alcançar seus objetivos. Clique nas imagens para mais informações!
       </p>
@@ -54,8 +54,6 @@ const Novidades = () => {
       ) : (
         <div className="w-full max-w-6xl px-4">
           <Swiper
-            navigation={true}
-            pagination={{ clickable: true }}
             autoplay={{
               delay: 2500,
               disableOnInteraction: false,

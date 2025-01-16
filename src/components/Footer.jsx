@@ -14,12 +14,12 @@ const Footer = () => {
           {/* Seção principal */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 border-b border-white pb-8">
             {/* Logo e slogan */}
-            <div className="flex flex-col items-center md:items-start border-b sm:border-b-0 border-white md:col-span-1">
+            <div className="flex flex-col items-center lg:border-r md:border-r hidden:border-r md:items-start border-b sm:border-b-0 border-white md:col-span-1">
               <img src="/logo_branca.png" alt="CETMA Logo" className="h-48 w-48 -mt-14 mb-4" />
               <p className="text-gray-300 text-center md:text-left">
                 Mudando a forma que <br /> você olhará a enfermagem
               </p>
-              <div className="mt-6 md:mt-10">
+              <div className="mt-6 md:mt-10 ">
                 <h4 className="text-white font-bold border-b pb-1 border-blue-500 mb-4 text-center md:text-left">
                   Acompanhe a CETMA
                 </h4>
@@ -97,7 +97,7 @@ const Footer = () => {
             {/* Compra segura */}
             <div className="flex flex-col sm:mr-10 items-center mb-6 sm:mb-0">
               <h4 className="text-blue-500 font-bold mb-4">Compra segura</h4>
-              <img src="/compra-segura.png" alt="Compra Segura" className="h-10" />
+              <img src="/mercado.png" alt="Compra Segura" className="h-8" />
             </div>
 
             {/* Formas de Pagamento */}

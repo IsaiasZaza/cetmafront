@@ -2,6 +2,7 @@ import React from "react";
 import { MdEmail, MdPhone, MdWhatsapp } from "react-icons/md";
 import Header from "../components/Header"; // Importando o Header existente
 import Footer from "../components/Footer"; // Importando o Footer existente
+import WhatsappVoador from "./WhatsappVoador";
 
 const FaleConosco = () => {
   return (
@@ -19,18 +20,18 @@ const FaleConosco = () => {
       >
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-900/60 to-transparent"></div>
         <div className="relative w-full sm:w-3/4 lg:w-2/3 text-left space-y-4 sm:space-y-6">
-          <h2 className="text-sm sm:text-base md:text-lg font-semibold tracking-wider uppercase text-blue-300">
+          <h2 className="text-sm sm:text-base md:text-lg font-semibold tracking-wider uppercase text-blue-400">
             Fale conosco
           </h2>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight break-words">
-            Tire suas dúvidas com <br /> a equipe da CETMA
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight break-words">
+            Tire suas dúvidas com <br /> a equipe da <span className="font-extrabold text-blue-400">CETMA</span>
           </h1>
           <p className="mt-4 text-xs sm:text-sm md:text-base text-gray-200">
             Nesta página você encontra os meios de <br /> falar com a equipe de atendimento <br /> CETMA.
           </p>
         </div>
       </section>
-
+      <WhatsappVoador />
       {/* Contact Options */}
       <section className="bg-gray-100 pt-36 pb-10">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">

@@ -31,8 +31,8 @@ const SobreNos = () => {
 
       {/* About Section */}
       <section className="bg-white py-8 sm:py-12 text-gray-800 px-4 sm:px-8 md:px-16 lg:px-32">
-        <div className="max-w-6xl ">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-4">Sobre Nós</h2>
+        <div className="max-w-6xl "> 
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-blue-500">Sobre Nós</h2>
           <p className="mb-6 text-sm sm:text-base text-gray-600">
             Seja bem-vindo ao CETMA!
             <br />
@@ -50,7 +50,7 @@ const SobreNos = () => {
             enfermagem. Acreditamos que o conhecimento transforma vidas e que
             profissionais bem preparados salvam vidas.
           </p>
-          <h3 className="text-2xl sm:text-3xl font-semibold mb-4">O que oferecemos:</h3>
+          <h3 className="text-2xl sm:text-3xl font-semibold mb-4 text-blue-500">O que oferecemos:</h3>
           <ul className="list-disc pl-5 sm:pl-8 text-sm sm:text-base text-gray-600">
             <li className="mb-2">
               <strong>Cursos Online:</strong> Aulas interativas e materiais
@@ -82,7 +82,7 @@ const SobreNos = () => {
             confiança e competência.
           </p>
           <p className="mt-4 font-bold text-sm sm:text-base text-gray-600">
-            CETMA – Transformando a Enfermagem, Transformando Vidas.
+            <span className="text-blue-500">CETMA</span> – Transformando a Enfermagem, Transformando Vidas.
           </p>
         </div>
       </section>

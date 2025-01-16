@@ -3,7 +3,7 @@ import React from "react";
 
 const CeoSection = () => {
   return (
-    <div className="flex justify-center py-12 px-4 relative overflow-hidden">
+    <div className="flex justify-center py-12 px-4 relative overflow-hidden cursor-default">
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -36,8 +36,8 @@ const CeoSection = () => {
           </div>
 
           {/* CEO Biography */}
-          <div className="w-full md:w-2/3 p-8">
-            <h2 className="text-3xl font-semibold text-blue-900 mb-6">Adam Elias CEO</h2>
+          <div className="w-full md:w-2/3 p-8 cursor-default">
+            <h2 className="text-3xl font-extrabold text-blue-500 mb-6">Adam Elias CEO</h2>
             <p className="text-lg text-gray-700 mb-4 leading-relaxed">
               Enfermeiro com <strong className="text-blue-500">16 anos de experiência</strong> em Terapia Intensiva, atuando em hospitais de excelência, como o Sírio-Libanês.
               Dedica-se a promover cuidados de alta qualidade para pacientes em estado crítico.
@@ -47,7 +47,7 @@ const CeoSection = () => {
               Sua experiência acadêmica é marcada pelo impacto positivo no desenvolvimento de alunos e colegas.
             </p>
             <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-              Como <strong>Coordenador de Curso</strong> na UniLS, colaborou para o crescimento e sucesso educacional da instituição, unindo prática clínica e ensino
+              Como <strong className="text-blue-500">Coordenador de Curso</strong> na UniLS, colaborou para o crescimento e sucesso educacional da instituição, unindo prática clínica e ensino
               para transformar a saúde e a educação.
             </p>
           </div>

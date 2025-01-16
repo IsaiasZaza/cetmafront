@@ -1,20 +1,21 @@
 export default function BannerHome() {
   return (
     <section
-      className="relative flex items-center justify-around bg-cover bg-center h-[80vh]"
+      className="relative flex items-center bg-cover bg-center h-[80vh]"
       style={{
-        backgroundImage: "url('/homeban.png')", // Substitua pelo caminho da sua imagem
+        backgroundImage: "url('/bannerHome.png')", // Substitua pelo caminho da sua imagem
       }}
     >
-      {/* Overlay para conteúdo */}
-      <div className="text-center text-gray-900 p-8 rounded-lg max-w-lg mb-20">
-        <h1 className="text-3xl font-bold mb-4">
-          Quer ser o melhor na área da saúde?
+      {/* Gradiente de sobreposição */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-700/0 to-blue-500/20"></div>
+
+      {/* Conteúdo principal */}
+      <div className="relative text-center text-white p-8 rounded-lg max-w-4xl z-10">
+        <h1 className="text-4xl mb-4 font-extrabold font-poppins">
+        Seja o Melhor na Enfermagem<br></br> com a <span className="font-extrabold text-blue-300">CETMA</span> 
         </h1>
-        <p className="text-lg mb-6">
-          Nós da CETMA temos cursos gravados com os melhores professores e, no
-          final, você ainda ganha um certificado de conclusão aprovado pelo
-          MEI.
+        <p className="text-lg mb-6 w-1/2 mx-auto">
+        Cursos online com os melhores especialistas em enfermagem. Conquiste seu certificado MEC e invista no seu futuro com o CETMA.
         </p>
         {/* Contêiner para vídeo e botão */}
         <div className="mb-6">
@@ -30,7 +31,7 @@ export default function BannerHome() {
             {/* Botão ajustado à largura do vídeo */}
             <a
               href="/login"
-              className="bg-blue-500 text-white font-bold py-3 px-6 mt-4 rounded-lg hover:bg-blue-600 transition flex items-center justify-center gap-2 shadow-lg w-full"
+              className="bg-blue-500 text-white font-bold py-3 px-6 mt-4 rounded-lg font-extrabold hover:bg-blue-600 transition flex items-center justify-center gap-2 shadow-lg w-full"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +52,11 @@ export default function BannerHome() {
           </div>
         </div>
       </div>
-      <div></div>
+
+      {/* Imagem decorativa ou elemento adicional */}
+      <div className="hidden lg:block relative z-10">
+        {/* Adicione algo aqui, se necessário */}
+      </div>
     </section>
   );
 }

@@ -59,8 +59,8 @@ const PorqueEstudarCetma = () => {
   return (
     <section className="py-12 bg-gray-100">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <h2 className="text-2xl lg:text-4xl font-bold text-center mb-8 text-black">
-          Por que estudar com o método <span className="text-blue-500">Cetma de ensino?</span>
+        <h2 className="text-2xl lg:text-4xl text-center mb-8 text-gray-800">
+          Por que estudar com o método <span className="text-blue-500 font-extrabold">CETMA de ensino?</span>
         </h2>
 
         {/* Swiper para mobile */}
@@ -90,7 +90,7 @@ const PorqueEstudarCetma = () => {
         </div>
 
         {/* Grid para desktop */}
-        <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 cursor-default">
           {features.map((feature, index) => (
             <FeatureCard
               key={index}

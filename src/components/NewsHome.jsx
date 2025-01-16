@@ -27,15 +27,13 @@ const NewsHome = () => {
 
   return (
     <div className="flex flex-col items-center py-10 bg-gray-50">
-      <h1 className="text-4xl font-bold mb-6 text-gray-900 text-center">Novidades</h1>
+      <h1 className="text-4xl font-bold mb-4 text-blue-500 text-center">Novidades</h1>
       <p className="text-lg mb-8 text-center text-gray-700 max-w-3xl">
         Descubra as últimas novidades dos nossos cursos e atualizações.
       </p>
 
       <div className="w-full max-w-6xl px-4">
         <Swiper
-          navigation={true}
-          pagination={{ clickable: true }}
           autoplay={{
             delay: 2500,
             disableOnInteraction: false,
