@@ -32,58 +32,49 @@ const SobreNos = () => {
       {/* About Section */}
       <section className="bg-white py-8 sm:py-12 text-gray-800 px-4 sm:px-8 md:px-16 lg:px-32">
         <div className="max-w-6xl "> 
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-blue-500">Nossa História</h2>
+          <p className="mb-6 text-sm sm:text-base text-gray-600">
+            Seja bem-vindo ao CETMA Educacional!
+            <br />
+            <br />
+            A CETMA Educacional nasceu de um sonho. Um sonho que começou com a trajetória de um enfermeiro dedicado, com mais de 15 anos de experiência na área da saúde, que vivenciou os desafios e as demandas do dia a dia em grandes hospitais. Além de sua vivência prática como enfermeiro, ele atuou como professor e coordenador em renomadas instituições de ensino do Distrito Federal, o que lhe permitiu entender, de forma ampla, as lacunas e as oportunidades para transformar a formação dos profissionais de saúde.
+
+          </p>
+          <p className="mb-6 text-sm sm:text-base text-gray-600">
+          Combinando sua expertise assistencial com sua paixão pela educação, ele idealizou a CETMA Educacional para oferecer capacitações que vão além do conhecimento técnico. Nossa missão é promover o desenvolvimento de competências que transformem o mercado de saúde e apoiar grandes empresas na entrega de serviços cada vez mais qualificados
+          </p>
+          <p className="mb-6 text-sm sm:text-base text-gray-600">
+          Com um olhar atento à realidade do setor e um compromisso com a excelência, a CETMA Educacional prepara profissionais para enfrentar os desafios da saúde com confiança, ética e dedicação.
+          </p>
+
           <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-blue-500">Sobre Nós</h2>
-          <p className="mb-6 text-sm sm:text-base text-gray-600">
-            Seja bem-vindo ao CETMA!
-            <br />
-            <br />
-            Somos apaixonados pela enfermagem e comprometidos com a formação de
-            profissionais que fazem a diferença na saúde e no cuidado das
-            pessoas. Nosso objetivo é oferecer cursos de alta qualidade,
-            acessíveis e atualizados, que capacitem enfermeiros e estudantes de
-            enfermagem a alcançarem seu máximo potencial.
-          </p>
-          <p className="mb-6 text-sm sm:text-base text-gray-600">
-            Com uma equipe composta por especialistas experientes e atuantes na
-            área da saúde, desenvolvemos conteúdos que unem teoria e prática,
-            preparando você para enfrentar os desafios do dia a dia na
-            enfermagem. Acreditamos que o conhecimento transforma vidas e que
-            profissionais bem preparados salvam vidas.
-          </p>
-          <h3 className="text-2xl sm:text-3xl font-semibold mb-4 text-blue-500">O que oferecemos:</h3>
-          <ul className="list-disc pl-5 sm:pl-8 text-sm sm:text-base text-gray-600">
-            <li className="mb-2">
-              <strong>Cursos Online:</strong> Aulas interativas e materiais
-              exclusivos que você pode acessar no seu próprio ritmo, de qualquer
-              lugar.
-            </li>
-            <li className="mb-2">
-              <strong>Conteúdo Atualizado:</strong> Temas relevantes e alinhados
-              às demandas do mercado e às inovações na área da saúde.
-            </li>
-            <li className="mb-2">
-              <strong>Certificação:</strong> Certificados reconhecidos que
-              valorizam seu currículo e sua carreira.
-            </li>
-            <li className="mb-2">
-              <strong>Suporte Especializado:</strong> Uma equipe pronta para
-              tirar suas dúvidas e ajudar no seu desenvolvimento.
-            </li>
-            <li className="mb-2">
-              <strong>Compromisso com a Excelência:</strong> Nosso compromisso é
-              com a excelência na educação em enfermagem, ajudando você a
-              conquistar seus objetivos profissionais e contribuir com
-              dedicação ao bem-estar de cada paciente.
-            </li>
-          </ul>
           <p className="mt-6 text-sm sm:text-base text-gray-600">
-            Junte-se a nós nessa jornada de aprendizado e crescimento. Porque
-            cuidar é uma arte, e você merece estar preparado para exercê-la com
-            confiança e competência.
+            Somos movidos pela paixão de potencializar o ensino de qualidade e pelo compromisso com a excelência na formação de profissionais que transformam vidas por meio do cuidado. Nosso propósito é oferecer cursos de alta qualidade, acessíveis e sempre atualizados, capacitando estudantes e profissionais de saúde a alcançarem o máximo de seu potencial.
           </p>
-          <p className="mt-4 font-bold text-sm sm:text-base text-gray-600">
-            <span className="text-blue-500">CETMA</span> – Transformando a Enfermagem, Transformando Vidas.
+          <p className="mt-6 text-sm sm:text-base text-gray-600">
+          Com uma equipe formada por especialistas experientes e atuantes na área da saúde, desenvolvemos conteúdos que aliam teoria e prática, preparando você para enfrentar os desafios e atender às demandas do dia a dia em sua atividade profissional. Acreditamos que o conhecimento não apenas transforma carreiras, mas também salva vidas.
           </p>
+          <h2 className="text-2xl sm:text-3xl font-semibold mt-4 mb-4 text-blue-500">O que você encontra no CETMA</h2>
+            <ul className="mt-6 text-sm sm:text-base text-gray-600 space-y-6">
+              <li>
+                <strong>Cursos Online:</strong> Aulas interativas e materiais exclusivos que você pode acessar no seu próprio ritmo, de qualquer lugar.
+              </li>
+              <li>
+                <strong>Conteúdo Atualizado:</strong> Temas relevantes, alinhados às inovações e às necessidades do mercado de saúde.
+              </li>
+              <li>
+                <strong>Certificação Reconhecida:</strong> Certificados que valorizam seu currículo e fortalecem sua trajetória profissional.
+              </li>
+              <li>
+                <strong>Suporte Especializado:</strong> Uma equipe sempre pronta para esclarecer dúvidas e apoiar seu desenvolvimento.
+              </li>
+              <li>
+                <strong>Compromisso com a Excelência:</strong> Nosso foco é oferecer uma educação de qualidade que impulsione sua carreira e contribua para um cuidado mais humano e eficiente. Junte-se a nós nessa jornada de aprendizado e crescimento. Porque cuidar é uma arte, e você merece estar preparado para exercê-la com confiança, competência e paixão.
+              </li>
+            </ul>
+              <p className="mt-4 font-bold text-sm sm:text-base text-gray-600">
+                <span className="text-blue-500">CETMA Educacional</span> – Transformando a assistência à saúde.
+              </p>
         </div>
       </section>
       <Footer />

@@ -1,7 +1,9 @@
 'use client';
-import React from "react";
+import React, { useState } from "react";
 
 const CeoSection = () => {
+  const [isOpen, setIsOpen] = useState(false);  // Adicionando o estado isOpen
+
   return (
     <div className="flex justify-center py-12 px-4 relative overflow-hidden">
       {/* Background */}
@@ -44,21 +46,33 @@ const CeoSection = () => {
 
           {/* Biografia do CEO */}
           <div className="w-full md:w-2/3 p-8">
-            <h2 className="text-3xl font-extrabold text-blue-500 mb-6">Adam Elias, CEO</h2>
+            <h2 className="text-3xl font-extrabold text-blue-500 mb-6">Adam Elias – Fundador da CETMA Educacional</h2>
             <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-              Enfermeiro com{" "}
-              <strong className="text-blue-500">16 anos de experiência</strong> em Terapia Intensiva, atuando em hospitais de excelência, como o Sírio-Libanês.
-              Dedica-se a promover cuidados de alta qualidade para pacientes em estado crítico.
+              Enfermeiro com <strong className="text-blue-500">16 anos de experiência</strong> em Terapia Intensiva. Atuou em hospitais como o Sírio-Libanês, oferecendo cuidados de alta qualidade a pacientes críticos.
             </p>
             <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-              Docente no ensino superior, contribui para a formação de futuros profissionais de enfermagem por meio de ensino qualificado e inspirador.
-              Sua experiência acadêmica é marcada pelo impacto positivo no desenvolvimento de alunos e colegas.
+              Docente no ensino superior e <strong className="text-blue-500">Coordenador de Curso</strong> na UniLS, contribui para a formação de profissionais de enfermagem e para o sucesso educacional da instituição.
             </p>
-            <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-              Como{" "}
-              <strong className="text-blue-500">Coordenador de Curso</strong> na UniLS, colaborou para o crescimento e sucesso educacional da instituição, unindo prática clínica e ensino
-              para transformar a saúde e a educação.
-            </p>
+
+            <div className="text-lg text-gray-700 mb-4 leading-relaxed hidden sm:block">
+              Adam fundou a CETMA Educacional com o objetivo de transformar a educação em saúde, capacitando profissionais para enfrentar desafios do setor com competência e paixão pelo cuidado.
+            </div>
+
+            {/* Mobile View */}
+            <div className="sm:hidden">
+              <p className="text-lg text-gray-700 mb-4 leading-relaxed">
+                Enfermeiro com 16 anos de experiência em Terapia Intensiva. Atuou em hospitais como o Sírio-Libanês e é docente no ensino superior.
+              </p>
+              <button className="text-blue-500 hover:underline" onClick={() => setIsOpen(!isOpen)}>
+                {isOpen ? "Ler menos" : "Ler mais"}
+              </button>
+              {isOpen && (
+                <p className="text-lg text-gray-700 mt-4">
+                  Como Coordenador de Curso na UniLS, Adam contribui para o crescimento da instituição. Fundou a CETMA Educacional com o objetivo de transformar a educação em saúde.
+                </p>
+              )}
+            </div>
+
           </div>
         </div>
       </div>
