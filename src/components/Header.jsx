@@ -71,7 +71,7 @@ const Header = () => {
                   onClose={() => handleMenuClose(setAnchorEl2)}
                   onMouseLeave={() => handleMenuClose(setAnchorEl2)}
                 >
-                  <MenuItem onClick={() => (window.location.href = "/curso-pra-voce")}>
+                  <MenuItem onClick={() => (window.location.href = "/meusCursos")}>
                     Curso pra Você
                   </MenuItem>
                   <MenuItem onClick={() => (window.location.href = "/curso-pra-empresa")}>
@@ -115,7 +115,7 @@ const Header = () => {
                   onClose={() => handleMenuClose(setAnchorEl4)}
                   onMouseLeave={() => handleMenuClose(setAnchorEl4)}
                 >
-                  <MenuItem onClick={() => (window.location.href = "/acesso-aluno")}>
+                  <MenuItem onClick={() => (window.location.href = "/aluno")}>
                     Acesso Aluno
                   </MenuItem>
                   <MenuItem onClick={() => (window.location.href = "/feedback-alunos")}>

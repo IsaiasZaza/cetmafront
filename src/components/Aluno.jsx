@@ -138,7 +138,7 @@ const Aluno = () => {
               progresso="30%"
               aulasConcluidas={1}
               totalAulas={10}
-              link="#"
+              link="/moduloCardio"
             />
             <CardCurso
               status="Concluído"
