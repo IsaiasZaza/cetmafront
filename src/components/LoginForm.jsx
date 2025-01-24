@@ -12,6 +12,8 @@ const LoginForm = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("ALUNO");
   const [name, setName] = useState("");
+  const [profissao, setProfissao] = useState(""); // Estado para profissão
+  const [cpf, setCpf] = useState(""); // Estado para CPF
   const [message, setMessage] = useState(null);
   const router = useRouter();
 
@@ -58,10 +60,10 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await fetch("https://crud-usuario.vercel.app/api/user", {
+      const response = await fetch("http://localhost:3001/api/user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome: name, email, senha: password }),
+        body: JSON.stringify({ nome: name, email, senha: password, profissao, cpf }),
       });
 
       const data = await response.json();
@@ -183,128 +185,140 @@ const LoginForm = () => {
           </form>
         );
       case "register":
-        if (formType === "register") {
-          return (
-            <form
-              onSubmit={handleRegister}
-              className="w-full flex flex-col items-center text-gray-700 space-y-6"
+        return (
+          <form onSubmit={handleRegister} className="w-full flex flex-col items-center text-gray-700 space-y-6">
+            {/* Campo de nome */}
+            <div className={inputContainerStyle}>
+              <FaUser className="text-gray-400 ml-3" />
+              <input
+                type="text"
+                placeholder="Digite seu nome"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className={inputStyle}
+              />
+            </div>
+            {/* Campo de email */}
+            <div className={inputContainerStyle}>
+              <FaEnvelope className="text-gray-400 ml-3" />
+              <input
+                type="email"
+                placeholder="Digite seu email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className={inputStyle}
+              />
+            </div>
+            {/* Campo de profissão */}
+            <div className={inputContainerStyle}>
+              <FaUser className="text-gray-400 ml-3" />
+              <input
+                type="text"
+                placeholder="Digite sua profissão"
+                value={profissao}
+                onChange={(e) => setProfissao(e.target.value)}
+                required
+                className={inputStyle}
+              />
+            </div>
+            {/* Campo de CPF */}
+            <div className={inputContainerStyle}>
+              <FaUser className="text-gray-400 ml-3" />
+              <input
+                type="text"
+                placeholder="Digite seu CPF"
+                value={cpf}
+                onChange={(e) => setCpf(e.target.value)}
+                required
+                className={inputStyle}
+              />
+            </div>
+            {/* Campo de senha */}
+            <div className={inputContainerStyle}>
+              <FaLock className="text-gray-400 ml-3" />
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Digite sua senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className={inputStyle}
+              />
+              {showPassword ? (
+                <FaEye className="text-gray-400 cursor-pointer mr-3" onClick={togglePasswordVisibility} />
+              ) : (
+                <FaEyeSlash className="text-gray-400 cursor-pointer mr-3" onClick={togglePasswordVisibility} />
+              )}
+            </div>
+            {/* Campo de confirmação de senha */}
+            <div className={inputContainerStyle}>
+              <FaLock className="text-gray-400 ml-3" />
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Confirme sua senha"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                className={inputStyle}
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-4/5 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 text-white rounded-md font-medium transform transition duration-200 hover:scale-105 hover:from-blue-600 hover:to-cyan-400"
             >
-              {/* Campo de nome */}
-              <div className={inputContainerStyle}>
-                <FaUser className="text-gray-400 ml-3" />
-                <input
-                  type="text"
-                  placeholder="Digite seu nome"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  className={inputStyle}
-                />
-              </div>
-              {/* Campo de email */}
-              <div className={inputContainerStyle}>
-                <FaEnvelope className="text-gray-400 ml-3" />
-                <input
-                  type="email"
-                  placeholder="Digite seu email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className={inputStyle}
-                />
-              </div>
-              {/* Campo de senha */}
-              <div className={inputContainerStyle}>
-                <FaLock className="text-gray-400 ml-3" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Digite sua senha"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className={inputStyle}
-                />
-                {showPassword ? (
-                  <FaEye className="text-gray-400 cursor-pointer mr-3" onClick={togglePasswordVisibility} />
-                ) : (
-                  <FaEyeSlash className="text-gray-400 cursor-pointer mr-3" onClick={togglePasswordVisibility} />
-                )}
-              </div>
-              {/* Campo de confirmação de senha */}
-              <div className={inputContainerStyle}>
-                <FaLock className="text-gray-400 ml-3" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Confirme sua senha"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                  className={inputStyle}
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-4/5 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 text-white rounded-md font-medium transform transition duration-200 hover:scale-105 hover:from-blue-600 hover:to-cyan-400"
+              Cadastrar
+            </button>
+            <p className="text-sm text-gray-500">
+              Já tem uma conta?{" "}
+              <span
+                className="text-blue-600 cursor-pointer hover:underline"
+                onClick={() => handleFormSwitch("login")}
               >
-                Cadastrar
-              </button>
-              <p className="text-sm text-gray-500">
-                Já tem uma conta?{" "}
-                <span
-                  className="text-blue-600 cursor-pointer hover:underline"
-                  onClick={() => handleFormSwitch("login")}
-                >
-                  Entrar
-                </span>
-              </p>
-            </form>
-          );
-        }
+                Entrar
+              </span>
+            </p>
+          </form>
+        );
       case "forgotPassword":
-        if (formType === "forgotPassword") {
-          return (
-            <form
-              onSubmit={handleForgotPassword}
-              className="w-full flex flex-col items-center text-gray-700 space-y-6"
+        return (
+          <form onSubmit={handleForgotPassword} className="w-full flex flex-col items-center text-gray-700 space-y-6">
+            <div className={inputContainerStyle}>
+              <FaEnvelope className="text-gray-400 ml-3" />
+              <input
+                type="email"
+                placeholder="Digite seu email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className={inputStyle}
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-4/5 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 text-white rounded-md font-medium transform transition duration-200 hover:scale-105 hover:from-blue-600 hover:to-cyan-400"
             >
-              <div className={inputContainerStyle}>
-                <FaEnvelope className="text-gray-400 ml-3" />
-                <input
-                  type="email"
-                  placeholder="Digite seu email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className={inputStyle}
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-4/5 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 text-white rounded-md font-medium transform transition duration-200 hover:scale-105 hover:from-blue-600 hover:to-cyan-400"
+              Recuperar senha
+            </button>
+            <p className="text-sm text-gray-500">
+              Lembrou a senha?{" "}
+              <span
+                className="text-blue-600 cursor-pointer hover:underline"
+                onClick={() => handleFormSwitch("login")}
               >
-                Recuperar senha
-              </button>
-              <p className="text-sm text-gray-500">
-                Lembrou a senha?{" "}
-                <span
-                  className="text-blue-600 cursor-pointer hover:underline"
-                  onClick={() => handleFormSwitch("login")}
-                >
-                  Entrar
-                </span>
-              </p>
-            </form>
-          );
-        }
-      };
+                Entrar
+              </span>
+            </p>
+          </form>
+        );
+      default:
+        return null;
     }
-
+  };
 
   return (
-    <div
-      className="min-h-screen flex justify-between items-stretch bg-cover bg-center"
-      style={{ backgroundImage: "url('banner3.jpg')" }}
-    >
+    <div className="min-h-screen flex justify-between items-stretch bg-cover bg-center" style={{ backgroundImage: "url('banner3.jpg')" }}>
       <a href="/">
         <FaArrowAltCircleLeft className="text-4xl m-6" />
       </a>

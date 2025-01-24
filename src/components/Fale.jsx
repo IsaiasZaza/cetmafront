@@ -1,7 +1,7 @@
 import React from "react";
 import { MdEmail, MdPhone, MdWhatsapp } from "react-icons/md";
-import Header from "../components/Header"; // Importando o Header existente
-import Footer from "../components/Footer"; // Importando o Footer existente
+import Header from "../components/Header";
+import Footer from "../components/Footer"; 
 import WhatsappVoador from "./WhatsappVoador";
 
 const FaleConosco = () => {
