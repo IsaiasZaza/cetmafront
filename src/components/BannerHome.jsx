@@ -30,7 +30,7 @@ export default function BannerHome() {
             {/* Botão ajustado à largura do vídeo */}
             <a
               href="/login"
-              className="bg-blue-500 text-white font-bold py-3 px-6 mt-4 rounded-lg font-extrabold hover:bg-blue-600 transition flex items-center justify-center gap-2 shadow-lg w-full"
+              className="bg-blue-500 text-white py-3 px-6 mt-4 rounded-lg font-extrabold hover:bg-blue-600 transition flex items-center justify-center gap-2 shadow-lg w-full"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

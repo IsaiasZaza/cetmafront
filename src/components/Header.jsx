@@ -115,6 +115,9 @@ const Header = () => {
                   onClose={() => handleMenuClose(setAnchorEl4)}
                   onMouseLeave={() => handleMenuClose(setAnchorEl4)}
                 >
+                  <MenuItem onClick={() => (window.location.href = "/beneficios")}>
+                    Porque ser um aluno?
+                  </MenuItem>
                   <MenuItem onClick={() => (window.location.href = "/aluno")}>
                     Acesso Aluno
                   </MenuItem>
