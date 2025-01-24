@@ -1,5 +1,5 @@
 import SobreNos from "@/components/sobre";
-const  sobre = () => {
+const sobre = () => {
     return (
         <SobreNos />
     )

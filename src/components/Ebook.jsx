@@ -8,7 +8,6 @@ const Ebook = () => {
   return (
     <div>
       <Header />
-
       {/* Hero Section */}
       <section
         className="relative bg-[url('/Retangulo_23.png')] bg-cover bg-center h-[70vh] sm:h-[60vh] md:h-[50vh] lg:h-[45vh] text-white flex flex-col justify-center items-start px-4 sm:px-8 md:px-16 lg:px-32"
