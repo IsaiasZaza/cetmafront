@@ -13,6 +13,8 @@ const ProfilePage = () => {
     email: "Carregando...",
     estado: "Carregando...",
     sobre: "Carregando...",
+    cpf: "Carregando...",
+    profissao: "Carregando...",
   });
   const [userId, setUserId] = useState("");
   const [editingField, setEditingField] = useState(""); // Estado para o campo sendo editado
@@ -55,6 +57,8 @@ const ProfilePage = () => {
             email: data.user.email || "Email não disponível",  // Garantindo que o email apareça
             estado: data.user.estado || "Estado não disponível",
             sobre: data.user.sobre || "Sobre não disponível",
+            cpf: data.user.cpf || "CPF não disponível",
+            profissao: data.user.profissao || "Profissão não disponível",
           });
         } else {
           console.warn("Token não encontrado no localStorage.");
@@ -116,31 +120,6 @@ const ProfilePage = () => {
       setIsSubmitting(false);
     }
   };
-  const handleChangePassword = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) throw new Error("Usuário não autenticado.");
-
-      const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}/change-password`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ senhaAtual, novaSenha }),
-      });
-
-      if (!response.ok) throw new Error("Erro ao alterar a senha.");
-
-      alert("Senha alterada com sucesso!");
-      setIsPasswordModalOpen(false);
-      setSenhaAtual("");
-      setNovaSenha("");
-    } catch (error) {
-      console.error("Erro ao alterar a senha:", error);
-      alert("Erro ao alterar a senha. Verifique as informações e tente novamente.");
-    }
-  };
 
   // Alterar foto de perfil
   const handleRemovePhoto = () => {
@@ -200,7 +179,6 @@ const ProfilePage = () => {
           </div>
 
           <div className="mt-8 space-y-6">
-            {/* Excluindo o campo de senha para não exibi-lo na lista de campos */}
             {Object.entries(userData)
               .filter(([field]) => field !== "senha") // Filtra para não exibir a senha
               .map(([field, value]) => (
@@ -213,6 +191,8 @@ const ProfilePage = () => {
                     {field === "email" && <FaLock />}
                     {field === "estado" && <FaCamera />}
                     {field === "sobre" && <FaEdit />}
+                    {field === "cpf" && <FaEdit />}
+                    {field === "profissao" && <FaEdit />}
                   </span>
                   <label className="w-40 text-gray-700 font-medium capitalize">
                     {field === "bio" ? "Biografia" : field}
@@ -238,54 +218,55 @@ const ProfilePage = () => {
                 className="text-blue-600 flex items-center gap-2 hover:underline bg-white px-4 py-2 rounded-lg shadow hover:shadow-lg border border-blue-500"
                 onClick={() => setIsPasswordModalOpen(true)}
               >
-                <FaLock /> Alterar senha
+                <FaLock /> Alterar Senha
               </button>
             </div>
           </div>
         </div>
       </div>
+
       {isPasswordModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
-          <div className="bg-white w-96 rounded-lg shadow-xl p-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">Alterar Senha</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-xl w-96">
+            <h3 className="text-xl font-semibold mb-4">Alterar Senha</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-gray-700 font-medium">Senha Atual</label>
+                <label className="block text-gray-700">Senha Atual</label>
                 <input
                   type="password"
-                  className="w-full p-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-2 border border-gray-300 rounded-lg"
                   value={senhaAtual}
                   onChange={(e) => setSenhaAtual(e.target.value)}
                 />
               </div>
               <div>
-                <label className="block text-gray-700 font-medium">Nova Senha</label>
+                <label className="block text-gray-700">Nova Senha</label>
                 <input
                   type="password"
-                  className="w-full p-3 border text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-2 border border-gray-300 rounded-lg"
                   value={novaSenha}
                   onChange={(e) => setNovaSenha(e.target.value)}
                 />
               </div>
             </div>
-            <div className="flex justify-end mt-6 gap-2">
+            <div className="mt-4 flex justify-between items-center">
               <button
-                className="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400"
+                className="text-red-600 hover:underline"
                 onClick={() => setIsPasswordModalOpen(false)}
               >
                 Cancelar
               </button>
               <button
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-                onClick={handleChangePassword}
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:shadow-lg"
+                onClick={handleSaveField}
+                disabled={isSubmitting}
               >
-                Alterar
+                {isSubmitting ? "Salvando..." : "Salvar"}
               </button>
             </div>
           </div>
         </div>
       )}
-
 
       {editingField && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 transition-opacity duration-300">
@@ -334,7 +315,6 @@ const ProfilePage = () => {
           </div>
         </div>
       )}
-
     </div>
   );
 };
