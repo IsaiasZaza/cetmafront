@@ -26,11 +26,11 @@ const Header = () => {
         <div className="flex items-center">
           <a href="/">
             <Image
-              src="/logo.png"
+              src="/logoNew.png"
               alt="Adam"
               width={150}
               height={60}
-              className="mr-3 w-2/3 md:w-[90px] lg:w-[100px]"
+              className="lg:mr-3 md:mr-3 mr-0 w-28 md:w-[90px] lg:w-[100px]"
             />
           </a>
         </div>
@@ -147,7 +147,7 @@ const Header = () => {
         </div>
 
         {/* Menu Mobile */}
-        <div className="flex items-center lg:hidden">
+        <div className="flex items-center lg:hidden transition-all">
           <button onClick={() => setIsOpen(!isOpen)} className="text-gray-800 hover:text-yellow-500">
             {isOpen ? <FaTimes className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
           </button>

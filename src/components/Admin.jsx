@@ -1,81 +1,93 @@
 "use client";
 import { useState, useEffect } from "react";
-import { FaHome, FaBook, FaCertificate, FaUser } from "react-icons/fa";
-import { FiClock } from "react-icons/fi";
-import { decodeJwt } from "jose";
 import MenuLateral from "./MenuLateral";
 
-const CardCurso = ({ titulo }) => {
-  return (
-    <div className="bg-gray-300 p-6 rounded-lg shadow-md w-64">
-      <h3 className="text-lg text-gray-900 font-bold border-b-2 pb-2 mb-2">
-        {titulo}
-      </h3>
-      <p className="text-sm text-gray-700">Un. vendidas:</p>
-      <p className="text-sm text-gray-700">Preço investido:</p>
-      <p className="text-sm text-gray-700">Preço de retorno:</p>
-      <p className="text-sm text-gray-700">Lucro:</p>
-    </div>
-  );
-};
-
 const Admin = () => {
-  const [userData, setUserData] = useState({
-    nome: "Carregando...",
-    localizacao: "Carregando...",
-    sobre: "Carregando...",
-    courses: [],
-  });
+  const [alunos, setAlunos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchAlunos = async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        window.location.href = "/login";
+        return;
+      }
+
       try {
-        const token = localStorage.getItem("token");
-        if (token) {
-          const decodedToken = decodeJwt(token);
-          const userId = decodedToken.id;
-          const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}`);
-          if (!response.ok) throw new Error("Erro ao buscar dados do usuário");
-          const data = await response.json();
-          setUserData({
-            nome: data.user.nome || "Nome não disponível",
-            localizacao: data.user.estado || "Localização não disponível",
-            sobre: data.user.sobre || "Sobre não disponível",
-            courses: data.user.courses || [],
-          });
-        }
+        const response = await fetch(`https://crud-usuario.vercel.app/api/users`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) throw new Error("Erro ao buscar a lista de alunos");
+
+        const data = await response.json();
+        setAlunos(data || []);
       } catch (error) {
-        console.error("Erro ao buscar dados do usuário:", error);
+        console.error("Erro ao buscar a lista de alunos:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
-    fetchUserData();
+
+    fetchAlunos();
   }, []);
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-50">
       <MenuLateral />
-      <main className="flex-grow p-8">
-        <section className="p-6 flex flex-col md:flex-row items-center gap-6 mb-8 border-b-2 border-gray-300">
-          <div className="w-40 h-40 rounded-lg overflow-hidden shadow-lg">
-            <img src="https://via.placeholder.com/150" alt="Foto do usuário" className="w-full h-full object-cover" />
-          </div>
-          <div className="w-full md:w-1/2 text-center md:text-left space-y-4">
-            <h1 className="text-3xl font-semibold">{userData.nome}</h1>
-            <p className="text-xl text-gray-600">{userData.localizacao}</p>
-            <p className="text-md text-gray-500">{userData.sobre}</p>
-          </div>
-        </section>
+      <main className="flex-grow p-6">
         <section>
-          <h2 className="text-2xl font-bold mb-4">Dados - Cursos Vendidos</h2>
-          <div className="flex gap-4 flex-wrap">
-            {userData.courses.length > 0 ? (
-              userData.courses.map((course) => (
-                <CardCurso key={course.id} titulo={course.title} />
-              ))
-            ) : (
-              <p className="text-gray-600">Nenhum curso vendido ainda.</p>
-            )}
-          </div>
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">Lista de Alunos</h2>
+
+          {isLoading ? (
+            <div className="flex justify-center items-center h-64">
+              <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              {alunos.length > 0 ? (
+                <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden border border-gray-200">
+                  <thead>
+                    <tr className="bg-blue-500 text-white">
+                      <th className="px-6 py-3 text-left font-semibold">Id</th>
+                      <th className="px-6 py-3 text-left font-semibold">Nome</th>
+                      <th className="px-6 py-3 text-left font-semibold">Email</th>
+                      <th className="px-6 py-3 text-left font-semibold">Localização</th>
+                      <th className="px-6 py-3 text-left font-semibold">Profissão</th>
+                      <th className="px-6 py-3 text-left font-semibold">Data de Cadastro</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {alunos.map((data, index) => (
+                      <tr
+                        key={data.id || index}
+                        className={`${index % 2 === 0 ? "bg-gray-100" : "bg-white"
+                          } hover:bg-blue-100`}
+                      >
+                        <td className="px-6 py-3 border-b text-gray-700">{data.id}</td>
+                        <td className="px-6 py-3 border-b text-gray-700">{data.nome}</td>
+                        <td className="px-6 py-3 border-b text-gray-700">{data.email}</td>
+                        <td className="px-6 py-3 border-b text-gray-700">{data.estado}</td>
+                        <td className="px-6 py-3 border-b text-gray-700">{data.profissao}</td>
+                        <td className="px-6 py-3 border-b text-gray-700">
+                          {new Date(data.createdAt).toLocaleDateString("pt-BR")}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <p className="text-gray-600 text-center mt-10">
+                  Nenhum aluno encontrado.
+                </p>
+              )}
+            </div>
+          )}
         </section>
       </main>
     </div>
