@@ -1,9 +1,10 @@
 import React from "react";
+import { MdMenuBook, MdRocketLaunch, MdWork, MdAccessTime, MdLibraryBooks, MdAttachMoney } from "react-icons/md";
 
 const FeatureCard = ({ icon, title, description }) => (
-  <div className="bg-white p-6 rounded-lg shadow-md text-center">
-    <div className="text-4xl mb-4">{icon}</div>
-    <h3 className="text-lg font-bold mb-2">{title}</h3>
+  <div className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center">
+    <div className="text-4xl mb-4 text-blue-600 flex justify-center">{icon}</div>
+    <h3 className="text-lg text-gray-950 font-bold mb-2">{title}</h3>
     <p className="text-sm text-gray-600">{description}</p>
   </div>
 );
@@ -11,36 +12,37 @@ const FeatureCard = ({ icon, title, description }) => (
 const PorqueEstudarCetma = () => {
   const features = [
     {
-      icon: "📖",
+      icon: <MdMenuBook />, 
       title: "Inclusão e acessibilidade",
       description:
         "Ferramentas de inclusão e acessibilidade para que pessoas com necessidades especiais tenham a oportunidade de cursar uma graduação.",
     },
     {
-      icon: "🚀",
+      icon: <MdRocketLaunch />, 
       title: "Aprendizado acelerado",
       description:
         "Plataforma de ensino que acelera o aprendizado com recursos intuitivos e tecnológicos, permitindo estudar a qualquer hora e lugar.",
     },
     {
+      icon: <MdWork />, 
       title: "Conexão com o mercado",
       description:
         "Conteúdo útil para o mercado de trabalho, unindo teoria à prática, ajudando a desenvolver profissionais completos.",
     },
     {
-      icon: "⏱",
+      icon: <MdAccessTime />, 
       title: "Agilidade no estudo",
       description:
         "Disciplinas cursadas uma por vez para proporcionar um estudo com mais agilidade, foco e rendimento.",
     },
     {
-      icon: "📚",
+      icon: <MdLibraryBooks />, 
       title: "Biblioteca inovadora",
       description:
         "Biblioteca digital dinâmica e acessível, com um acervo multidisciplinar integrado aos cursos oferecidos.",
     },
     {
-      icon: "💰",
+      icon: <MdAttachMoney />, 
       title: "Valores acessíveis",
       description:
         "Valores que cabem no seu bolso, para estudar o que quer, não o que dá.",
