@@ -38,6 +38,33 @@ const MenuLateral = () => {
             Meus Dados
           </a>
         </li>
+        <li className="flex items-center gap-4 hover:bg-blue-700 rounded-lg py-1 px-4 transition-all duration-200">
+          <FaUser className="text-2xl text-white" />
+          <a
+            href="/admin"
+            className="text-white font-medium hover:text-gray-200"
+          >
+            Admin
+          </a>
+        </li>
+        <li className="flex items-center gap-4 hover:bg-blue-700 rounded-lg py-1 px-4 transition-all duration-200">
+          <FaUser className="text-2xl text-white" />
+          <a
+            href="/cursosAdmin"
+            className="text-white font-medium hover:text-gray-200"
+          >
+            Cursos Admin
+          </a>
+        </li>
+        <li className="flex items-center gap-4 hover:bg-blue-700 rounded-lg py-1 px-4 transition-all duration-200">
+          <FaUser className="text-2xl text-white" />
+          <a
+            href="/dados"
+            className="text-white font-medium hover:text-gray-200"
+          >
+            Certificados
+          </a>
+        </li>
       </ul>
       <div className="p-4 flex items-center justify-start gap-3 mb-8 border-t border-white">
         <FiPhone />
