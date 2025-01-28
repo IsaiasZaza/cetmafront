@@ -27,7 +27,7 @@ const Header = () => {
           <a href="/">
             <Image
               src="/logo.png"
-              alt="Logo Vaga Lume"
+              alt="Adam"
               width={150}
               height={60}
               className="mr-3 w-2/3 md:w-[90px] lg:w-[100px]"
@@ -93,7 +93,7 @@ const Header = () => {
                   onClose={() => handleMenuClose(setAnchorEl3)}
                   onMouseLeave={() => handleMenuClose(setAnchorEl3)}
                 >
-                  <MenuItem onClick={() => (window.location.href = "/ebook")}>
+                  <MenuItem onClick={() => (window.location.href = "/ebookPage")}>
                     Ebook
                   </MenuItem>
                   <MenuItem onClick={() => (window.location.href = "/podcast")}>
@@ -118,7 +118,7 @@ const Header = () => {
                   <MenuItem onClick={() => (window.location.href = "/beneficios")}>
                     Porque ser um aluno?
                   </MenuItem>
-                  <MenuItem onClick={() => (window.location.href = "/aluno")}>
+                  <MenuItem onClick={() => (window.location.href = "/login")}>
                     Acesso Aluno
                   </MenuItem>
                   <MenuItem onClick={() => (window.location.href = "/feedback-alunos")}>

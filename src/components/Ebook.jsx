@@ -39,7 +39,6 @@ const Ebook = () => {
   return (
     <div>
       <Header />
-
       {/* Hero Section */}
       <section className="relative bg-[url('/Retangulo_23.png')] bg-cover bg-center h-[50vh] text-white flex flex-col justify-center items-start px-6 sm:px-12 md:px-24">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-900/60 to-transparent"></div>
