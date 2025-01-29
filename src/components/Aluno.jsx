@@ -58,7 +58,7 @@ const Aluno = () => {
         const token = localStorage.getItem("token");
 
         if (!token) {
-          window.location.href = "/beneficios"; // Redireciona se não houver token
+          window.location.href = "/login";
           return;
         }
 
@@ -66,7 +66,7 @@ const Aluno = () => {
         const decodedToken = decodeJwt(token);
 
         if (!decodedToken || !decodedToken.id) {
-          window.location.href = "/beneficios"; // Redireciona se o token for inválido
+          window.location.href = "/login";
           return;
         }
 

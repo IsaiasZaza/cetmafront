@@ -30,6 +30,11 @@ const ProfilePage = () => {
       try {
         const token = localStorage.getItem("token");
 
+        if (!token) {
+          window.location.href = "/login";
+          return;
+        }
+
         if (token) {
           // Decodificando o token usando jose
           const decodedToken = decodeJwt(token);
