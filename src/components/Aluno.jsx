@@ -1,17 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
-import { FaHome, FaBook, FaCertificate, FaUser } from "react-icons/fa";
-import { FiPhone, FiClock, FiCheckCircle } from "react-icons/fi";
-import { BsFileText, BsPlayCircle } from "react-icons/bs";
 import { decodeJwt } from 'jose';
+import { FaCheckCircle } from "react-icons/fa";
+import { FiClock } from "react-icons/fi";
+import { BsFileText, BsPlayCircle } from "react-icons/bs";
 import MenuLateral from "./MenuLateral";
 
 // Componente CardCurso
-const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, link, coverImage }) => {
+const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, link }) => {
   return (
-    <div className="bg p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+    <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
       <div className={`flex items-center gap-2 font-bold ${status === "Concluído" ? "text-green-500" : "text-blue-500"}`}>
-        {status === "Concluído" ? <FiCheckCircle /> : <FiClock />}
+        {status === "Concluído" ? <FaCheckCircle /> : <FiClock />}
         <p>{status}</p>
       </div>
       <h3 className="text-lg text-gray-900 font-bold border-b-2 pb-3 mt-2 border-gray-300">
@@ -57,36 +57,39 @@ const Aluno = () => {
       try {
         const token = localStorage.getItem("token");
 
-        if (token) {
-          // Decodificando o token usando jose
-          const decodedToken = decodeJwt(token);
-          const userId = decodedToken.id; // Supondo que o id esteja no token
-
-          // Fazendo a requisição para a API com o id
-          const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}`, {
-            method: "GET",
-            headers: {
-              "Authorization": `Bearer ${token}`,
-            },
-          });
-
-          if (!response.ok) {
-            throw new Error("Erro ao buscar dados do usuário");
-          }
-
-          const data = await response.json();
-
-          setUserData({
-            nome: data.user.nome || "Nome não disponível",
-            estado: data.user.estado || "Estado não disponível",
-            sobre: data.user.sobre || "Sobre não disponível",
-            courses: data.user.courses || [],
-          });
-        } else {
-          console.warn("Token não encontrado no localStorage.");
+        if (!token) {
+          window.location.href = "/beneficios"; // Redireciona se não houver token
+          return;
         }
+
+        // Decodificando o token usando jose
+        const decodedToken = decodeJwt(token);
+
+        if (!decodedToken || !decodedToken.id) {
+          window.location.href = "/beneficios"; // Redireciona se o token for inválido
+          return;
+        }
+
+        // Fazendo a requisição para a API com o id do usuário
+        const response = await fetch(`https://crud-usuario.vercel.app/api/user/${decodedToken.id}`, {
+          method: "GET",
+          headers: { "Authorization": `Bearer ${token}` },
+        });
+
+        if (!response.ok) throw new Error("Erro ao buscar dados do usuário");
+
+        const data = await response.json();
+
+        setUserData({
+          nome: data.user.nome || "Nome não disponível",
+          estado: data.user.estado || "Estado não disponível",
+          sobre: data.user.sobre || "Sobre não disponível",
+          courses: data.user.courses || [],
+        });
+
       } catch (error) {
         console.error("Erro ao buscar dados do usuário:", error);
+        window.location.href = "/beneficios"; // Redireciona em caso de erro
       }
     };
 
@@ -94,10 +97,7 @@ const Aluno = () => {
   }, []);
 
   return (
-    <div
-      className="flex h-screen"
-      style={{ background: "linear-gradient(120deg, #f8fafc 0%, #e7ebf0 100%)" }}
-    >
+    <div className="flex h-screen" style={{ background: "linear-gradient(120deg, #f8fafc 0%, #e7ebf0 100%)" }}>
       {/* Menu Lateral */}
       <MenuLateral />
 
@@ -124,9 +124,7 @@ const Aluno = () => {
 
         {/* Lista de Cursos */}
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-center text-gray-900">
-            Meus Cursos
-          </h2>
+          <h2 className="text-2xl font-bold mb-4 text-center text-gray-900">Meus Cursos</h2>
           {userData.courses.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {userData.courses.map((course) => (
