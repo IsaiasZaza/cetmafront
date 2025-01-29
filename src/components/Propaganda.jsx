@@ -61,8 +61,11 @@ export default function Propaganda() {
           </a>
         </div>
       </div>
+      
       {/* Imagem lateral (opcional em dispositivos maiores) */}
       <div className="absolute inset-0 md:relative md:inset-y-0 md:left-auto md:right-0 hidden md:block w-1/2 h-full"></div>
+      
     </div>
+    
   );
 }

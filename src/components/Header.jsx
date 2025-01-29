@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { FaBars, FaTimes, FaUser } from "react-icons/fa";
+import { FaBars, FaTimes, FaUser, FaChevronDown } from "react-icons/fa";
 import { Menu, MenuItem } from "@mui/material";
 
 const Header = () => {
@@ -46,6 +46,7 @@ const Header = () => {
                 className="relative text-gray-900 hover:text-blue-400 cursor-pointer"
               >
                 A CETMA
+                <FaChevronDown className="inline ml-1 transition-transform duration-200 text-sm" />
                 <Menu
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
@@ -65,6 +66,7 @@ const Header = () => {
                 className="relative text-gray-900 hover:text-blue-400 cursor-pointer"
               >
                 Ensino e Capacitação
+                <FaChevronDown className="inline ml-1 transition-transform duration-200 text-sm" />
                 <Menu
                   anchorEl={anchorEl2}
                   open={Boolean(anchorEl2)}
@@ -87,6 +89,7 @@ const Header = () => {
                 className="relative text-gray-900 hover:text-blue-400 cursor-pointer"
               >
                 Conteúdo Gratuito
+                <FaChevronDown className="inline ml-1 transition-transform duration-200 text-sm" />
                 <Menu
                   anchorEl={anchorEl3}
                   open={Boolean(anchorEl3)}
@@ -109,6 +112,7 @@ const Header = () => {
                 className="relative text-gray-900 hover:text-blue-400 cursor-pointer"
               >
                 Área do Aluno
+                <FaChevronDown className="inline ml-1 transition-transform duration-200 text-sm" />
                 <Menu
                   anchorEl={anchorEl4}
                   open={Boolean(anchorEl4)}
