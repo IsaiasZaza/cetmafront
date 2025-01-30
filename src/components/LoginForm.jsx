@@ -15,6 +15,7 @@ const LoginForm = () => {
   const [profissao, setProfissao] = useState(""); // Estado para profissão
   const [cpf, setCpf] = useState(""); // Estado para CPF
   const [message, setMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   const togglePasswordVisibility = () => {
@@ -321,26 +322,35 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-between items-stretch bg-cover bg-center" style={{ backgroundImage: "url('banner3.jpg')" }}>
-      <a href="/">
-        <FaArrowAltCircleLeft className="text-4xl m-6" />
-      </a>
-      <div className="w-1/2 p-10"></div>
-      <div className="w-2/5 h-[85vh] bg-white flex flex-col justify-center items-center px-8 shadow-lg rounded-bl-[40%] rounded-tl-lg pb-24">
-        <a href="/">
-          <Image width={250} height={150} src="/logoOficial.png" alt="Logo" />
+    <div className="min-h-screen flex justify-between items-stretch">
+      {/* Banner (aparece só no desktop) */}
+      <div
+        className="absolute inset-0 hidden md:block bg-cover bg-center"
+        style={{ backgroundImage: "url('banner3.jpg')" }}
+      ></div>
+
+      {/* Conteúdo (sempre visível) */}
+      <div className="relative z-10 w-full flex justify-between">
+        <a className="absolute" href="/">
+          <FaArrowAltCircleLeft className="lg:text-4xl text-3xl m-6 lg:text-white text-blue-600" />
         </a>
-        {renderForm()}
-        {message && (
-          <div
-            className={`mt-4 px-4 py-2 w-4/5 rounded-md ${message.type === "error"
-              ? "bg-red-100 text-red-500 border border-red-500"
-              : "bg-green-100 text-green-500 border border-green-500"
-              }`}
-          >
-            {message.text}
-          </div>
-        )}
+        <div className="lg:block hidden lg:w-1/2 w-full lg:p-10"></div>
+        <div className="lg:w-2/5 w-full lg:h-[85vh] bg-white flex flex-col justify-center items-center px-8 shadow-lg lg:rounded-bl-[40%] lg:rounded-tl-lg pb-24">
+          <a href="/">
+            <Image width={250} height={150} src="/logoOficial.png" alt="Logo" />
+          </a>
+          {renderForm()}
+          {message && (
+            <div
+              className={`mt-4 px-4 py-2 w-4/5 rounded-md ${message.type === "error"
+                  ? "bg-red-100 text-red-500 border border-red-500"
+                  : "bg-green-100 text-green-500 border border-green-500"
+                }`}
+            >
+              {message.text}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

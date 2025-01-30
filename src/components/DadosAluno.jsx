@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { FaEdit, FaCamera, FaTrash, FaLock } from "react-icons/fa";
 import { decodeJwt } from "jose";
 import MenuLateral from "./MenuLateral";
+import Image from "next/image";
 
 // Componente de Página de Perfil
 const ProfilePage = () => {
@@ -15,6 +16,7 @@ const ProfilePage = () => {
     sobre: "Carregando...",
     cpf: "Carregando...",
     profissao: "Carregando...",
+    profilePicture: "https://via.placeholder.com/150",
   });
   const [userId, setUserId] = useState("");
   const [editingField, setEditingField] = useState(""); // Estado para o campo sendo editado
@@ -38,10 +40,8 @@ const ProfilePage = () => {
         if (token) {
           // Decodificando o token usando jose
           const decodedToken = decodeJwt(token);
-          console.log("Decoded Token:", decodedToken);  // Verifica a estrutura do token decodificado
-
-          const userId = decodedToken.id;  // Supondo que o id esteja no token
-          setUserId(userId);  // Define o userId corretamente
+          const userId = decodedToken.id;
+          setUserId(userId);
 
           // Fazendo a requisição para a API com o id
           const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}`, {
@@ -59,11 +59,12 @@ const ProfilePage = () => {
 
           setUserData({
             nome: data.user.nome || "Nome não disponível",
-            email: data.user.email || "Email não disponível",  // Garantindo que o email apareça
+            email: data.user.email || "Email não disponível",
             estado: data.user.estado || "Estado não disponível",
             sobre: data.user.sobre || "Sobre não disponível",
             cpf: data.user.cpf || "CPF não disponível",
             profissao: data.user.profissao || "Profissão não disponível",
+            profilePicture: data.user.profilePicture || "https://via.placeholder.com/150",
           });
         } else {
           console.warn("Token não encontrado no localStorage.");
@@ -72,86 +73,60 @@ const ProfilePage = () => {
         console.error("Erro ao buscar dados do usuário:", error);
       }
     };
-
     fetchUserData();
   }, []);
 
-  // Iniciar edição de um campo
-  const handleEditField = (field) => {
-    setEditingField(field);
-    setModalValue(userData[field]); // Carrega o valor atual no campo de edição
-  };
 
-  // Salvar alterações do campo
-  const handleSaveField = async () => {
-    const updatedData = { ...userData, [editingField]: modalValue };
+  const handlePhotoChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("profilePicture", file); // 'profilePicture' é o nome do campo
+      const token = localStorage.getItem("token");
 
-    // Enviar dados atualizados via PUT
-    setIsSubmitting(true);
+      if (!token) {
+        console.error("Token não encontrado.");
+        return;
+      }
 
-    const token = localStorage.getItem("token");
-    if (token) {
+      console.log('Enviando requisição com arquivo:', formData); // Adicione log para verificar os dados
+
       try {
-        // Verifique se userId existe
-        if (!userId) {
-          console.error("Erro: userId não encontrado.");
-          return;
-        }
-
-        const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}`, {
-          method: "PUT",
+        const response = await fetch(`http://localhost:3001/api/user/${userId}/profile-picture`, {
+          method: "PUT", // Certifique-se de que o método está correto
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
           },
-          body: JSON.stringify(updatedData),
+          body: formData,
         });
 
         if (!response.ok) {
-          throw new Error("Erro ao atualizar os dados do usuário");
+          throw new Error("Erro ao atualizar foto de perfil");
         }
 
         const data = await response.json();
-        console.log("Dados atualizados:", data);  // Verifica a resposta da API
-        setUserData(data.user); // Atualiza o estado com os dados atualizados
-        setEditingField(""); // Fecha a edição
+        setProfilePhoto(data.user.profilePicture); // Atualiza a foto de perfil com o caminho retornado
+        localStorage.setItem("token", data.token); // Atualiza o token se necessário
+        console.log("Foto de perfil atualizada com sucesso");
       } catch (error) {
-        console.error("Erro ao atualizar os dados do usuário:", error);
-      } finally {
-        setIsSubmitting(false);
+        console.error("Erro ao atualizar foto de perfil:", error);
       }
-    } else {
-      console.error("Token não encontrado.");
-      setIsSubmitting(false);
     }
   };
-
-  // Alterar foto de perfil
-  const handleRemovePhoto = () => {
-    setProfilePhoto("https://via.placeholder.com/150");
-  };
-
-  const handlePhotoChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => setProfilePhoto(e.target.result);
-      reader.readAsDataURL(file);
-    }
-  };
-
+  console.log(userData.profilePicture)
   return (
     <div className="flex h-screen bg-gray-100">
       <MenuLateral />
-
       <div className="flex-grow p-8 bg-gradient-to-br from-blue-50 to-gray-100">
         <div className="rounded-lg shadow-xl p-6 bg-white">
           <div className="flex gap-6 items-center">
             <div className="relative w-40 h-40 rounded-lg overflow-hidden shadow-lg">
               <img
-                src={profilePhoto || "https://via.placeholder.com/150"} // Foto padrão caso a foto esteja vazia
+                src={`/${userData.profilePicture}`} // Foto padrão caso a foto esteja vazia
                 alt="Foto do Perfil"
                 className="w-full h-full object-cover"
+                width={60}
+                height={60}
               />
               <label
                 htmlFor="photo-upload"
@@ -175,7 +150,7 @@ const ProfilePage = () => {
               <div className="mt-4 flex items-center gap-4">
                 <button
                   className="text-blue-600 flex items-center gap-2 hover:underline"
-                  onClick={handleRemovePhoto}
+                  onClick={FaCamera}
                 >
                   <FaTrash /> Remover foto
                 </button>
@@ -296,27 +271,13 @@ const ProfilePage = () => {
               </button>
               <button
                 className={`px-6 py-2 rounded-lg text-white ${isSubmitting ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-                  } transition-colors duration-300`}
+                  }`}
                 onClick={handleSaveField}
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Salvando..." : "Salvar"}
               </button>
             </div>
-            <button
-              className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition-colors duration-300"
-              onClick={() => setEditingField("")}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
           </div>
         </div>
       )}
