@@ -29,7 +29,7 @@ export default function BannerHome() {
             ></iframe>
             {/* Botão ajustado à largura do vídeo */}
             <a
-              href="/moduloCardio"
+              href="/cardiologia"
               className="bg-blue-500 text-white py-3 px-6 mt-4 rounded-lg font-extrabold hover:bg-blue-600 transition flex items-center justify-center gap-2 shadow-lg w-full"
             >
               <svg
