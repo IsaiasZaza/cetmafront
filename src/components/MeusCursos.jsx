@@ -9,8 +9,12 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import PorqueEstudarCetma from "./PorqueEstudarCetma";
+import { useRouter } from "next/navigation";
+
 
 const HomePage = () => {
+    const router = useRouter();
+    
     const [courses, setCourses] = useState([]); // Estado para armazenar os cursos
     const [loading, setLoading] = useState(true); // Estado para indicar carregamento
 
@@ -30,6 +34,10 @@ const HomePage = () => {
 
         fetchCourses();
     }, []);
+
+    const handleRedirect = (url) => {
+        router.push(url);
+      };
 
     return (
         <div>
@@ -101,7 +109,11 @@ const HomePage = () => {
                                     </p>
                                 </div>
                                 <div className="mt-4">
-                                    <button className="bg-white text-blue-600 py-3 px-6 rounded-lg shadow hover:bg-blue-500 hover:text-white hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out">
+                                    <button 
+                                    className="bg-white text-blue-600 py-3 px-6 rounded-lg shadow hover:bg-blue-500 hover:text-white hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out"
+                                    onClick={() => handleRedirect(`/cursosAluno/${course.id}`)}
+                                    >
+                                     
                                         Saiba mais sobre
                                     </button>
 
