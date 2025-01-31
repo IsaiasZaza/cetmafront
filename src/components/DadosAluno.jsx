@@ -16,7 +16,6 @@ const ProfilePage = () => {
     sobre: "Carregando...",
     cpf: "Carregando...",
     profissao: "Carregando...",
-    profilePicture: "https://via.placeholder.com/150",
   });
   const [userId, setUserId] = useState("");
   const [editingField, setEditingField] = useState(""); // Estado para o campo sendo editado
@@ -94,9 +93,6 @@ const ProfilePage = () => {
       try {
         const response = await fetch(`http://localhost:3001/api/user/${userId}/profile-picture`, {
           method: "PUT", // Certifique-se de que o método está correto
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
           body: formData,
         });
 
@@ -105,7 +101,8 @@ const ProfilePage = () => {
         }
 
         const data = await response.json();
-        setProfilePhoto(data.user.profilePicture); // Atualiza a foto de perfil com o caminho retornado
+        setProfilePhoto(data.user.profilePicture);
+        console.log(data.user.profilePicture) // Atualiza a foto de perfil com o caminho retornado
         localStorage.setItem("token", data.token); // Atualiza o token se necessário
         console.log("Foto de perfil atualizada com sucesso");
       } catch (error) {
@@ -113,6 +110,35 @@ const ProfilePage = () => {
       }
     }
   };
+
+  const handleRemovePhoto = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.error("Token não encontrado.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3001/api/user/${userId}/profile-picture`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao remover foto de perfil");
+      }
+
+      setUserData((prev) => ({ ...prev, profilePicture: "https://via.placeholder.com/150" })); // Voltar à imagem padrão
+      console.log("Foto de perfil removida com sucesso");
+    } catch (error) {
+      console.error("Erro ao remover foto de perfil:", error);
+    }
+  };
+
+
   console.log(userData.profilePicture)
   return (
     <div className="flex h-screen bg-gray-100">
@@ -122,7 +148,7 @@ const ProfilePage = () => {
           <div className="flex gap-6 items-center">
             <div className="relative w-40 h-40 rounded-lg overflow-hidden shadow-lg">
               <img
-                src={`/${userData.profilePicture}`} // Foto padrão caso a foto esteja vazia
+                src={`http://localhost:3001${userData.profilePicture}`} // Foto padrão caso a foto esteja vazia
                 alt="Foto do Perfil"
                 className="w-full h-full object-cover"
                 width={60}
@@ -152,14 +178,15 @@ const ProfilePage = () => {
                   className="text-blue-600 flex items-center gap-2 hover:underline"
                   onClick={FaCamera}
                 >
-                  <FaTrash /> Remover foto
+                  <FaTrash onClick={handleRemovePhoto}
+                  /> Remover foto
                 </button>
               </div>
             </div>
           </div>
 
           <div className="mt-8 space-y-6">
-            {Object.entries(userData)
+            {Object.entries(userData).filter(([field]) => field !== "profilePicture") // Filtra para não exibir a senha
               .filter(([field]) => field !== "senha") // Filtra para não exibir a senha
               .map(([field, value]) => (
                 <div

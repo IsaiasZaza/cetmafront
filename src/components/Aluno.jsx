@@ -84,6 +84,7 @@ const Aluno = () => {
           nome: data.user.nome || "Nome não disponível",
           estado: data.user.estado || "Estado não disponível",
           sobre: data.user.sobre || "Sobre não disponível",
+          profilePicture: data.user.profilePicture || null,
           courses: data.user.courses || [],
         });
 
@@ -108,7 +109,7 @@ const Aluno = () => {
           {/* Imagem do Usuário */}
           <div className="relative w-40 h-40 rounded-lg overflow-hidden shadow-lg">
             <img
-              src="https://via.placeholder.com/150"
+              src={`http://localhost:3001${userData.profilePicture}`}
               alt="Foto do usuário"
               className="w-full h-full object-cover"
             />

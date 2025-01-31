@@ -14,8 +14,8 @@ const menuItems = [
     label: "Ensino e Capacitação",
     href: "#",
     subItems: [
-      { label: "Curso pra Você", href: "/meusCursos" },
-      { label: "Curso pra Empresa", href: "/curso-pra-empresa" },
+      { label: "Curso para Você", href: "/meusCursos" },
+      { label: "Cursos para Empresa", href: "/curso-pra-empresa" },
     ],
   },
   {
