@@ -1,9 +1,9 @@
+"use client"
+
 import { FaHome, FaBook, FaCertificate, FaUser } from "react-icons/fa";
 import { FiPhone, FiLogOut } from "react-icons/fi";
-import { useRouter } from "next/navigation";
 
 const MenuLateral = () => {
-  const router = useRouter();
 
   const handleLogout = () => {
     try {
@@ -16,6 +16,7 @@ const MenuLateral = () => {
       console.error("Erro ao realizar logout:", error);
     }
   };
+
 
   return (
     <nav className="sticky top-0 w-1/6 bg-gradient-to-b from-blue-500 to-blue-700 text-white flex flex-col flex-shrink-0 h-screen shadow-2xl">
