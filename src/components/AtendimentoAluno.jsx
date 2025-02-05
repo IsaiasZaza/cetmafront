@@ -5,7 +5,13 @@ import { FaEnvelope, FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import MenuLateral from "./MenuLateral";
 import { motion } from "framer-motion";
 
+
 const AtendimentoAluno = () => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/login";
+  }
   const email = "contato@example.com";
   const whatsappNumber = "+559199999999";
   const phoneNumber = "+55 (91) 99999-9999";

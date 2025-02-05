@@ -109,7 +109,7 @@ const Aluno = () => {
           {/* Imagem do Usuário */}
           <div className="relative w-40 h-40 rounded-lg overflow-hidden shadow-lg">
             <img
-              src={`http://localhost:3001${userData.profilePicture}`}
+              src={`https://crud-usuario.vercel.app/${userData.profilePicture}`}
               alt="Foto do usuário"
               className="w-full h-full object-cover"
             />

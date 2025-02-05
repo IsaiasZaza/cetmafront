@@ -18,6 +18,14 @@ const Novidades = () => {
     const fetchCourses = async () => {
       try {
         const response = await fetch("https://crud-usuario.vercel.app/api/cursos");
+
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          window.location.href = "/login";
+          return;
+        }
+        
         if (!response.ok) {
           throw new Error("Erro ao buscar os cursos.");
         }
@@ -82,8 +90,8 @@ const Novidades = () => {
                   />
                   <div
                     className={`absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black via-transparent to-transparent p-4 transition-opacity duration-300 ${activeCourse === course.id
-                        ? "opacity-100"
-                        : "opacity-0 hover:opacity-100"
+                      ? "opacity-100"
+                      : "opacity-0 hover:opacity-100"
                       }`}
                   >
                     <h2 className="text-lg font-semibold text-white mb-1">{course.title}</h2>

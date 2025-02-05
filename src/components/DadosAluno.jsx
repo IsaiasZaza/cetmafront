@@ -24,6 +24,10 @@ const ProfilePage = () => {
   const [senhaAtual, setSenhaAtual] = useState("");
   const [novaSenha, setNovaSenha] = useState("");
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const handleEditField = (field) => {
+    setEditingField(field);
+    setModalValue(userData[field] || ""); // Preenche o modal com o valor atual do campo
+  };
 
   // Carregar os dados do usuário
   useEffect(() => {
@@ -91,7 +95,7 @@ const ProfilePage = () => {
       console.log('Enviando requisição com arquivo:', formData); // Adicione log para verificar os dados
 
       try {
-        const response = await fetch(`http://localhost:3001/api/user/${userId}/profile-picture`, {
+        const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}/profile-picture`, {
           method: "PUT", // Certifique-se de que o método está correto
           body: formData,
         });
@@ -111,6 +115,48 @@ const ProfilePage = () => {
     }
   };
 
+  const handleSaveField = async () => {
+    if (!editingField || isSubmitting) return;
+  
+    setIsSubmitting(true);
+    const token = localStorage.getItem("token");
+  
+    if (!token) {
+      console.error("Token não encontrado.");
+      return;
+    }
+  
+    try {
+      const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ [editingField]: modalValue })
+      });
+  
+      if (!response.ok) {
+        throw new Error("Erro ao atualizar o campo.");
+      }
+  
+      const data = await response.json();
+  
+      setUserData((prev) => ({
+        ...prev,
+        [editingField]: data.user[editingField] || modalValue
+      }));
+  
+      setEditingField("");
+      setModalValue("");
+      console.log("Campo atualizado com sucesso.");
+    } catch (error) {
+      console.error("Erro ao salvar campo:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const handleRemovePhoto = async () => {
     const token = localStorage.getItem("token");
 
@@ -120,7 +166,7 @@ const ProfilePage = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3001/api/user/${userId}/profile-picture`, {
+      const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}/profile-picture`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -148,7 +194,7 @@ const ProfilePage = () => {
           <div className="flex gap-6 items-center">
             <div className="relative w-40 h-40 rounded-lg overflow-hidden shadow-lg">
               <img
-                src={`http://localhost:3001${userData.profilePicture}`} // Foto padrão caso a foto esteja vazia
+                src={`https://crud-usuario.vercel.app${userData.profilePicture}`} // Foto padrão caso a foto esteja vazia
                 alt="Foto do Perfil"
                 className="w-full h-full object-cover"
                 width={60}

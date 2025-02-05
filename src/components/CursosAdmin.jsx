@@ -7,7 +7,13 @@ import MenuLateral from "./MenuLateral";
 export default function Cursos() {
   const [cursos, setCursos] = useState([]);
   const [selectedCurso, setSelectedCurso] = useState(null);
-  const [formCurso, setFormCurso] = useState({});
+  const [formCurso, setFormCurso] = useState({
+    title: "",
+    description: "",
+    price: "",
+    coverImage: "",
+    subCourses: [],
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isAddParentModalOpen, setIsAddParentModalOpen] = useState(false);
@@ -22,7 +28,8 @@ export default function Cursos() {
           window.location.href = "/login";
           return;
         }
-        const response = await fetch("http://localhost:3001/api/cursos");
+
+        const response = await fetch("https://crud-usuario.vercel.app/api/cursos");
         if (!response.ok) throw new Error("Erro ao buscar cursos");
 
         const data = await response.json();
@@ -40,7 +47,7 @@ export default function Cursos() {
     if (!selectedCurso) return;
 
     try {
-      const response = await fetch(`http://localhost:3001/api/cursos/${selectedCurso.id}`, {
+      const response = await fetch(`http://localhost:3001/api/curso/${selectedCurso.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +70,7 @@ export default function Cursos() {
 
   const handleDeleteCurso = async (id) => {
     try {
-      await fetch(`http://localhost:3001/api/curso/${id}`, { method: "DELETE" });
+      await fetch(`https://crud-usuario.vercel.app/api/curso/${id}`, { method: "DELETE" });
       setCursos((prevCursos) => prevCursos.filter((curso) => curso.id !== id));
     } catch (error) {
       console.error("Erro ao deletar curso:", error);
@@ -72,7 +79,7 @@ export default function Cursos() {
 
   const handleAddCurso = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/cursos", {
+      const response = await fetch("https://crud-usuario.vercel.app/api/cursos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +100,7 @@ export default function Cursos() {
 
   const handleAddParentCurso = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/courses", {
+      const response = await fetch("https://crud-usuario.vercel.app/api/courses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -176,7 +183,7 @@ export default function Cursos() {
           <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-lg">
             <h2 className="text-2xl font-bold mb-5 text-gray-900 text-center">Editar Curso</h2>
             <div className="space-y-4">
-              {Object.keys(formCurso).map((field) => (
+              {Object.keys(formCurso).filter(field => ["title", "description", "price", "videoUrl", "coverImage"].includes(field)).map((field) => (
                 <div key={field}>
                   <label className="block text-gray-700 font-medium mb-1 capitalize">{field}</label>
                   {field === "imagem" ? (
@@ -233,7 +240,7 @@ export default function Cursos() {
           <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-lg">
             <h2 className="text-2xl font-bold mb-5 text-gray-900 text-center">Adicionar Curso</h2>
             <div className="space-y-4">
-              {Object.keys(formCurso).map((field) => (
+              {Object.keys(formCurso).filter(field => ["title", "description", "price", "videoUrl", "coverImage", "SubCourses"].includes(field)).map((field) => (
                 <div key={field}>
                   <label className="block text-gray-700 font-medium mb-1 capitalize">{field}</label>
                   {field === "imagem" ? (
@@ -290,7 +297,7 @@ export default function Cursos() {
           <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-lg">
             <h2 className="text-2xl font-bold mb-5 text-gray-900 text-center">Adicionar Curso Parente</h2>
             <div className="space-y-4">
-              {Object.keys(formCurso).map((field) => (
+              {Object.keys(formCurso).filter(field => ["title", "description", "price", "videoUrl", "coverImage", "SubCourses"].includes(field)).map((field) => (
                 <div key={field}>
                   <label className="block text-gray-700 font-medium mb-1 capitalize">{field}</label>
                   {field === "imagem" ? (

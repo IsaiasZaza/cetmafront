@@ -50,7 +50,7 @@ const Header = () => {
             alt="Adam"
             width={100}
             height={50}
-            className="lg:mr-3 md:mr-3 mr-0 w-28 md:w-[90px] lg:w-[100px]"
+            className="lg:mr-3 md:mr-3 mr-0 w-28 md:w-[90px] lg:w-[130px]"
           />
         </a>
 
@@ -69,7 +69,7 @@ const Header = () => {
             >
               <a
                 href={item.href}
-                className="flex items-center text-gray-900 hover:text-blue-500 transition-all cursor-pointer"
+                className="flex items-center text-gray-900 hover:text-blue-500 transition-all cursor-pointer font-semibold"
               >
                 {item.label} {item.subItems && <FaChevronDown className="ml-1 text-sm" />}
               </a>
@@ -95,7 +95,7 @@ const Header = () => {
             </div>
           ))}
 
-          <a href="/fale" className="text-gray-900 hover:text-blue-500">
+          <a href="/fale" className="text-gray-900 hover:text-blue-500 font-semibold">
             Fale com a CETMA
           </a>
         </nav>

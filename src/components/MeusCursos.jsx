@@ -54,7 +54,7 @@ const HomePage = () => {
                     </h2>
                     <p className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
                         Na compra de 2 cursos, <br /> o segundo sai com <br />{" "}
-                        <span className="font-extrabold"><span className="text-blue-400">30%</span> de desconto</span>
+                        <span className="font-extrabold"><span className="text-blue-400">30% de desconto</span></span>
                     </p>
                     <p className="text-md md:text-lg text-gray-200">
                         Aproveite esta oferta especial para começar a sua jornada <br /> de aprendizado com os melhores cursos do mercado. <br /> Invista no seu futuro hoje mesmo!
