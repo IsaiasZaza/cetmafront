@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { Plus } from "lucide-react";
 import MenuLateral from "./MenuLateral";
 import { FaBook } from "react-icons/fa";
-
+import { Dialog, Transition } from '@headlessui/react';
 
 export default function Cursos() {
   const [cursos, setCursos] = useState([]);
@@ -13,8 +13,17 @@ export default function Cursos() {
     title: "",
     description: "",
     price: "",
+    videoUrl: "",
     coverImage: "",
     subCourses: [],
+  });
+  // State to control new subcourse inputs
+  const [subCourseInput, setSubCourseInput] = useState({
+    title: "",
+    description: "",
+    price: "",
+    videoUrl: "",
+    coverImage: "",
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -25,45 +34,38 @@ export default function Cursos() {
     async function fetchCursos() {
       try {
         const token = localStorage.getItem("token");
-
         if (!token) {
           window.location.href = "/login";
           return;
         }
-
         const response = await fetch("https://crud-usuario.vercel.app/api/cursos");
         if (!response.ok) throw new Error("Erro ao buscar cursos");
-
         const data = await response.json();
+        // Filter to show only main courses (no parentCourseId)
         const cursosPrincipais = data.filter((curso) => !curso.parentCourseId);
         setCursos(cursosPrincipais);
       } catch (error) {
         console.error("Erro ao buscar cursos:", error);
       }
     }
-
     fetchCursos();
   }, []);
 
   const handleEditCurso = async () => {
     if (!selectedCurso) return;
-
     try {
-      const response = await fetch(`http://localhost:3001/api/curso/${selectedCurso.id}`, {
+      const response = await fetch(`https://crud-usuario.vercel.app/api/curso/${selectedCurso.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formCurso),
       });
-
       if (!response.ok) throw new Error("Erro ao editar curso");
-
       const updatedCurso = await response.json();
       setCursos((prevCursos) =>
         prevCursos.map((curso) => (curso.id === updatedCurso.id ? updatedCurso : curso))
       );
-
       setIsModalOpen(false);
     } catch (error) {
       console.error("Erro ao editar curso:", error);
@@ -79,24 +81,38 @@ export default function Cursos() {
     }
   };
 
-  const handleAddCurso = async () => {
+  // This function now calls the API route to persist the course with subcourses.
+  const handleAddCursoWithSubcourses = async () => {
     try {
-      const response = await fetch("https://crud-usuario.vercel.app/api/cursos", {
+      const response = await fetch("https://crud-usuario.vercel.app/api/courses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formCurso),
       });
-
-      if (!response.ok) throw new Error("Erro ao adicionar curso");
-
+      if (!response.ok) throw new Error("Erro ao adicionar curso com subcursos");
       const newCurso = await response.json();
-      setCursos((prevCursos) => [...prevCursos, newCurso]);
+      setCursos([...cursos, newCurso]);
+      // Reset the form fields
+      setFormCurso({
+        title: "",
+        description: "",
+        price: "",
+        videoUrl: "",
+        coverImage: "",
+        subCourses: [],
+      });
+      setSubCourseInput({
+        title: "",
+        description: "",
+        price: "",
+        videoUrl: "",
+        coverImage: "",
+      });
       setIsAddModalOpen(false);
-      setFormCurso({});
     } catch (error) {
-      console.error("Erro ao adicionar curso:", error);
+      console.error("Erro ao adicionar curso com subcursos:", error);
     }
   };
 
@@ -109,16 +125,37 @@ export default function Cursos() {
         },
         body: JSON.stringify(formCurso),
       });
-
       if (!response.ok) throw new Error("Erro ao adicionar curso parente");
-
       const newParentCurso = await response.json();
       setParentCursos((prevCursos) => [...prevCursos, newParentCurso]);
       setIsAddParentModalOpen(false);
-      setFormCurso({});
+      setFormCurso({
+        title: "",
+        description: "",
+        price: "",
+        videoUrl: "",
+        coverImage: "",
+        subCourses: [],
+      });
     } catch (error) {
       console.error("Erro ao adicionar curso parente:", error);
     }
+  };
+
+  // Function to add a subcourse to the current course form.
+  const handleAddSubCourse = () => {
+    if (!subCourseInput.title) return;
+    setFormCurso({
+      ...formCurso,
+      subCourses: [...formCurso.subCourses, subCourseInput],
+    });
+    setSubCourseInput({
+      title: "",
+      description: "",
+      price: "",
+      videoUrl: "",
+      coverImage: "",
+    });
   };
 
   return (
@@ -130,23 +167,31 @@ export default function Cursos() {
           <FaBook className="text-2xl text-blue mr-2" />
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {cursos.map((curso) => (
+          {cursos.map((curso, index) => (
             <div
-              key={curso.id}
+              key={`${curso.id}-${index}`}
               className="bg-white shadow-md hover:shadow-lg rounded-xl p-6 border border-gray-200 transition-all"
             >
               <div className="relative overflow-hidden rounded-lg aspect-square bg-gray-100 mb-4 flex items-center justify-center">
                 {curso.coverImage ? (
-                  <img src={curso.coverImage} alt={curso.title} className="object-cover w-full h-full rounded-lg" />
+                  <img
+                    src={curso.coverImage}
+                    alt={curso.title}
+                    className="object-cover w-full h-full rounded-lg"
+                  />
                 ) : (
                   <span className="text-gray-400 text-xl">Sem imagem</span>
                 )}
               </div>
               <h2 className="text-lg font-semibold text-gray-800 mb-2 truncate">{curso.title}</h2>
-              <p className="text-gray-600 text-sm mb-2">{curso.description || "Sem descrição disponível"}</p>
+              <p className="text-gray-600 text-sm mb-2">
+                {curso.description || "Sem descrição disponível"}
+              </p>
               <div className="flex items-center justify-between">
                 <span className="text-lg font-bold text-green-700">R$ {curso.price}</span>
-                {curso.oldPrice && <span className="text-gray-500 line-through text-sm">R$ {curso.oldPrice}</span>}
+                {curso.oldPrice && (
+                  <span className="text-gray-500 line-through text-sm">R$ {curso.oldPrice}</span>
+                )}
               </div>
               <div className="flex space-x-2 mt-4">
                 <button
@@ -170,11 +215,13 @@ export default function Cursos() {
           ))}
         </div>
       </div>
-      <button onClick={() => setIsAddModalOpen(true)} className="fixed bottom-4 right-4 flex flex-col items-center justify-center border-none rounded-xl border border-gray-200 transition-all">
+      <button
+        onClick={() => setIsAddModalOpen(true)}
+        className="fixed bottom-4 right-4 flex flex-col items-center justify-center border-none rounded-xl border border-gray-200 transition-all"
+      >
         <div className="flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full text-white mb-3">
           <Plus size={30} />
         </div>
-        <span className="text-lg font-medium text-gray-800"></span>
       </button>
 
       {/* Modal de Edição */}
@@ -183,36 +230,20 @@ export default function Cursos() {
           <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-lg">
             <h2 className="text-2xl font-bold mb-5 text-gray-900 text-center">Editar Curso</h2>
             <div className="space-y-4">
-              {Object.keys(formCurso).filter(field => ["title", "description", "price", "videoUrl", "coverImage"].includes(field)).map((field) => (
+              {["title", "description", "price", "videoUrl", "coverImage"].map((field) => (
                 <div key={field}>
-                  <label className="block text-gray-700 font-medium mb-1 capitalize">{field}</label>
-                  {field === "imagem" ? (
-                    <div className="flex items-center">
-                      <input
-                        type="file"
-                        name={field}
-                        accept="image/*"
-                        onChange={(e) => setFormCurso({ ...formCurso, imagem: e.target.files[0] })}
-                        className="hidden"
-                        id="upload-button"
-                      />
-                      <label
-                        htmlFor="upload-button"
-                        className="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700"
-                      >
-                        Escolher Imagem
-                      </label>
-                      {formCurso.imagem && <span className="ml-3 text-sm text-gray-500">Imagem Selecionada</span>}
-                    </div>
-                  ) : (
-                    <input
-                      type="text"
-                      name={field}
-                      value={formCurso[field] || ""}
-                      onChange={(e) => setFormCurso({ ...formCurso, [field]: e.target.value })}
-                      className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  )}
+                  <label className="block text-gray-700 font-medium mb-1 capitalize">
+                    {field}
+                  </label>
+                  <input
+                    type="text"
+                    name={field}
+                    value={formCurso[field] || ""}
+                    onChange={(e) =>
+                      setFormCurso({ ...formCurso, [field]: e.target.value })
+                    }
+                    className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
                 </div>
               ))}
             </div>
@@ -234,99 +265,147 @@ export default function Cursos() {
         </div>
       )}
 
-      {/* Modal de Adicionar Curso */}
+      {/* Modal de Adicionar Curso com Subcursos */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-lg">
-            <h2 className="text-2xl font-bold mb-5 text-gray-900 text-center">Adicionar Curso</h2>
-            <div className="space-y-4">
-              {Object.keys(formCurso).filter(field => ["title", "description", "price", "videoUrl", "coverImage", "SubCourses"].includes(field)).map((field) => (
-                <div key={field}>
-                  <label className="block text-gray-700 font-medium mb-1 capitalize">{field}</label>
-                  {field === "imagem" ? (
-                    <div className="flex items-center">
-                      <input
-                        type="file"
-                        name={field}
-                        accept="image/*"
-                        onChange={(e) => setFormCurso({ ...formCurso, imagem: e.target.files[0] })}
-                        className="hidden"
-                        id="upload-button"
-                      />
-                      <label
-                        htmlFor="upload-button"
-                        className="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700"
-                      >
-                        Escolher Imagem
-                      </label>
-                      {formCurso.imagem && <span className="ml-3 text-sm text-gray-500">Imagem Selecionada</span>}
+        <Transition appear show={isAddModalOpen} as={Fragment}>
+          <Dialog as="div" className="relative z-10" onClose={() => setIsAddModalOpen(false)}>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-50" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-8 text-left shadow-xl transition-all">
+                    <Dialog.Title as="h3" className="text-2xl font-bold text-gray-900 text-center">
+                      Adicionar Curso 
+                    </Dialog.Title>
+
+                    {/* Dados do curso principal */}
+                    <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {["title", "description", "price", "videoUrl", "coverImage"].map((field) => (
+                        <div key={field}>
+                          <label htmlFor={field} className="block text-sm font-medium text-gray-700">
+                            {field.charAt(0).toUpperCase() + field.slice(1)}
+                          </label>
+                          <input
+                            id={field}
+                            type="text"
+                            name={field}
+                            value={formCurso[field] || ""}
+                            onChange={(e) => setFormCurso({ ...formCurso, [field]: e.target.value })}
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                            placeholder={`Digite ${field}`}
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ) : (
-                    <input
-                      type="text"
-                      name={field}
-                      value={formCurso[field] || ""}
-                      onChange={(e) => setFormCurso({ ...formCurso, [field]: e.target.value })}
-                      className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  )}
-                </div>
-              ))}
+
+                    {/* Seção para adicionar subcursos */}
+                    <div className="mt-8">
+                      <h4 className="text-xl font-semibold text-gray-800 mb-4">Subcursos</h4>
+                      {formCurso.subCourses && formCurso.subCourses.length > 0 && (
+                        <ul className="mb-4 space-y-3">
+                          {formCurso.subCourses.map((sub, index) => (
+                            <li key={index} className="flex flex-col p-4 border rounded-md shadow-sm bg-gray-50">
+                              <span className="font-bold text-gray-700">{sub.title}</span>
+                              <span className="text-gray-600 text-sm">{sub.description}</span>
+                              <span className="text-gray-600 text-sm">Preço: R$ {sub.price}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {["title", "description", "price", "videoUrl", "coverImage"].map((field) => (
+                          <div key={field}>
+                            <label htmlFor={`sub-${field}`} className="block text-sm font-medium text-gray-700">
+                              Sub {field.charAt(0).toUpperCase() + field.slice(1)}
+                            </label>
+                            <input
+                              id={`sub-${field}`}
+                              type="text"
+                              name={field}
+                              value={subCourseInput[field] || ""}
+                              onChange={(e) =>
+                                setSubCourseInput({ ...subCourseInput, [field]: e.target.value })
+                              }
+                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                              placeholder={`Digite ${field}`}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-4">
+                        <button
+                          onClick={handleAddSubCourse}
+                          className="w-full inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+                        >
+                          Adicionar Subcurso
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Botões de ação */}
+                    <div className="mt-8 flex justify-end space-x-4">
+                      <button
+                        type="button"
+                        onClick={() => setIsAddModalOpen(false)}
+                        className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleAddCursoWithSubcourses}
+                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      >
+                        Adicionar Curso
+                      </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
             </div>
-            <div className="flex justify-end mt-6 space-x-3">
-              <button
-                onClick={() => setIsAddModalOpen(false)}
-                className="bg-gray-500 text-white px-5 py-2 rounded-lg hover:bg-gray-600"
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={handleAddCurso}
-                className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700"
-              >
-                Adicionar
-              </button>
-            </div>
-          </div>
-        </div>
+          </Dialog>
+        </Transition>
       )}
 
-      {/* Modal de Adicionar Parente */}
+      {/* Modal de Adicionar Curso Parente */}
       {isAddParentModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
           <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-lg">
-            <h2 className="text-2xl font-bold mb-5 text-gray-900 text-center">Adicionar Curso Parente</h2>
+            <h2 className="text-2xl font-bold mb-5 text-gray-900 text-center">
+              Adicionar Curso Parente
+            </h2>
             <div className="space-y-4">
-              {Object.keys(formCurso).filter(field => ["title", "description", "price", "videoUrl", "coverImage", "SubCourses"].includes(field)).map((field) => (
+              {["title", "description", "price", "videoUrl", "coverImage"].map((field) => (
                 <div key={field}>
-                  <label className="block text-gray-700 font-medium mb-1 capitalize">{field}</label>
-                  {field === "imagem" ? (
-                    <div className="flex items-center">
-                      <input
-                        type="file"
-                        name={field}
-                        accept="image/*"
-                        onChange={(e) => setFormCurso({ ...formCurso, imagem: e.target.files[0] })}
-                        className="hidden"
-                        id="upload-button"
-                      />
-                      <label
-                        htmlFor="upload-button"
-                        className="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700"
-                      >
-                        Escolher Imagem
-                      </label>
-                      {formCurso.imagem && <span className="ml-3 text-sm text-gray-500">Imagem Selecionada</span>}
-                    </div>
-                  ) : (
-                    <input
-                      type="text"
-                      name={field}
-                      value={formCurso[field] || ""}
-                      onChange={(e) => setFormCurso({ ...formCurso, [field]: e.target.value })}
-                      className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  )}
+                  <label className="block text-gray-700 font-medium mb-1 capitalize">
+                    {field}
+                  </label>
+                  <input
+                    type="text"
+                    name={field}
+                    value={formCurso[field] || ""}
+                    onChange={(e) => setFormCurso({ ...formCurso, [field]: e.target.value })}
+                    className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
                 </div>
               ))}
             </div>
