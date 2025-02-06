@@ -114,7 +114,7 @@ const CoursesPage = () => {
                 {/* Botão de "Saiba Mais" */}
                 <button
                   className="w-full bg-blue-600 text-white font-bold py-2 rounded-lg transition-all hover:bg-blue-700 hover:shadow-md focus:outline-none focus:ring focus:ring-blue-300"
-                  onClick={() => handleRedirect(`/courses/${course.id}`)}
+                  onClick={() => handleRedirect(`/VendasAluno`)}
                 >
                   Saiba Mais
                 </button>
