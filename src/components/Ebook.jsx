@@ -1,40 +1,33 @@
-import React from "react";
+"use client"
+
+import React, { useEffect, useState } from "react";
 import { MdEmail, MdPhone, MdWhatsapp } from "react-icons/md";
 import Header from "./Header";
 import Footer from "./Footer";
 import WhatsappVoador from "./WhatsappVoador";
 
 const Ebook = () => {
-  const ebooks = [
-    {
-      title: "Titulo do E-book 1",
-      description: "Texto descritivo sobre o conteúdo do e-book e seus benefícios.",
-      buttonText: "Baixe aqui",
-      buttonColor: "bg-blue-500 hover:bg-blue-600",
-      link: "/ebooks/ebook1.pdf",
-    },
-    {
-      title: "Titulo do E-book 2",
-      description: "Texto descritivo sobre o conteúdo do e-book e seus benefícios.",
-      buttonText: "Baixe aqui",
-      buttonColor: "bg-blue-500 hover:bg-blue-600",
-      link: "/ebooks/ebook2.pdf",
-    },
-    {
-      title: "Titulo do E-book 3",
-      description: "Texto descritivo sobre o conteúdo do e-book e seus benefícios.",
-      buttonText: "Baixe aqui",
-      buttonColor: "bg-blue-500 hover:bg-blue-600",
-      link: "/ebooks/ebook3.pdf",
-    },
-    {
-      title: "Titulo do E-book 4",
-      description: "Texto descritivo sobre o conteúdo do e-book e seus benefícios.",
-      buttonText: "Baixe aqui",
-      buttonColor: "bg-blue-500 hover:bg-blue-600",
-      link: "/ebooks/ebook4.pdf",
-    },
-  ];
+  const [ebooks, setEbooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchEbooks = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/ebooks");
+        if (!response.ok) {
+          throw new Error("Erro ao buscar os e-books");
+        }
+        const data = await response.json();
+        setEbooks(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEbooks();
+  }, []);
 
   return (
     <div>
@@ -61,25 +54,31 @@ const Ebook = () => {
 
       {/* Ebook Cards */}
       <section className="bg-gray-100 py-20 px-6 sm:px-12 lg:px-24">
-      <h2 className="text-2xl lg:text-4xl text-center mb-12 text-gray-800">
+        <h2 className="text-2xl lg:text-4xl text-center mb-12 text-gray-800">
           Confira alguns benefícios que nossos alunos têm:
         </h2>
-        <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {ebooks.map((ebook, index) => (
-            <div key={index} className="bg-white shadow-lg rounded-lg p-6 h-80 flex flex-col justify-between items-center text-center transition-transform transform hover:scale-105">
-              <h3 className="text-xl font-semibold text-gray-900">{ebook.title}</h3>
-              <p className="text-gray-600 flex-grow flex items-center">{ebook.description}</p>
-              <a
-                href={ebook.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${ebook.buttonColor} text-white px-12 py-2 rounded-lg font-medium transition-all`}
-              >
-                {ebook.buttonText}
-              </a>
-            </div>
-          ))}
-        </div>
+        {loading ? (
+          <p className="text-center text-gray-600">Carregando...</p>
+        ) : error ? (
+          <p className="text-center text-red-600">Erro: {error}</p>
+        ) : (
+          <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {ebooks.map((ebook, index) => (
+              <div key={index} className="bg-white shadow-lg rounded-lg p-6 h-80 flex flex-col justify-between items-center text-center transition-transform transform hover:scale-105">
+                <h3 className="text-xl font-semibold text-gray-900">{ebook.title}</h3>
+                <p className="text-gray-600 flex-grow flex items-center">{ebook.description}</p>
+                <a
+                  href={ebook.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-12 py-2 rounded-lg font-medium transition-all"
+                >
+                  Baixe aqui
+                </a>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
 
       <Footer />

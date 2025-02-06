@@ -8,8 +8,8 @@ const WhatsappVoador = () => {
     <a
       href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`}
       target="_blank"
-      rel="noopener noreferrer"
-      className="fixed bottom-4 right-4 bg-green-500 text-white rounded-full p-4 shadow-lg hover:bg-green-600 transition duration-300 flex items-center justify-center z-50"
+      rel="noopenernoreferrer"
+      className="fixed bottom-4 right-4  bg-green-500 text-white rounded-full p-4 shadow-lg hover:bg-green-600 transition duration-300 flex items-center justify-center z-50"
       title="Fale conosco pelo WhatsApp"
     >
       <svg

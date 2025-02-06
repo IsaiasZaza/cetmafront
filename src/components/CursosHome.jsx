@@ -14,7 +14,6 @@ const Novidades = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Função para buscar cursos da API
     const fetchCourses = async () => {
       try {
         const response = await fetch("https://crud-usuario.vercel.app/api/cursos");
