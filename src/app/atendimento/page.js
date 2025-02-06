@@ -1,5 +1,4 @@
-import AtendimentoAluno
- from "@/components/AtendimentoAluno"
+import AtendimentoAluno from "@/components/AtendimentoAluno"
 
 const atendimento = () => {
     return (

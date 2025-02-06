@@ -19,13 +19,6 @@ const Novidades = () => {
       try {
         const response = await fetch("https://crud-usuario.vercel.app/api/cursos");
 
-        const token = localStorage.getItem("token");
-
-        if (!token) {
-          window.location.href = "/login";
-          return;
-        }
-        
         if (!response.ok) {
           throw new Error("Erro ao buscar os cursos.");
         }
