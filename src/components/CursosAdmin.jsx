@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
 import MenuLateral from "./MenuLateral";
+import { FaBook } from "react-icons/fa";
+
 
 export default function Cursos() {
   const [cursos, setCursos] = useState([]);
@@ -123,8 +125,10 @@ export default function Cursos() {
     <div className="flex min-h-screen bg-gray-100">
       <MenuLateral />
       <div className="flex-1 p-8">
-        <h1 className="text-3xl font-semibold mb-6 text-center text-gray-900">Cursos Disponíveis</h1>
-
+        <h1 className="text-3xl font-semibold mb-6 text-center text-blue-900 flex items-center justify-center gap-2">
+          Cursos Disponíveis
+          <FaBook className="text-2xl text-blue mr-2" />
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {cursos.map((curso) => (
             <div
@@ -164,18 +168,14 @@ export default function Cursos() {
               </div>
             </div>
           ))}
-
-          <button
-            onClick={() => setIsAddModalOpen(true)}
-            className="flex flex-col items-center justify-center bg-white shadow-md hover:shadow-lg rounded-xl p-6 border border-gray-200 transition-all"
-          >
-            <div className="flex items-center justify-center w-14 h-14 bg-blue-600 rounded-full text-white mb-3">
-              <Plus size={26} />
-            </div>
-            <span className="text-lg font-medium text-gray-800">Adicionar Curso</span>
-          </button>
         </div>
       </div>
+      <button onClick={() => setIsAddModalOpen(true)} className="fixed bottom-4 right-4 flex flex-col items-center justify-center border-none rounded-xl border border-gray-200 transition-all">
+        <div className="flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full text-white mb-3">
+          <Plus size={30} />
+        </div>
+        <span className="text-lg font-medium text-gray-800"></span>
+      </button>
 
       {/* Modal de Edição */}
       {isModalOpen && (

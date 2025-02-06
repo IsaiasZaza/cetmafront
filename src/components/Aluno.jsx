@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { decodeJwt } from 'jose';
+import  {decodeJwt } from 'jose';
 import { FaCheckCircle } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
 import { BsFileText, BsPlayCircle } from "react-icons/bs";
