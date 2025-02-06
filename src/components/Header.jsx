@@ -15,15 +15,14 @@ const menuItems = [
     href: "#",
     subItems: [
       { label: "Curso para Você", href: "/meusCursos" },
-      { label: "Cursos para Empresa", href: "/curso-pra-empresa" },
+      { label: "Cursos para Empresa", href: "/CursosEmpresa" },
     ],
   },
   {
     label: "Conteúdo Gratuito",
     href: "#",
     subItems: [
-      { label: "Ebook", href: "/ebookPage" },
-      { label: "Podcast", href: "/podcast" },
+      { label: "Ebook", href: "/ebookPage" }
     ],
   },
   {
@@ -31,8 +30,7 @@ const menuItems = [
     href: "#",
     subItems: [
       { label: "Porque ser um aluno?", href: "/beneficios" },
-      { label: "Acesso Aluno", href: "/login" },
-      { label: "Feedback dos Alunos", href: "/feedback-alunos" },
+      { label: "Acesso Aluno", href: "/login" }
     ],
   },
 ];
