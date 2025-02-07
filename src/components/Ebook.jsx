@@ -14,7 +14,7 @@ const Ebook = () => {
   useEffect(() => {
     const fetchEbooks = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/ebooks");
+        const response = await fetch("https://crud-usuario.vercel.app/api/ebooks");
         if (!response.ok) {
           throw new Error("Erro ao buscar os e-books");
         }

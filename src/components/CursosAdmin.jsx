@@ -17,7 +17,6 @@ export default function Cursos() {
     coverImage: "",
     subCourses: [],
   });
-  // State to control new subcourse inputs
   const [subCourseInput, setSubCourseInput] = useState({
     title: "",
     description: "",
@@ -30,6 +29,15 @@ export default function Cursos() {
   const [isAddParentModalOpen, setIsAddParentModalOpen] = useState(false);
   const [parentCursos, setParentCursos] = useState([]);
 
+  // Objeto para mapear os nomes dos campos para textos em português
+  const labels = {
+    title: "Título",
+    description: "Descrição",
+    price: "Preço",
+    videoUrl: "URL do Vídeo",
+    coverImage: "Imagem de Capa",
+  };
+
   useEffect(() => {
     async function fetchCursos() {
       try {
@@ -41,7 +49,7 @@ export default function Cursos() {
         const response = await fetch("https://crud-usuario.vercel.app/api/cursos");
         if (!response.ok) throw new Error("Erro ao buscar cursos");
         const data = await response.json();
-        // Filter to show only main courses (no parentCourseId)
+        // Filtra para exibir somente os cursos principais (sem parentCourseId)
         const cursosPrincipais = data.filter((curso) => !curso.parentCourseId);
         setCursos(cursosPrincipais);
       } catch (error) {
@@ -81,7 +89,7 @@ export default function Cursos() {
     }
   };
 
-  // This function now calls the API route to persist the course with subcourses.
+  // Função para adicionar curso com subcursos
   const handleAddCursoWithSubcourses = async () => {
     try {
       const response = await fetch("https://crud-usuario.vercel.app/api/courses", {
@@ -94,7 +102,7 @@ export default function Cursos() {
       if (!response.ok) throw new Error("Erro ao adicionar curso com subcursos");
       const newCurso = await response.json();
       setCursos([...cursos, newCurso]);
-      // Reset the form fields
+      // Reseta os campos do formulário
       setFormCurso({
         title: "",
         description: "",
@@ -142,7 +150,7 @@ export default function Cursos() {
     }
   };
 
-  // Function to add a subcourse to the current course form.
+  // Adiciona um subcurso ao formulário do curso atual
   const handleAddSubCourse = () => {
     if (!subCourseInput.title) return;
     setFormCurso({
@@ -230,10 +238,10 @@ export default function Cursos() {
           <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-lg">
             <h2 className="text-2xl font-bold mb-5 text-gray-900 text-center">Editar Curso</h2>
             <div className="space-y-4">
-              {["title", "description", "price", "videoUrl", "coverImage"].map((field) => (
+              {Object.keys(labels).map((field) => (
                 <div key={field}>
-                  <label className="block text-gray-700 font-medium mb-1 capitalize">
-                    {field}
+                  <label className="block text-gray-700 font-medium mb-1">
+                    {labels[field]}
                   </label>
                   <input
                     type="text"
@@ -243,6 +251,7 @@ export default function Cursos() {
                       setFormCurso({ ...formCurso, [field]: e.target.value })
                     }
                     className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder={`Digite ${labels[field]}`}
                   />
                 </div>
               ))}
@@ -293,16 +302,16 @@ export default function Cursos() {
                   leaveTo="opacity-0 scale-95"
                 >
                   <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-8 text-left shadow-xl transition-all">
-                    <Dialog.Title as="h3" className="text-2xl font-bold text-gray-900 text-center">
+                    <Dialog.Title as="h3" className="text-2xl font-bold text-black text-center">
                       Adicionar Curso 
                     </Dialog.Title>
 
                     {/* Dados do curso principal */}
                     <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {["title", "description", "price", "videoUrl", "coverImage"].map((field) => (
+                      {Object.keys(labels).map((field) => (
                         <div key={field}>
-                          <label htmlFor={field} className="block text-sm font-medium text-gray-700">
-                            {field.charAt(0).toUpperCase() + field.slice(1)}
+                          <label htmlFor={field} className="block text-sm font-medium text-black px-2">
+                            {labels[field]}
                           </label>
                           <input
                             id={field}
@@ -310,8 +319,8 @@ export default function Cursos() {
                             name={field}
                             value={formCurso[field] || ""}
                             onChange={(e) => setFormCurso({ ...formCurso, [field]: e.target.value })}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                            placeholder={`Digite ${field}`}
+                            className="mt-1 block w-full rounded-md border-blue-50 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black px-2 py-2"
+                            placeholder={`Digite ${labels[field]}`}
                           />
                         </div>
                       ))}
@@ -319,7 +328,7 @@ export default function Cursos() {
 
                     {/* Seção para adicionar subcursos */}
                     <div className="mt-8">
-                      <h4 className="text-xl font-semibold text-gray-800 mb-4">Subcursos</h4>
+                      <h4 className="text-xl font-semibold text-black mb-4">Subcursos</h4>
                       {formCurso.subCourses && formCurso.subCourses.length > 0 && (
                         <ul className="mb-4 space-y-3">
                           {formCurso.subCourses.map((sub, index) => (
@@ -332,10 +341,10 @@ export default function Cursos() {
                         </ul>
                       )}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {["title", "description", "price", "videoUrl", "coverImage"].map((field) => (
+                        {Object.keys(labels).map((field) => (
                           <div key={field}>
                             <label htmlFor={`sub-${field}`} className="block text-sm font-medium text-gray-700">
-                              Sub {field.charAt(0).toUpperCase() + field.slice(1)}
+                              {`Sub ${labels[field]}`}
                             </label>
                             <input
                               id={`sub-${field}`}
@@ -346,7 +355,7 @@ export default function Cursos() {
                                 setSubCourseInput({ ...subCourseInput, [field]: e.target.value })
                               }
                               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                              placeholder={`Digite ${field}`}
+                              placeholder={`Digite ${labels[field]}`}
                             />
                           </div>
                         ))}
@@ -390,14 +399,14 @@ export default function Cursos() {
       {isAddParentModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
           <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-lg">
-            <h2 className="text-2xl font-bold mb-5 text-gray-900 text-center">
+            <h2 className="text-2xl font-bold mb-5 text-black text-center">
               Adicionar Curso Parente
             </h2>
             <div className="space-y-4">
-              {["title", "description", "price", "videoUrl", "coverImage"].map((field) => (
+              {Object.keys(labels).map((field) => (
                 <div key={field}>
-                  <label className="block text-gray-700 font-medium mb-1 capitalize">
-                    {field}
+                  <label className="block text-black font-medium mb-1">
+                    {labels[field]}
                   </label>
                   <input
                     type="text"
@@ -405,6 +414,7 @@ export default function Cursos() {
                     value={formCurso[field] || ""}
                     onChange={(e) => setFormCurso({ ...formCurso, [field]: e.target.value })}
                     className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder={`Digite ${labels[field]}`}
                   />
                 </div>
               ))}

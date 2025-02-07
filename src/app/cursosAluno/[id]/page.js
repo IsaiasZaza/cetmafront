@@ -73,13 +73,14 @@ const CourseDetail = () => {
                         <p className="mt-6 text-gray-700 leading-relaxed">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
                         </p>
-                        <div>
-                            <video
-                                src={course.videoUrl}
-                                controls
-                                className="w-full py-12">
-
-                            </video>
+                        <div className="h-96">
+                            <iframe
+                                src="https://www.youtube.com/embed/KT3WDc2B_q8?si=XRS-vSd5DAm8dG72"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                className="w-full h-full py-12">
+                            </iframe>
                         </div>
                         <p className="mt-6 text-gray-700 leading-relaxed">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
