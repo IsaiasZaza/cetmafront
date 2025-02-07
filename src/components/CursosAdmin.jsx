@@ -303,16 +303,13 @@ export default function Cursos() {
                 >
                   <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-8 text-left shadow-xl transition-all">
                     <Dialog.Title as="h3" className="text-2xl font-bold text-black text-center">
-                      Adicionar Curso 
+                      Adicionar Curso
                     </Dialog.Title>
 
                     {/* Dados do curso principal */}
                     <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                       {Object.keys(labels).map((field) => (
                         <div key={field}>
-                          <label htmlFor={field} className="block text-sm font-medium text-black px-2">
-                            {labels[field]}
-                          </label>
                           <input
                             id={field}
                             type="text"
@@ -328,7 +325,7 @@ export default function Cursos() {
 
                     {/* Seção para adicionar subcursos */}
                     <div className="mt-8">
-                      <h4 className="text-xl font-semibold text-black mb-4">Subcursos</h4>
+                      <h4 className="text-xl font-semibold text-black mb-4 px-2 py-2">Subcursos</h4>
                       {formCurso.subCourses && formCurso.subCourses.length > 0 && (
                         <ul className="mb-4 space-y-3">
                           {formCurso.subCourses.map((sub, index) => (
@@ -343,9 +340,7 @@ export default function Cursos() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {Object.keys(labels).map((field) => (
                           <div key={field}>
-                            <label htmlFor={`sub-${field}`} className="block text-sm font-medium text-gray-700">
-                              {`Sub ${labels[field]}`}
-                            </label>
+
                             <input
                               id={`sub-${field}`}
                               type="text"
@@ -354,7 +349,7 @@ export default function Cursos() {
                               onChange={(e) =>
                                 setSubCourseInput({ ...subCourseInput, [field]: e.target.value })
                               }
-                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                              className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-2 py-2"
                               placeholder={`Digite ${labels[field]}`}
                             />
                           </div>
