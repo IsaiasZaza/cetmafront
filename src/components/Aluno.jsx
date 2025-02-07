@@ -125,7 +125,7 @@ const Aluno = () => {
 
         {/* Lista de Cursos */}
         <section>
-          <h2 className="text-2xl font-bold mb-4 text-center text-gray-900">Meus Cursos</h2>
+          <h2 className="text-4xl font-bold mb-4 text-center text-blue-900">Meus Cursos</h2>
           {userData.courses.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {userData.courses.map((course) => (

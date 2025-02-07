@@ -6,6 +6,8 @@ import MenuLateral from "./MenuLateral";
 import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { FaArrowRight } from "react-icons/fa";
+
 
 const CoursesPage = () => {
   const router = useRouter();
@@ -57,7 +59,7 @@ const CoursesPage = () => {
       <MenuLateral />
 
       <main className="flex-grow p">
-        <div className="relative bg-[url('/bannerCursos.png')] bg-cover bg-center h-[45vh] text-white flex flex-col justify-center items-start px-6 md:px-20 lg:px-40">
+        <div className="relative bg-[url('/bannerCursos.png')] bg-cover bg-center h-[45vh] text-white flex flex-col justify-center items-start px-6 md:px-12">
           {/* Gradiente de sobreposição */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
           {/* Conteúdo do banner */}
@@ -97,26 +99,21 @@ const CoursesPage = () => {
                 </div>
 
                 {/* Título */}
-                <h3 className="text-lg font-semibold text-gray-800 mb-2 truncate">
+                <h3 className="text-lg font-semibold text-blue-900 truncate">
                   {course.title}
                 </h3>
-
+                <p className="text-sm text-gray-900 ">de <span className="line-through">{`R$ ${(course.price * 1.5).toFixed(2).replace('.', ',')}`}</span></p>
                 {/* Preço */}
-                <p className="text-xl font-bold text-blue-700 mb-2">{`R$ ${course.price.toFixed(
-                  2
-                )}`}</p>
-
-                {/* Descrição */}
-                <p className="text-sm text-gray-600 mb-4 leading-relaxed line-clamp-3">
-                  {course.description}
+                <p className="text-xl font-bold text-blue-700">{`R$ ${course.price.toFixed(2).replace('.', ',')}`}</p>
+                <p className="text-sm text-gray-600 leading-relaxed line-clamp-3 pb-2">
+                  A vista
                 </p>
-
                 {/* Botão de "Saiba Mais" */}
                 <button
-                  className="w-full bg-blue-600 text-white font-bold py-2 rounded-lg transition-all hover:bg-blue-700 hover:shadow-md focus:outline-none focus:ring focus:ring-blue-300"
+                  className="w-full bg-blue-600 text-white font-bold py-2 rounded-full transition-all hover:bg-blue-700 hover:shadow-md focus:outline-none focus:ring focus:ring-blue-300 flex items-center justify-center gap-2"
                   onClick={() => handleRedirect(`/courses/${course.id}`)}
                 >
-                  Saiba Mais
+                  Saiba Mais <FaArrowRight />
                 </button>
 
                 {/* Decoração no canto inferior direito */}

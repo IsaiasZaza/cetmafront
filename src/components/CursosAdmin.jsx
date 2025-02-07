@@ -170,7 +170,7 @@ export default function Cursos() {
     <div className="flex min-h-screen bg-gray-100">
       <MenuLateral />
       <div className="flex-1 p-8">
-        <h1 className="text-3xl font-semibold mb-6 text-center text-blue-900 flex items-center justify-center gap-2">
+        <h1 className="text-4xl font-semibold mb-6 text-center text-blue-900 flex items-center justify-center gap-2">
           Cursos Disponíveis
           <FaBook className="text-2xl text-blue mr-2" />
         </h1>
