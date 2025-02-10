@@ -19,22 +19,22 @@ export default function VideoPlayer() {
       id: 1,
       title: "Fundamentos da Enfermagem",
       lessons: [
-        { title: "Introdução à Enfermagem", url: "https://youtu.be/1yorXvlZd6s" },
-        { title: "Ética e Responsabilidade Profissional", url: "https://www.youtube.com/embed/XziTBfKrMJE?si=1LRWRzKviQalv7KT" },
-        { title: "A importância da Comunicação", url: "https://youtu.be/AMycd3y3Vns?si=41vmJoLqF0k2MU9O" },
-        { title: "Cuidados com Pacientes Críticos", url: "https://youtu.be/wfFTSbxyI1M?si=YwPacX0jmlEB0xMQ" },
-        { title: "Administração de Medicamentos", url: "https://youtu.be/63B6H9Dra_8?si=IuObVoU0dHL-4BwL" }
+        { title: "Introdução à Enfermagem", url: "https://youtu.be/1yorXvlZd6s", image: "Retangulo_20.png" },
+        { title: "Ética e Responsabilidade Profissional", url: "https://www.youtube.com/embed/XziTBfKrMJE?si=1LRWRzKviQalv7KT", image: "Retangulo_20.png" },
+        { title: "A importância da Comunicação", url: "https://youtu.be/AMycd3y3Vns?si=41vmJoLqF0k2MU9O", image: "Retangulo_20.png" },
+        { title: "Cuidados com Pacientes Críticos", url: "https://youtu.be/wfFTSbxyI1M?si=YwPacX0jmlEB0xMQ", image: "Retangulo_20.png" },
+        { title: "Administração de Medicamentos", url: "https://youtu.be/63B6H9Dra_8?si=IuObVoU0dHL-4BwL", image: "Retangulo_20.png" }
       ]
     },
     {
       id: 2,
       title: "Enfermagem em Cuidados Especiais",
       lessons: [
-        { title: "Aula 1: Enfermagem Obstétrica", url: "https://youtu.be/6mnoMNO345" },
-        { title: "Aula 2: Enfermagem Pediátrica", url: "https://youtu.be/7pqrPQR678" },
-        { title: "Aula 3: Cuidados Intensivos e UTI", url: "https://youtu.be/8stuSTU901" },
-        { title: "Aula 4: Enfermagem Oncológica", url: "https://youtu.be/9vwxVWX234" },
-        { title: "Aula 5: Enfermagem Geriátrica", url: "https://youtu.be/0yzYZZ567" }
+        { title: "Enfermagem Obstétrica", url: "https://youtu.be/6mnoMNO345", image: "Retangulo_20.png" },
+        { title: "Enfermagem Pediátrica", url: "https://youtu.be/7pqrPQR678", image: "Retangulo_20.png" },
+        { title: "Cuidados Intensivos e UTI", url: "https://youtu.be/8stuSTU901", image: "Retangulo_20.png" },
+        { title: "Enfermagem Oncológica", url: "https://youtu.be/9vwxVWX234", image: "Retangulo_20.png" },
+        { title: "Enfermagem Geriátrica", url: "https://youtu.be/0yzYZZ567", image: "Retangulo_20.png" }
       ]
     }
   ];
@@ -160,9 +160,7 @@ export default function VideoPlayer() {
             <div className={`overflow-hidden transition-all duration-300 ${openModule === module.id ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
               {module.lessons.map((lesson, index) => (
                 <div key={index} className="flex items-center gap-3 py-3 px-4 border-b border-[#4A90E2] hover:bg-[#4A90E2] hover:text-black rounded-lg transition-all">
-                  <div className="w-10 h-10 bg-[#4A90E2] rounded-full flex items-center justify-center text-white text-xl">
-                    {index + 1}
-                  </div>
+                  <img src={lesson.image} alt={lesson.title} className="w-16 h-10 object-cover rounded-lg" />
                   <span className="font-medium text-gray-300">
                     <button onClick={() => changeVideo(lesson.url, index)} className="text-white">
                       {lesson.title}
