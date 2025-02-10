@@ -1,27 +1,33 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
 import MenuLateral from "@/components/MenuLateral";
+import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 const moduloCurso = () => {
     const { id } = useParams();
     const [course, setCourse] = useState(null);
     const [loading, setLoading] = useState(true);
+    const router = useRouter(); // Definir router dentro do componente
+
+    const handleRedirect = (url) => {
+        router.push(url);
+    };
 
     const Card = ({ title, description, videoUrl }) => (
         <div className="bg-gray-300 rounded-lg h-80 flex flex-col items-center justify-center text-center font-semibold shadow-md p-4 hover:shadow-lg transition-shadow">
             <h3 className="text-lg font-bold mb-2">{title}</h3>
             <p className="text-sm text-gray-700">{description}</p>
             {videoUrl && (
-                <a 
-                    href={videoUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                <button
+                    onClick={() => handleRedirect(`/playerVideo/${course.id}`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="mt-2 text-blue-500 underline"
                 >
                     Assistir Aula
-                </a>
+                </button>
             )}
         </div>
     );
@@ -98,11 +104,11 @@ const moduloCurso = () => {
                         <h2 className="text-2xl font-semibold mb-4 text-blue-500">Tópico 1: Aulas do Curso</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                             {course.subCourses?.map((subCourse) => (
-                                <Card 
-                                    key={subCourse.id} 
-                                    title={subCourse.title} 
-                                    description={subCourse.description} 
-                                    videoUrl={subCourse.videoUrl} 
+                                <Card
+                                    key={subCourse.id}
+                                    title={subCourse.title}
+                                    description={subCourse.description}
+                                    videoUrl={subCourse.videoUrl}
                                 />
                             ))}
                         </div>
