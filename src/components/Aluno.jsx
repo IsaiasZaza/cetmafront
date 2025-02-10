@@ -1,22 +1,28 @@
 "use client";
 import { useState, useEffect } from "react";
-import  {decodeJwt } from 'jose';
+import { decodeJwt } from "jose";
 import { FaCheckCircle } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
 import { BsFileText, BsPlayCircle } from "react-icons/bs";
 import MenuLateral from "./MenuLateral";
+import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 // Componente CardCurso
 const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, link }) => {
+  const router = useRouter(); // Definir router dentro do componente
+
+  const handleRedirect = (url) => {
+    router.push(url);
+  };
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
       <div className={`flex items-center gap-2 font-bold ${status === "Concluído" ? "text-green-500" : "text-blue-500"}`}>
         {status === "Concluído" ? <FaCheckCircle /> : <FiClock />}
         <p>{status}</p>
       </div>
-      <h3 className="text-lg text-gray-900 font-bold border-b-2 pb-3 mt-2 border-gray-300">
-        {titulo}
-      </h3>
+      <h3 className="text-lg text-gray-900 font-bold border-b-2 pb-3 mt-2 border-gray-300">{titulo}</h3>
       <div className="w-full bg-gray-300 h-2 rounded-full mt-2">
         <div className="bg-blue-500 h-2 rounded-full" style={{ width: progresso }}></div>
       </div>
@@ -32,12 +38,12 @@ const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, lin
           </div>
         </div>
         <div>
-          <a
-            href={link}
+          <button
+            onClick={() => handleRedirect(link)}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow-md transition-transform duration-200 hover:scale-105"
           >
             Continuar
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -52,6 +58,27 @@ const Aluno = () => {
     courses: [],
   });
 
+  const router = useRouter();
+  const { id } = useParams();
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        const response = await fetch(`https://crud-usuario.vercel.app/api/curso/${id}`);
+        const data = await response.json();
+        setCourse(data);
+      } catch (error) {
+        console.error("Erro ao buscar curso:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) fetchCourse();
+  }, [id]);
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -62,7 +89,6 @@ const Aluno = () => {
           return;
         }
 
-        // Decodificando o token usando jose
         const decodedToken = decodeJwt(token);
 
         if (!decodedToken || !decodedToken.id) {
@@ -70,10 +96,9 @@ const Aluno = () => {
           return;
         }
 
-        // Fazendo a requisição para a API com o id do usuário
         const response = await fetch(`https://crud-usuario.vercel.app/api/user/${decodedToken.id}`, {
           method: "GET",
-          headers: { "Authorization": `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         if (!response.ok) throw new Error("Erro ao buscar dados do usuário");
@@ -87,10 +112,9 @@ const Aluno = () => {
           profilePicture: data.user.profilePicture || null,
           courses: data.user.courses || [],
         });
-
       } catch (error) {
         console.error("Erro ao buscar dados do usuário:", error);
-        window.location.href = "/beneficios"; // Redireciona em caso de erro
+        window.location.href = "/beneficios";
       }
     };
 
@@ -99,14 +123,10 @@ const Aluno = () => {
 
   return (
     <div className="flex h-screen" style={{ background: "linear-gradient(120deg, #f8fafc 0%, #e7ebf0 100%)" }}>
-      {/* Menu Lateral */}
       <MenuLateral />
 
-      {/* Conteúdo Principal */}
       <main className="flex-grow p-8">
-        {/* Perfil do Usuário */}
         <section className="p-6 flex flex-col md:flex-row items-center gap-6 mb-8 border-b-2 border-gray-300">
-          {/* Imagem do Usuário */}
           <div className="relative w-40 h-40 rounded-lg overflow-hidden shadow-lg">
             <img
               src={`https://crud-usuario.vercel.app/${userData.profilePicture}`}
@@ -115,7 +135,6 @@ const Aluno = () => {
             />
           </div>
 
-          {/* Informações do Usuário */}
           <div className="w-full md:w-1/2 text-center md:text-left space-y-4">
             <h1 className="text-3xl text-gray-900 font-semibold">{userData.nome}</h1>
             <p className="text-xl text-gray-600">{userData.estado}</p>
@@ -123,7 +142,6 @@ const Aluno = () => {
           </div>
         </section>
 
-        {/* Lista de Cursos */}
         <section>
           <h2 className="text-4xl font-bold mb-4 text-center text-blue-900">Meus Cursos</h2>
           {userData.courses.length > 0 ? (
@@ -133,10 +151,10 @@ const Aluno = () => {
                   key={course.id}
                   status="Progresso"
                   titulo={course.title}
-                  progresso="0%" // Atualizar com lógica de progresso real, se aplicável
-                  aulasConcluidas={0} // Atualizar com lógica de aulas concluídas, se aplicável
-                  totalAulas={10} // Exemplo, ajuste conforme necessário
-                  link={`/curso/${course.id}`}
+                  progresso="0%"
+                  aulasConcluidas={0}
+                  totalAulas={10}
+                  link={`/moduloCurso/${course.id}`}
                 />
               ))}
             </div>

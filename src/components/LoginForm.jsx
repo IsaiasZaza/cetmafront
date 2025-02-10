@@ -1,11 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FaEnvelope, FaEye, FaEyeSlash, FaUser, FaLock, FaArrowAltCircleLeft, FaBriefcase, FaIdCard } from "react-icons/fa";
-
-
-
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,12 +24,44 @@ const LoginForm = () => {
 
   const handleFormSwitch = (type) => {
     setFormType(type);
-    setMessage(null); // Limpa mensagens ao trocar de formulário
+    setMessage(null);
   };
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
     setMessage(null);
+
+
+
+    useEffect(() => {
+      async function checkTokenAndFetchCursos() {
+        try {
+          const token = localStorage.getItem("token");
+          // Se existir o token, redireciona para "/aluno" e não busca os cursos.
+          if (token) {
+            window.location.href = "/aluno";
+            return;
+          }
+          
+          // Se não houver token, realiza a chamada para buscar os cursos.
+          const response = await fetch("https://crud-usuario.vercel.app/api/cursos", {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+    
+          if (!response.ok) throw new Error("Erro ao buscar cursos");
+    
+          const data = await response.json();
+          // Filtra para exibir somente os cursos principais (sem parentCourseId)
+          const cursosPrincipais = data.filter((curso) => !curso.parentCourseId);
+          setCursos(cursosPrincipais);
+        } catch (error) {
+          console.error("Erro ao buscar cursos:", error);
+        }
+      }
+      checkTokenAndFetchCursos();
+    }, []);
 
     try {
       const response = await fetch("https://crud-usuario.vercel.app/api/forgot-password", {
@@ -193,101 +222,101 @@ const LoginForm = () => {
         );
       case "register":
         return (
-        <form onSubmit={handleRegister} className="w-full flex flex-col items-center text-gray-700 space-y-6">
-          {/* Campo de nome */}
-          <div className={inputContainerStyle}>
-            <FaUser className="text-gray-400 ml-3" />
-            <input
-              type="text"
-              placeholder="Digite seu nome"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className={inputStyle}
-            />
-          </div>
-          {/* Campo de email */}
-          <div className={inputContainerStyle}>
-            <FaEnvelope className="text-gray-400 ml-3" />
-            <input
-              type="email"
-              placeholder="Digite seu email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className={inputStyle}
-            />
-          </div>
-          {/* Campo de profissão */}
-          <div className={inputContainerStyle}>
-            <FaBriefcase className="text-gray-400 ml-3" />
-            <input
-              type="text"
-              placeholder="Digite sua profissão"
-              value={profissao}
-              onChange={(e) => setProfissao(e.target.value)}
-              required
-              className={inputStyle}
-            />
-          </div>
-          {/* Campo de CPF */}
-          <div className={inputContainerStyle}>
-            <FaIdCard className="text-gray-400 ml-3" />
-            <input
-              type="text"
-              placeholder="Digite seu CPF"
-              value={cpf}
-              onChange={(e) => setCpf(e.target.value)}
-              required
-              className={inputStyle}
-            />
-            
-          </div>
-          {/* Campo de senha */}
-          <div className={inputContainerStyle}>
-            <FaLock className="text-gray-400 ml-3" />
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Digite sua senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className={inputStyle}
-            />
-            {showPassword ? (
-              <FaEye className="text-gray-400 cursor-pointer mr-3" onClick={togglePasswordVisibility} />
-            ) : (
-              <FaEyeSlash className="text-gray-400 cursor-pointer mr-3" onClick={togglePasswordVisibility} />
-            )}
-          </div>
-          {/* Campo de confirmação de senha */}
-          <div className={inputContainerStyle}>
-            <FaLock className="text-gray-400 ml-3" />
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Confirme sua senha"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              className={inputStyle}
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-4/5 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 text-white rounded-md font-medium transform transition duration-200 hover:scale-105 hover:from-blue-600 hover:to-cyan-400"
-          >
-            Cadastrar
-          </button>
-          <p className="text-sm text-gray-500">
-            Já tem uma conta?{" "}
-            <span
-              className="text-blue-600 cursor-pointer hover:underline"
-              onClick={() => handleFormSwitch("login")}
+          <form onSubmit={handleRegister} className="w-full flex flex-col items-center text-gray-700 space-y-6">
+            {/* Campo de nome */}
+            <div className={inputContainerStyle}>
+              <FaUser className="text-gray-400 ml-3" />
+              <input
+                type="text"
+                placeholder="Digite seu nome"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className={inputStyle}
+              />
+            </div>
+            {/* Campo de email */}
+            <div className={inputContainerStyle}>
+              <FaEnvelope className="text-gray-400 ml-3" />
+              <input
+                type="email"
+                placeholder="Digite seu email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className={inputStyle}
+              />
+            </div>
+            {/* Campo de profissão */}
+            <div className={inputContainerStyle}>
+              <FaBriefcase className="text-gray-400 ml-3" />
+              <input
+                type="text"
+                placeholder="Digite sua profissão"
+                value={profissao}
+                onChange={(e) => setProfissao(e.target.value)}
+                required
+                className={inputStyle}
+              />
+            </div>
+            {/* Campo de CPF */}
+            <div className={inputContainerStyle}>
+              <FaIdCard className="text-gray-400 ml-3" />
+              <input
+                type="text"
+                placeholder="Digite seu CPF"
+                value={cpf}
+                onChange={(e) => setCpf(e.target.value)}
+                required
+                className={inputStyle}
+              />
+
+            </div>
+            {/* Campo de senha */}
+            <div className={inputContainerStyle}>
+              <FaLock className="text-gray-400 ml-3" />
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Digite sua senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className={inputStyle}
+              />
+              {showPassword ? (
+                <FaEye className="text-gray-400 cursor-pointer mr-3" onClick={togglePasswordVisibility} />
+              ) : (
+                <FaEyeSlash className="text-gray-400 cursor-pointer mr-3" onClick={togglePasswordVisibility} />
+              )}
+            </div>
+            {/* Campo de confirmação de senha */}
+            <div className={inputContainerStyle}>
+              <FaLock className="text-gray-400 ml-3" />
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Confirme sua senha"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                className={inputStyle}
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-4/5 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 text-white rounded-md font-medium transform transition duration-200 hover:scale-105 hover:from-blue-600 hover:to-cyan-400"
             >
-              Entrar
-            </span>
-          </p>
-        </form>
+              Cadastrar
+            </button>
+            <p className="text-sm text-gray-500">
+              Já tem uma conta?{" "}
+              <span
+                className="text-blue-600 cursor-pointer hover:underline"
+                onClick={() => handleFormSwitch("login")}
+              >
+                Entrar
+              </span>
+            </p>
+          </form>
 
         );
       case "forgotPassword":
@@ -319,7 +348,7 @@ const LoginForm = () => {
                 Entrar
               </span>
             </p>
-          </form>   
+          </form>
         );
       default:
         return null;
@@ -348,8 +377,8 @@ const LoginForm = () => {
           {message && (
             <div
               className={`mt-4 px-4 py-2 w-4/5 rounded-md ${message.type === "error"
-                  ? "bg-red-100 text-red-500 border border-red-500"
-                  : "bg-green-100 text-green-500 border border-green-500"
+                ? "bg-red-100 text-red-500 border border-red-500"
+                : "bg-green-100 text-green-500 border border-green-500"
                 }`}
             >
               {message.text}

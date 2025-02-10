@@ -191,6 +191,7 @@ export default function Cursos() {
                   <span className="text-gray-400 text-xl">Sem imagem</span>
                 )}
               </div>
+              <p>{curso.id}</p>
               <h2 className="text-lg font-semibold text-gray-800 mb-2 truncate">{curso.title}</h2>
               <p className="text-gray-600 text-sm mb-2">
                 {curso.description || "Sem descrição disponível"}
