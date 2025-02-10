@@ -8,6 +8,9 @@ import { useEffect, useState } from "react";
 import AOS from "aos";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import  {decodeJwt } from 'jose';
+import CheckoutButton from "@/components/CheckoutButton";
+
 
 
 const CourseDetail = () => {
@@ -18,6 +21,8 @@ const CourseDetail = () => {
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [courses, setCourses] = useState([]);
+  const [userId, setUserId] = useState(null); // estado para o id do usuário
+
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -62,6 +67,12 @@ const CourseDetail = () => {
     };
 
     fetchCourses();
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const decodedToken = decodeJwt(token);
+    setUserId(decodedToken.id);
   }, []);
 
   if (loading) {
@@ -161,12 +172,9 @@ const CourseDetail = () => {
                   <p className="text-4xl font-extrabold">R$ {course.price}</p>
                   <p className="text-sm font-medium">em até 6x sem juros</p>
                 </div>
-                <a
-                  href="#inscricao"
-                  className="mt-6 inline-block bg-gradient-to-r w-full from-blue-500 to-blue-700 text-white px-8 py-3 rounded-full font-bold text-lg hover:from-blue-600 hover:to-blue-800 transition-transform transform hover:scale-105"
-                >
-                  Aprenda Agora
-                </a>
+                <CheckoutButton                 courseId={course.id} 
+                userId={userId} />
+
               </div>
             </div>
           </section>
