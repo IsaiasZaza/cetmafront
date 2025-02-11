@@ -114,7 +114,7 @@ const Aluno = () => {
         });
       } catch (error) {
         console.error("Erro ao buscar dados do usuário:", error);
-        window.location.href = "/beneficios";
+        window.location.href = "/login";
       }
     };
 

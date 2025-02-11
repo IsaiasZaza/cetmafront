@@ -51,6 +51,7 @@ const moduloCurso = () => {
                         ...(data.subCourses || []),
                     ],
                 };
+                console.log(data)
 
                 setCourse(formattedCourse);
             } catch (error) {

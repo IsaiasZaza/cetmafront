@@ -58,7 +58,9 @@ const CourseDetail = () => {
         }
         const response = await fetch("https://crud-usuario.vercel.app/api/cursos");
         const data = await response.json();
-        setCourses(data); // Assuming the API returns an array of courses
+        const mainCourses = data.filter((course) => !course.parentCourseId);
+        setCourses(mainCourses);
+
         setLoading(false);
       } catch (error) {
         console.error("Error fetching courses:", error);
