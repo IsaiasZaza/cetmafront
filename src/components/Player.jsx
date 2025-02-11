@@ -1,47 +1,62 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ReactPlayer from "react-player";
-import { FaChevronLeft, FaChevronRight, FaChevronDown, FaChevronUp, FaPhoneAlt } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaPhoneAlt } from "react-icons/fa";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import { motion } from "framer-motion";
 
 export default function VideoPlayer() {
   const router = useRouter();
-  const [rating, setRating] = useState(3);
-  const [openModule, setOpenModule] = useState(null);
+  const { id } = useParams();
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [feedback, setFeedback] = useState("");
-  const [currentVideoUrl, setCurrentVideoUrl] = useState("https://youtu.be/1yorXvlZd6s"); // Estado para armazenar a URL do vídeo
-  const [currentLessonIndex, setCurrentLessonIndex] = useState(0); // Índice da aula atual
-  const [showContact, setShowContact] = useState(false);
+  const [currentVideoUrl, setCurrentVideoUrl] = useState("");
+  const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
 
-  const modules = [
-    {
-      id: 1,
-      title: "Fundamentos da Enfermagem",
-      lessons: [
-        { title: "Introdução à Enfermagem", url: "https://youtu.be/1yorXvlZd6s", image: "Retangulo_20.png" },
-        { title: "Ética e Responsabilidade Profissional", url: "https://www.youtube.com/embed/XziTBfKrMJE?si=1LRWRzKviQalv7KT", image: "Retangulo_20.png" },
-        { title: "A importância da Comunicação", url: "https://youtu.be/AMycd3y3Vns?si=41vmJoLqF0k2MU9O", image: "Retangulo_20.png" },
-        { title: "Cuidados com Pacientes Críticos", url: "https://youtu.be/wfFTSbxyI1M?si=YwPacX0jmlEB0xMQ", image: "Retangulo_20.png" },
-        { title: "Administração de Medicamentos", url: "https://youtu.be/63B6H9Dra_8?si=IuObVoU0dHL-4BwL", image: "Retangulo_20.png" }
+  // Cria uma lista de aulas que inclui o vídeo introdutório (do curso) e os subcursos
+  const lessons = course
+    ? course.videoUrl
+      ? [
+        {
+          id: course.id,
+          title: `Introdução: ${course.title}`,
+          description: course.description,
+          videoUrl: course.videoUrl,
+        },
+        ...(course.subCourses || []),
       ]
-    },
-    {
-      id: 2,
-      title: "Enfermagem em Cuidados Especiais",
-      lessons: [
-        { title: "Enfermagem Obstétrica", url: "https://youtu.be/6mnoMNO345", image: "Retangulo_20.png" },
-        { title: "Enfermagem Pediátrica", url: "https://youtu.be/7pqrPQR678", image: "Retangulo_20.png" },
-        { title: "Cuidados Intensivos e UTI", url: "https://youtu.be/8stuSTU901", image: "Retangulo_20.png" },
-        { title: "Enfermagem Oncológica", url: "https://youtu.be/9vwxVWX234", image: "Retangulo_20.png" },
-        { title: "Enfermagem Geriátrica", url: "https://youtu.be/0yzYZZ567", image: "Retangulo_20.png" }
-      ]
+      : (course.subCourses || [])
+    : [];
+
+  // Busca os dados do curso
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        const response = await fetch(`https://crud-usuario.vercel.app/api/curso/${id}`);
+        const data = await response.json();
+        setCourse(data);
+        console.log("Curso:", data);
+      } catch (error) {
+        console.error("Erro ao buscar curso:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) fetchCourse();
+  }, [id]);
+
+  // Define o vídeo inicial quando a lista de aulas estiver pronta
+  useEffect(() => {
+    if (lessons.length > 0 && !currentVideoUrl) {
+      setCurrentVideoUrl(lessons[0].videoUrl);
+      setCurrentLessonIndex(0);
     }
-  ];
-
-  const toggleModule = (id) => {
-    setOpenModule(openModule === id ? null : id);
-  };
+  }, [lessons, currentVideoUrl]);
 
   const handleFeedbackSubmit = (e) => {
     e.preventDefault();
@@ -49,43 +64,58 @@ export default function VideoPlayer() {
     setFeedback("");
   };
 
-  // Função para alterar o vídeo
+  // Muda o vídeo e atualiza o índice atual da aula
   const changeVideo = (url, index) => {
     setCurrentVideoUrl(url);
     setCurrentLessonIndex(index);
   };
 
-  // Funções de navegação
+  // Função para voltar para a aula anterior
   const goToPreviousLesson = () => {
     if (currentLessonIndex > 0) {
-      setCurrentLessonIndex(currentLessonIndex - 1);
-      const prevLesson = modules[0].lessons[currentLessonIndex - 1];
-      setCurrentVideoUrl(prevLesson.url);
+      const newIndex = currentLessonIndex - 1;
+      setCurrentLessonIndex(newIndex);
+      setCurrentVideoUrl(lessons[newIndex].videoUrl);
     }
   };
 
+  // Função para ir para a próxima aula
   const goToNextLesson = () => {
-    if (currentLessonIndex < modules[0].lessons.length - 1) {
-      setCurrentLessonIndex(currentLessonIndex + 1);
-      const nextLesson = modules[0].lessons[currentLessonIndex + 1];
-      setCurrentVideoUrl(nextLesson.url);
+    if (currentLessonIndex < lessons.length - 1) {
+      const newIndex = currentLessonIndex + 1;
+      setCurrentLessonIndex(newIndex);
+      setCurrentVideoUrl(lessons[newIndex].videoUrl);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="p-8 bg-[#0A1F2C] text-white min-h-screen">
+        Carregando...
+      </div>
+    );
+  }
 
   return (
-    <div className="p-8 bg-[#0A1F2C] text-white min-h-screen flex relative">
-      {/* Seção de vídeo */}
-      <div className="w-3/4 pr-8">
+    <div className="p-8 bg-[#0A1F2C] text-white min-h-screen flex flex-col md:flex-row relative">
+      {/* Seção de vídeo e feedback */}
+      <div className="w-full md:w-3/4 pr-0 md:pr-8 mb-8 md:mb-0">
         <button
-          onClick={() => router.back()}
+          href="/aluno"
           className="text-[#4A90E2] hover:text-white mb-6 flex items-center gap-2 transform hover:scale-105 transition"
         >
           <FaChevronLeft className="text-xl" /> Voltar
         </button>
 
-        <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-700/50 bg-gradient-to-br from-[#1A2635] to-[#0F1A27]">
+        {/* Container animado para o player */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-700/50 bg-gradient-to-br from-[#1A2635] to-[#0F1A27]"
+        >
           <ReactPlayer
-            url={currentVideoUrl} // A URL do vídeo agora vem do estado
+            url={currentVideoUrl}
             controls
             width="100%"
             height="68vh"
@@ -93,29 +123,38 @@ export default function VideoPlayer() {
             config={{
               youtube: {
                 playerVars: {
-                  modestbranding: 1,
-                  rel: 0,
-                  showinfo: 0
-                }
-              }
+                  modestbranding: 1,   // Minimiza a marca do YouTube
+                  rel: 0,              // Não exibe vídeos relacionados ao final
+                  controls: 1,         // Mantém os controles básicos para o usuário
+                  disablekb: 1,        // Desabilita atalhos de teclado que podem expor links ou opções
+                  fs: 0,               // Remove o botão de tela cheia (que pode levar a outras interações)
+                  iv_load_policy: 3,   // Desativa anotações sobre o vídeo
+                  origin: window.location.origin, // Define a origem para reforçar a segurança
+                },
+              },
             }}
           />
-        </div>
 
-        <div className="mt-6 border-b border-[#1A2635] pb-2 flex items-center justify-between">
-          <h2 className="text-3xl font-semibold text-[#4A90E2]">{modules[0].lessons[currentLessonIndex].title}</h2>
+        </motion.div>
+
+        <div className="mt-6 flex items-center justify-between border-b border-[#1A2635] pb-2">
+          <h2 className="text-3xl font-semibold text-[#4A90E2]">
+            {lessons[currentLessonIndex]?.title}
+          </h2>
           <div className="flex gap-6">
             <button
               onClick={goToPreviousLesson}
-              className={`p-4 text-white rounded-lg text-xl flex items-center justify-center transition-all ${currentLessonIndex === 0 ? 'bg-[#4A90E2]/50 cursor-not-allowed' : 'bg-[#4A90E2] hover:bg-[#357ABD]'}`}
               disabled={currentLessonIndex === 0}
+              className={`p-4 text-white rounded-lg text-xl flex items-center justify-center transition-all ${currentLessonIndex === 0 ? "bg-[#4A90E2]/50 cursor-not-allowed" : "bg-[#4A90E2] hover:bg-[#357ABD]"
+                }`}
             >
               <FaChevronLeft />
             </button>
             <button
               onClick={goToNextLesson}
-              className={`p-4 text-white rounded-lg text-xl flex items-center justify-center transition-all ${currentLessonIndex === modules[0].lessons.length - 1 ? 'bg-[#4A90E2]/50 cursor-not-allowed' : 'bg-[#4A90E2] hover:bg-[#357ABD]'}`}
-              disabled={currentLessonIndex === modules[0].lessons.length - 1}
+              disabled={currentLessonIndex === lessons.length - 1}
+              className={`p-4 text-white rounded-lg text-xl flex items-center justify-center transition-all ${currentLessonIndex === lessons.length - 1 ? "bg-[#4A90E2]/50 cursor-not-allowed" : "bg-[#4A90E2] hover:bg-[#357ABD]"
+                }`}
             >
               <FaChevronRight />
             </button>
@@ -123,14 +162,16 @@ export default function VideoPlayer() {
         </div>
 
         <div className="mt-8 p-6 bg-gradient-to-br from-[#1A2635] to-[#0F1A27] rounded-2xl shadow-xl border border-[#4A90E2]/30">
-          <h3 className="text-2xl font-bold text-[#4A90E2] mb-4 text-center">Deixe seu feedback sobre a aula</h3>
+          <h3 className="text-2xl font-bold text-[#4A90E2] mb-4 text-center">
+            Deixe seu feedback sobre a aula
+          </h3>
           <form onSubmit={handleFeedbackSubmit} className="flex flex-col gap-4">
             <textarea
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
-              className="w-full p-4 bg-[#0A1F2C] border border-[#4A90E2]/50 rounded-xl text-white text-lg resize-none focus:outline-none transition-all duration-300"
               rows="5"
               placeholder="Escreva seu feedback aqui..."
+              className="w-full p-4 bg-[#0A1F2C] border border-[#4A90E2]/50 rounded-xl text-white text-lg resize-none focus:outline-none transition-all duration-300"
             />
             <button
               type="submit"
@@ -140,45 +181,37 @@ export default function VideoPlayer() {
             </button>
           </form>
         </div>
-      </div>
+      </div >
 
-      {/* Seção de módulos */}
-      <div className="w-1/4 fixed right-0 top-0 h-full bg-[#1A2635] p-6 shadow-2xl overflow-y-auto rounded-l-2xl">
+      {/* Seção de módulos (lista de aulas) com design aprimorado */}
+      < div className="w-full md:w-1/4 md:fixed md:right-0 md:top-0 h-full bg-gradient-to-b from-[#16222A] to-[#3A6073] p-6 shadow-2xl overflow-y-auto rounded-l-2xl" >
         <h1 className="text-4xl font-bold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#4A90E2] to-[#357ABD] animate-pulse">
           Módulos
         </h1>
-
-        {modules.map((module) => (
-          <div key={module.id} className="mb-4">
-            <button
-              className="w-full flex justify-between items-center bg-[#4A90E2] hover:bg-[#357ABD] transition text-white p-4 rounded-lg font-bold text-lg"
-              onClick={() => toggleModule(module.id)}
+        {
+          lessons.map((lesson, index) => (
+            <motion.button
+              key={lesson.id}
+              onClick={() => changeVideo(lesson.videoUrl, index)}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              className={`w-full flex items-center justify-start px-4 py-3 mb-4 rounded-xl font-bold text-lg transition transform ${currentLessonIndex === index
+                ? "bg-gradient-to-r from-[#357ABD] to-[#4A90E2] ring-2 ring-[#4A90E2]"
+                : "bg-[#1A3A55] hover:bg-[#357ABD]"
+                } text-white`}
             >
-              {module.title}
-              {openModule === module.id ? <FaChevronUp className="text-xl" /> : <FaChevronDown className="text-xl" />}
-            </button>
-            <div className={`overflow-hidden transition-all duration-300 ${openModule === module.id ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-              {module.lessons.map((lesson, index) => (
-                <div key={index} className="flex items-center gap-3 py-3 px-4 border-b border-[#4A90E2] hover:bg-[#4A90E2] hover:text-black rounded-lg transition-all">
-                  <img src={lesson.image} alt={lesson.title} className="w-16 h-10 object-cover rounded-lg" />
-                  <span className="font-medium text-gray-300">
-                    <button onClick={() => changeVideo(lesson.url, index)} className="text-white">
-                      {lesson.title}
-                    </button>
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+              {lesson.title}
+            </motion.button>
+          ))
+        }
+      </div >
 
       {/* Botão flutuante de atendimento */}
-      <Link href="/atendimento">
+      < Link href="/atendimento" >
         <button className="fixed bottom-8 right-8 bg-[#4A90E2] p-4 rounded-full text-white shadow-lg hover:bg-[#357ABD] transition">
           <FaPhoneAlt className="text-2xl" />
         </button>
-      </Link>
-    </div>
+      </Link >
+    </div >
   );
 }
