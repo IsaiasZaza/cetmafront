@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { FaBars, FaTimes, FaUser, FaChevronDown } from "react-icons/fa";
+import { FaBars, FaTimes, FaUser, FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const menuItems = [
   {
@@ -21,16 +21,14 @@ const menuItems = [
   {
     label: "Conteúdo Gratuito",
     href: "#",
-    subItems: [
-      { label: "Ebook", href: "/ebookPage" }
-    ],
+    subItems: [{ label: "Ebook", href: "/ebookPage" }],
   },
   {
     label: "Área do Aluno",
     href: "#",
     subItems: [
       { label: "Porque ser um aluno?", href: "/beneficios" },
-      { label: "Acesso Aluno", href: "/login" }
+      { label: "Acesso Aluno", href: "/login" },
     ],
   },
 ];
@@ -38,6 +36,7 @@ const menuItems = [
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
+  const [mobileDropdown, setMobileDropdown] = useState(null);
 
   return (
     <header className="bg-white shadow-md w-full">
@@ -111,27 +110,35 @@ const Header = () => {
         {/* Menu Mobile */}
         <div className="lg:hidden">
           <button onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <FaTimes className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
+            {isOpen ? <FaTimes className="h-6 w-6 text-blue-500" /> : <FaBars className="h-6 w-6 text-blue-500" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="lg:hidden bg-white shadow-lg py-4">
-          <nav className="space-y-4 text-center">
+        <div className="lg:hidden bg-white shadow-lg py-4 transition-all duration-300">
+          <nav className="space-y-4 text-left">
             {menuItems.map((item) => (
-              <div key={item.label}>
-                <a href={item.href} className="block text-gray-900 hover:text-blue-500">
+              <div key={item.label} className="px-6">
+                <button
+                  className="w-full flex justify-between items-center text-gray-900 hover:text-blue-500 font-semibold focus:outline-none"
+                  onClick={() => setMobileDropdown(mobileDropdown === item.label ? null : item.label)}
+                >
                   {item.label}
-                </a>
-                {item.subItems && (
-                  <div className="mt-2 space-y-2">
+                  {item.subItems && (
+                    mobileDropdown === item.label ? <FaChevronUp className="ml-2" /> : <FaChevronDown className="ml-2" />
+                  )}
+                </button>
+
+                {/* Dropdown Mobile */}
+                {item.subItems && mobileDropdown === item.label && (
+                  <div className="mt-2 space-y-2 transition-all duration-300">
                     {item.subItems.map((subItem) => (
                       <a
                         key={subItem.label}
                         href={subItem.href}
-                        className="block text-gray-700 hover:text-blue-500 text-sm"
+                        className="block text-gray-700 hover:text-blue-500 text-sm px-6 py-2"
                       >
                         {subItem.label}
                       </a>
@@ -140,12 +147,13 @@ const Header = () => {
                 )}
               </div>
             ))}
-            <a href="/fale" className="block text-gray-900 hover:text-blue-500">
+
+            <a href="/fale" className="block text-gray-900 hover:text-blue-500 font-semibold px-6">
               Fale com a CETMA
             </a>
             <a
               href="/login"
-              className="block text-gray-800 border border-black rounded px-3 py-1 hover:text-blue-500 hover:border-blue-500"
+              className="block text-gray-800 border border-black rounded px-6 py-2 mt-2 hover:text-blue-500 hover:border-blue-500 w-fit mx-auto"
             >
               <FaUser className="text-xl mr-2 inline" /> Login
             </a>
