@@ -24,6 +24,13 @@ const ProfilePage = () => {
   const [novaSenha, setNovaSenha] = useState("");
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
+  const formatCPF = (cpf) => {
+    if (!cpf) return "";
+    const digits = cpf.replace(/\D/g, "");
+    if (digits.length !== 11) return cpf;
+    return `${digits.substring(0, 3)}.${digits.substring(3, 6)}.${digits.substring(6, 9)}-${digits.substring(9, 11)}`;
+  };
+
   const handleEditField = (field) => {
     setEditingField(field);
     setModalValue(userData[field] || "");
@@ -219,8 +226,10 @@ const ProfilePage = () => {
                     <label className="w-full md:w-40 text-gray-900 font-medium capitalize">
                       {field === "bio" ? "Biografia" : field}
                     </label>
-                    <p className="flex-grow text-gray-500">{value}</p>
-                    {field === "email" ? (
+                    <p className="flex-grow text-gray-600">
+                      {field === "cpf" ? formatCPF(value) : value}
+                    </p>
+                    {(field === "email" || field === "nome" || field === "cpf") ? (
                       <div className="flex items-center gap-2 text-gray-400">
                         <FaLock />
                         <span>Inalterável</span>
@@ -315,9 +324,8 @@ const ProfilePage = () => {
                 Cancelar
               </button>
               <button
-                className={`px-6 py-2 rounded-lg text-white ${
-                  isSubmitting ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-                } transition-colors`}
+                className={`px-6 py-2 rounded-lg text-white ${isSubmitting ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+                  } transition-colors`}
                 onClick={handleSaveField}
                 disabled={isSubmitting}
               >
