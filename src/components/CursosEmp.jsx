@@ -10,6 +10,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import PorqueEstudarCetma from "./PorqueEstudarCetma";
 import { useRouter } from "next/navigation";
+import Formulario from "./form";
 
 
 const CursosEmp = () => {
@@ -125,6 +126,7 @@ const CursosEmp = () => {
          
 
             {/* Componentes adicionais */}
+            <Formulario />
             <PorqueEstudarCetma />
             <Footer /> {/* Componente Footer */}
         </div>

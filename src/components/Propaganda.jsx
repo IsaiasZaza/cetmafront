@@ -1,38 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { BsCheckCircle } from "react-icons/bs";
 import { FiArrowRight } from "react-icons/fi";
 
 export default function Propaganda() {
-  const [bgImage, setBgImage] = useState("");
-
-  useEffect(() => {
-    const updateBackground = () => {
-      if (window.innerWidth < 1024) {
-        setBgImage("url('/Retangulo_20.png')"); // Imagem para mobile e md
-      } else {
-        setBgImage("url('/Banner_teste_home.png')"); // Imagem para telas maiores
-      }
-    };
-
-    updateBackground();
-    window.addEventListener("resize", updateBackground);
-    
-    return () => {
-      window.removeEventListener("resize", updateBackground);
-    };
-  }, []);
-
   return (
     <div
-      className="relative bg-cover bg-center text-white h-[100vh] min-h-[70vh] 2xl:h-[60vh] flex flex-col md:flex-row items-center"
-      style={{
-        backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)), ${bgImage}`,
-      }}
+      className="relative bg-cover bg-center text-white h-[100vh] min-h-[70vh] 2xl:h-[60vh] flex flex-col md:flex-row items-center bg-home-mobile lg:bg-propaganda"
     >
+      {/* Gradiente de sobreposição */}
+      <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-blue-900/30 to-transparent"></div>
+
       {/* Conteúdo principal */}
-      <div className="w-full lg:w-1/2 p-4 sm:p-10 lg:p-16 text-start flex flex-col items-center md:items-center md:w-full justify-center h-full">
+      <div className="relative w-full lg:w-1/2 p-4 sm:p-10 lg:p-16 text-start flex flex-col items-center md:items-center md:w-full justify-center h-full z-10">
         <h1 className="text-xl md:text-2xl lg:text-3xl leading-tight text-center md:text-center lg:text-left">
           Depois de um tempo planejando a{" "}
           <span className="text-blue-400 font-bold">MELHOR </span>
@@ -82,10 +62,6 @@ export default function Propaganda() {
           </a>
         </div>
       </div>
-      
-      {/* Imagem lateral (opcional em dispositivos maiores) */}
-      <div className="absolute inset-0 md:relative md:inset-y-0 md:left-auto md:right-0 hidden md:w-1/2 h-full"></div>
-      
     </div>
   );
 }

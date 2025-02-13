@@ -4,29 +4,11 @@ import { useState, useEffect } from "react";
 export default function BannerHome() {
   const [bgImage, setBgImage] = useState("");
 
-  useEffect(() => {
-    const updateBackground = () => {
-      if (window.innerWidth < 1024) {
-        setBgImage("url('/Retangulo_20.png')"); // Imagem para mobile
-      } else {
-        setBgImage("url('/banner-home2.png')"); // Imagem para desktop
-      }
-    };
-
-    updateBackground();
-    window.addEventListener("resize", updateBackground);
-
-    return () => {
-      window.removeEventListener("resize", updateBackground);
-    };
-  }, []);
 
   return (
     <section
-      className="relative flex items-center bg-cover bg-center lg:h-[85vh]"
-      style={{
-        backgroundImage: bgImage,
-      }}
+      className="relative bg-home-mobile lg:bg-home lg: flex items-center bg-cover bg-center lg:h-[85vh]"
+
     >
       {/* Gradiente de sobreposição */}
       <div className="absolute inset-0bg-gradient-to-r from-blue-900/80 via-blue-900/60 to-transparent"></div>
