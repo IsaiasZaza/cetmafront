@@ -83,7 +83,7 @@ const MenuContent = ({ handleLogout }) => (
     <ul className="space-y-6 px-4 flex-1">
       <MenuItem href="/aluno" icon={<FaHome />} text="Página Inicial" />
       <MenuItem href="/cursos" icon={<FaBook />} text="Cursos" />
-      <MenuItem href="/certificados" icon={<FaCertificate />} text="Certificados" />
+      <MenuItem href="/certificado" icon={<FaCertificate />} text="Certificados" />
       <MenuItem href="/dados" icon={<FaUser />} text="Meus Dados" />
     </ul>
 
