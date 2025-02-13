@@ -10,12 +10,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import PorqueEstudarCetma from "./PorqueEstudarCetma";
 import { useRouter } from "next/navigation";
-import Formulario from "./form";
+import Formulario from "./Formulario";
+
 
 
 const CursosEmp = () => {
     const router = useRouter();
-    
+
     const [courses, setCourses] = useState([]); // Estado para armazenar os cursos
     const [loading, setLoading] = useState(true); // Estado para indicar carregamento
 
@@ -38,7 +39,7 @@ const CursosEmp = () => {
 
     const handleRedirect = (url) => {
         router.push(url);
-      };
+    };
 
     return (
         <div>
@@ -50,7 +51,7 @@ const CursosEmp = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
                 {/* Conteúdo do banner */}
                 <div className="relative w-full md:w-1/2 text-left space-y-6">
-                
+
                     <p className="text-2xl md:text-4xl lg:text-3xl xl:text-3xl 2xl:text-5xl font-semibold leading-tight">
                         Quer impulsionar <br /> o <span className="font-extrabold text-blue-400">crescimento</span> da sua <br />{" "}
                         <span className="font-extrabold"><span className="text-blue-400">Empresa?</span></span>
@@ -64,7 +65,7 @@ const CursosEmp = () => {
             {/* Seção de Cursos */}
             <div className="py-16 px-8 mx-auto max-w-7xl">
                 <h3 className="text-3xl text-gray-800 text-center">
-                   Cursos que podem ajudar na gestão da sua  <span className="font-bold text-blue-500">empresa</span>
+                    Cursos que podem ajudar na gestão da sua  <span className="font-bold text-blue-500">empresa</span>
                 </h3>
                 <p className="text-center text-xl text-gray-600 mt-4">
                     Cursos do mais basico ao avançado para ajudar você com a sua empresa
@@ -108,11 +109,11 @@ const CursosEmp = () => {
                                     </p>
                                 </div>
                                 <div className="mt-4">
-                                    <button 
-                                    className="bg-white text-blue-600 py-3 px-6 rounded-lg shadow hover:bg-blue-500 hover:text-white hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out"
-                                    onClick={() => handleRedirect(`/cursosAluno/${course.id}`)}
+                                    <button
+                                        className="bg-white text-blue-600 py-3 px-6 rounded-lg shadow hover:bg-blue-500 hover:text-white hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out"
+                                        onClick={() => handleRedirect(`/cursosAluno/${course.id}`)}
                                     >
-                                     
+
                                         Saiba mais sobre
                                     </button>
 
@@ -123,10 +124,10 @@ const CursosEmp = () => {
                 )}
             </div>
 
-         
+
 
             {/* Componentes adicionais */}
-            <Formulario />
+            <Formulario/>
             <PorqueEstudarCetma />
             <Footer /> {/* Componente Footer */}
         </div>
