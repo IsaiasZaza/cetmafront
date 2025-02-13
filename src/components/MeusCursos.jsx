@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 
 const HomePage = () => {
     const router = useRouter();
-    
+
     const [courses, setCourses] = useState([]); // Estado para armazenar os cursos
     const [loading, setLoading] = useState(true); // Estado para indicar carregamento
 
@@ -37,23 +37,20 @@ const HomePage = () => {
 
     const handleRedirect = (url) => {
         router.push(url);
-      };
+    };
 
     return (
         <div>
             <Header /> {/* Componente Header */}
 
             {/* Banner Principal */}
-            <div className="relative bg-[url('/bannerCursos.png')] bg-cover bg-center h-[45vh] text-white flex flex-col justify-center items-start px-6 md:px-20 lg:px-40">
+            <div className="relative bg-[url('/bannerCursos.png')] bg-cover bg-center h-[70vh] sm:h-[60vh] md:h-[50vh] lg:h-[45vh] text-white flex flex-col justify-center items-start px-6 md:px-20 lg:px-40">
                 {/* Gradiente de sobreposição */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
                 {/* Conteúdo do banner */}
-                <div className="relative w-full md:w-1/2 text-left space-y-6">
-                    <h2 className="text-lg md:text-xl font-extrabold text-blue-400">
-                        Desconto de inauguração
-                    </h2>
-                    <p className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
-                        Na compra de 2 cursos, <br /> o segundo sai com <br />{" "}
+                <div className="relative w-full  text-left space-y-6">
+                    <p className="text-2xl md:text-4xl lg:text-3xl xl:text-3xl 2xl:text-5xl font-bold leading-tight">
+                        Na compra de 2 cursos <br /> o segundo sai com <br />{" "}
                         <span className="font-extrabold"><span className="text-blue-400">30% de desconto</span></span>
                     </p>
                     <p className="text-md md:text-lg text-gray-200">
@@ -63,9 +60,9 @@ const HomePage = () => {
             </div>
 
             {/* Seção de Cursos */}
-            <div className="py-24 px-8 mx-auto max-w-7xl">
-                <h3 className="text-3xl text-blue-500 text-center">
-                    Conheça todos os cursos que nós <span className="font-extrabold">CETMA</span> oferecemos:
+            <div className="py-16 px-8 mx-auto max-w-7xl">
+                <h3 className="text-3xl text-gray-800 text-center">
+                    Conheça todos os cursos que nós <span className="font-extrabold text-blue-500">CETMA</span> oferecemos:
                 </h3>
                 <p className="text-center text-xl text-gray-600 mt-4">
                     Todos os cursos são técnicos, com rápida conclusão e certificado
@@ -109,11 +106,11 @@ const HomePage = () => {
                                     </p>
                                 </div>
                                 <div className="mt-4">
-                                    <button 
-                                    className="bg-white text-blue-600 py-3 px-6 rounded-lg shadow hover:bg-blue-500 hover:text-white hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out"
-                                    onClick={() => handleRedirect(`/cursosAluno/${course.id}`)}
+                                    <button
+                                        className="bg-white text-blue-600 py-3 px-6 rounded-lg shadow hover:bg-blue-500 hover:text-white hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out"
+                                        onClick={() => handleRedirect(`/cursosAluno/${course.id}`)}
                                     >
-                                     
+
                                         Saiba mais sobre
                                     </button>
 
@@ -130,14 +127,14 @@ const HomePage = () => {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent"></div>
                 {/* Conteúdo do banner */}
                 <div className="relative w-full md:w-1/2 text-left space-y-6">
-                    <h3 className="text-3xl md:text-4xl lg:text-5xl ">
+                    <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-3xl 2xl:text-6xl">
                         Ainda tem alguma <br /> dúvida se deve <br />
                         aprender com a <span className="font-extrabold text-blue-400">CETMA?</span>
                     </h3>
                     <a
                         aria-label="Conheça mais sobre a CETMA"
                         href="/sobre"
-                        className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-600 py-3 px-8 text-white rounded-lg hover:bg-blue-700 hover:shadow-lg hover:opacity-90 transition duration-200 ease-in-out w-1/2"
+                        className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-600 py-3 lg:px-8 text-white rounded-lg hover:bg-blue-700 hover:shadow-lg hover:opacity-90 transition duration-200 ease-in-out lg:w-1/2 w-full "
                     >
                         Conheça mais sobre a CETMA
                         <FiArrowRight className="ml-2" />

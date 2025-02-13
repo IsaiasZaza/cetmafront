@@ -28,7 +28,7 @@ const Beneficios = () => {
           <h2 className="text-sm sm:text-base md:text-lg font-semibold tracking-wider uppercase text-blue-400">
             Beneficios de alunos da CETMA
           </h2>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight break-words">
+          <h1 className="text-2xl md:text-4xl lg:text-3xl xl:text-3xl 2xl:text-5xl font-extrabold leading-tight break-words">
             Pensa em se tornar aluno e <br /> quer saber mais sobre <br/> <span className="font-extrabold text-blue-400">SEUS BENEFICIOS?</span>
           </h1>
           <p className="mt-4 text-xs sm:text-sm md:text-base text-gray-200">

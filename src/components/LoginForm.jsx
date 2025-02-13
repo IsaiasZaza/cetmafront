@@ -178,33 +178,7 @@ const LoginForm = () => {
               )}
             </div>
             {/* Função */}
-            <div className="w-4/5 flex flex-col items-start space-y-2">
-              <span className="text-gray-500 font-medium">Logar como:</span>
-              <div className="flex space-x-4">
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="radio"
-                    name="role"
-                    value="ALUNO"
-                    checked={role === "ALUNO"}
-                    onChange={(e) => setRole(e.target.value)}
-                    className="form-radio h-4 w-4 text-blue-600"
-                  />
-                  <span>Aluno</span>
-                </label>
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="radio"
-                    name="role"
-                    value="PROFESSOR"
-                    checked={role === "PROFESSOR"}
-                    onChange={(e) => setRole(e.target.value)}
-                    className="form-radio h-4 w-4 text-blue-600"
-                  />
-                  <span>Professor</span>
-                </label>
-              </div>
-            </div>
+
             {/* Botão */}
             <button
               type="submit"
@@ -212,7 +186,7 @@ const LoginForm = () => {
             >
               Entrar
             </button>
-            <div className="text-sm text-gray-500 flex justify-between w-4/5">
+            <div className="text-xs text-gray-500 flex justify-between w-4/5">
               <span>
                 Não tem conta? <span className="text-blue-600 cursor-pointer hover:underline" onClick={() => handleFormSwitch("register")}>Cadastre-se</span>
               </span>

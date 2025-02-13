@@ -85,9 +85,6 @@ const MenuContent = ({ handleLogout }) => (
       <MenuItem href="/cursos" icon={<FaBook />} text="Cursos" />
       <MenuItem href="/certificados" icon={<FaCertificate />} text="Certificados" />
       <MenuItem href="/dados" icon={<FaUser />} text="Meus Dados" />
-      <MenuItem href="/admin" icon={<FaUser />} text="Lista de Alunos" />
-      <MenuItem href="/cursosAdmin" icon={<FaUser />} text="Cursos Admin" />
-      <MenuItem href="/ebookAdmin" icon={<FaBook />} text="Ebook Admin" />
     </ul>
 
     {/* Botão de logout e atendimento */}
