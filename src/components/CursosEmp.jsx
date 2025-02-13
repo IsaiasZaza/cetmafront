@@ -127,7 +127,7 @@ const CursosEmp = () => {
 
 
             {/* Componentes adicionais */}
-            <Formulario/>
+            <Formulario />
             <PorqueEstudarCetma />
             <Footer /> {/* Componente Footer */}
         </div>

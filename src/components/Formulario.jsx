@@ -75,7 +75,7 @@ function InteractiveBackground() {
   );
 }
 
-export default function Formulario() {
+const Formulario = () => {
   // Estados para os dados do formulário e para o feedback
   const [formData, setFormData] = useState({
     nome: "",
@@ -148,26 +148,26 @@ export default function Formulario() {
     messageType === "success"
       ? "bg-green-100 border-green-500 text-green-800"
       : messageType === "error"
-      ? "bg-red-100 border-red-500 text-red-800"
-      : "";
+        ? "bg-red-100 border-red-500 text-red-800"
+        : "";
 
   return (
     // Container com fundo escuro e efeito interativo restrito a ele
-<div id="formulario" className="relative bg-mobile-padrao text-[#f5f5f5] py-16 px-6 md:px-12 flex flex-col items-center justify-center mx-auto space-y-8 before:absolute before:inset-0 before:bg-black before:opacity-60 before:z-0"
->
+    <div className="relative bg-mobile-padrao text-[#f5f5f5] py-16 px-6 md:px-12 flex flex-col items-center justify-center mx-auto space-y-8 before:absolute before:inset-0 before:bg-black before:opacity-60 before:z-0"
+    >
       {/* Fundo interativo apenas para esta seção */}
       <InteractiveBackground />
 
       {/* Texto */}
       <div className="relative z-10 w-full max-w-2xl text-center">
-      <h2 className="text-3xl md:text-4xl font-semibold leading-tight">
-        Não <span className="text-[#00C6FF]"> encontrou</span> o curso que procurava?
-      </h2>
-      <p className="mt-4 text-gray-300 text-lg">
-        Fique por dentro de todas as novidades e tenha acesso a conteúdos exclusivos que podem transformar sua carreira.  
-        Caso não encontre o curso que deseja, envie sua sugestão! Nossa equipe, junto ao CEO, irá analisá-la e, quem sabe,  
-        sua ideia poderá se tornar realidade.
-      </p>
+        <h2 className="text-3xl md:text-4xl font-semibold leading-tight">
+          Não <span className="text-[#00C6FF]"> encontrou</span> o curso que procurava?
+        </h2>
+        <p className="mt-4 text-gray-300 text-lg">
+          Fique por dentro de todas as novidades e tenha acesso a conteúdos exclusivos que podem transformar sua carreira.
+          Caso não encontre o curso que deseja, envie sua sugestão! Nossa equipe, junto ao CEO, irá analisá-la e, quem sabe,
+          sua ideia poderá se tornar realidade.
+        </p>
       </div>
 
       {/* Formulário */}
@@ -257,3 +257,5 @@ export default function Formulario() {
     </div>
   );
 }
+
+export default Formulario
