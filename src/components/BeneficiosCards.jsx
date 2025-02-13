@@ -3,7 +3,9 @@ import { FaBook, FaRocket, FaCertificate, FaClock, FaGraduationCap, FaDollarSign
 
 const FeatureCard = ({ icon, title, description }) => (
   <div className="bg-white p-6 rounded-lg shadow-md text-center">
-    <div className="text-4xl mb-4 text-center text-blue-500">{icon}</div>
+    <div className="flex justify-center items-center text-4xl mb-4 text-blue-500">
+      {icon}
+    </div>
     <h3 className="text-lg text-gray-900 font-bold mb-2">{title}</h3>
     <p className="text-sm text-gray-600">{description}</p>
   </div>
@@ -66,7 +68,7 @@ const BeneficiosCards = () => {
         <div className="mt-12 text-center">
           <a
             href="/login"
-            className=" px-32 py-4 bg-blue-500 text-white text-lg font-bold rounded-full shadow-md hover:bg-blue-600 transition duration-300"
+            className="px-32 py-4 bg-blue-500 text-white text-lg font-bold rounded-full shadow-md hover:bg-blue-600 transition duration-300"
           >
             Torne-se Aluno
           </a>

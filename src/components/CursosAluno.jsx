@@ -59,17 +59,17 @@ const CoursesPage = () => {
       <MenuLateral />
 
       <main className="flex-grow p">
-        <div className="relative bg-[url('/bannerCursos.png')] bg-cover bg-center h-[45vh] text-white flex flex-col justify-center items-start px-6 md:px-12">
+        <div className="relative xl:bg-banner-cursos bg-mobile-padrao bg-cover bg-center h-[60vh] lg:h-[50vh] lg:bg-mobile-padrao text-white flex flex-col justify-center items-start px-6 md:px-12">
           <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
           <div className="relative w-full md:w-1/2 text-left space-y-6">
             <h2 className="text-lg md:text-xl font-extrabold text-blue-400">
               Desconto de inauguração
             </h2>
-            <p className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+            <p className="text-3xl md:text-4xl lg:text-4xl font-bold leading-tight">
               Na compra de 2 cursos, <br /> o segundo sai com <br />{" "}
               <span className="font-extrabold"><span className="text-blue-400">30%</span> de desconto</span>
             </p>
-            <p className="text-md md:text-lg text-gray-200">
+            <p className="text-md md:text-md text-gray-200">
               Aproveite esta oferta especial para começar a sua jornada <br /> de aprendizado com os melhores cursos do mercado. <br /> Invista no seu futuro hoje mesmo!
             </p>
           </div>

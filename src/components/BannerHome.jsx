@@ -9,7 +9,7 @@ export default function BannerHome() {
       if (window.innerWidth < 1024) {
         setBgImage("url('/Retangulo_20.png')"); // Imagem para mobile
       } else {
-        setBgImage("url('/bannerHome.png')"); // Imagem para desktop
+        setBgImage("url('/banner-home2.png')"); // Imagem para desktop
       }
     };
 
@@ -53,7 +53,7 @@ export default function BannerHome() {
             ></iframe>
             {/* Botão ajustado à largura do vídeo */}
             <a
-              href="/playerVideo"
+              href="/login"
               className="bg-blue-500 text-white py-3 px-6 mt-4 rounded-lg font-extrabold hover:bg-blue-600 transition flex items-center justify-center gap-2 shadow-lg w-full"
             >
               <svg

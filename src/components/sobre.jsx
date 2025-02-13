@@ -13,7 +13,7 @@ const SobreNos = () => {
     const updateBackground = () => {
       // Altere o breakpoint e os caminhos conforme necessário
       if (window.innerWidth < 1024) {
-        setBgImage("url('/Retangulo_20.png')"); // Imagem para mobile
+        setBgImage("url('/mobile-home.png')"); // Imagem para mobile
       } else {
         setBgImage("url('/sobre.png')"); // Imagem para telas maiores
       }
@@ -30,11 +30,11 @@ const SobreNos = () => {
       <WhatsappVoador />
       {/* Hero Section */}
       <section
-        className="relative bg-cover bg-center h-[70vh] sm:h-[60vh] md:h-[50vh] lg:h-[55vh] text-white flex flex-col justify-center items-center md:items-start px-4 sm:px-8 md:px-16 lg:px-32"
+        className="relative bg-cover bg-center h-[50vh] sm:h-[60vh] md:h-[50vh] lg:h-[55vh] text-white flex flex-col justify-center items-center md:items-start px-4 sm:px-8 md:px-16 lg:px-32"
         style={{ backgroundImage: bgImage }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-900/60 to-transparent"></div>
-        <div className="relative w-full sm:w-3/4 lg:w-2/3 text-center md:text-left space-y-4 sm:space-y-6">
+        <div className="relative w-full sm:w-3/4 lg:w-2/3  md:text-left space-y-4 sm:space-y-6">
           <h2 className="text-sm sm:text-base md:text-lg font-semibold tracking-wider uppercase text-blue-300">
             CENTRO EDUCACIONAL TÉCNICO MÉDICO ASSISTENCIAL
           </h2>
