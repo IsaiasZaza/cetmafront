@@ -44,31 +44,29 @@ const CursosEmp = () => {
             <Header /> {/* Componente Header */}
 
             {/* Banner Principal */}
-            <div className="relative bg-[url('/cursos-emp.png')] bg-cover bg-center h-[45vh] text-white flex flex-col justify-center items-start px-6 md:px-20 lg:px-40">
+            <div className="relative bg-[url('/cursos-emp.png')] bg-cover bg-center h-[70vh] sm:h-[60vh] md:h-[50vh] lg:h-[45vh] text-white flex flex-col justify-center items-start px-6 md:px-20 lg:px-40">
                 {/* Gradiente de sobreposição */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
                 {/* Conteúdo do banner */}
                 <div className="relative w-full md:w-1/2 text-left space-y-6">
-                    <h2 className="text-lg md:text-xl font-extrabold text-blue-400">
-                        Cursos Cetma para mudar a sua empresa
-                    </h2>
-                    <p className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
-                        Quer impulsionar <br /> o <span className="font-extrabold">crescimento</span> na sua <br />{" "}
+                
+                    <p className="text-2xl md:text-4xl lg:text-3xl xl:text-3xl 2xl:text-5xl font-semibold leading-tight">
+                        Quer impulsionar <br /> o <span className="font-extrabold text-blue-400">crescimento</span> da sua <br />{" "}
                         <span className="font-extrabold"><span className="text-blue-400">Empresa?</span></span>
                     </p>
-                    <p className="text-md md:text-lg text-gray-200">
+                    <p className="text-xm md:text-lg text-gray-200">
                         Nessa página você pode aprender cursos para facilitar <br /> a gestão da sua empresa e também pode fazer <br /> a solicitação de algum curso.
                     </p>
                 </div>
             </div>
 
             {/* Seção de Cursos */}
-            <div className="py-24 px-8 mx-auto max-w-7xl">
-                <h3 className="text-3xl text-blue-500 text-center">
-                   Cursos que podem ajudarna gestão da sua  <span className="font-extrabold">empresa</span>
+            <div className="py-16 px-8 mx-auto max-w-7xl">
+                <h3 className="text-3xl text-gray-800 text-center">
+                   Cursos que podem ajudar na gestão da sua  <span className="font-bold text-blue-500">empresa</span>
                 </h3>
                 <p className="text-center text-xl text-gray-600 mt-4">
-                    Cursos do mais bãsico ao avançado para ajudar você com a sua empresa
+                    Cursos do mais basico ao avançado para ajudar você com a sua empresa
                 </p>
 
                 {loading ? (

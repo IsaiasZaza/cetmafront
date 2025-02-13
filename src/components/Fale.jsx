@@ -1,7 +1,7 @@
 import React from "react";
 import { MdEmail, MdPhone, MdWhatsapp } from "react-icons/md";
 import Header from "../components/Header";
-import Footer from "../components/Footer"; 
+import Footer from "../components/Footer";
 import WhatsappVoador from "./WhatsappVoador";
 
 const FaleConosco = () => {
@@ -33,9 +33,9 @@ const FaleConosco = () => {
       </section>
       <WhatsappVoador />
       {/* Contact Options */}
-      <section className="bg-gray-100 pt-36 pb-10">
+      <section className="bg-gray-100 pb-10">
+        <p className="text-3xl text-gray-800 text-center py-16">Nossos canais de <span className="text-blue-500 font-bold">atendimento</span></p>
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {/* Card Data */}
           {[
             {
               icon: <MdEmail className="text-blue-500 text-6xl mb-4" />,

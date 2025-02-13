@@ -95,7 +95,7 @@ const CourseDetail = () => {
 
   return (
     <>
-      <div className="bg-gray-100 min-h-screen flex">
+      <div className=" min-h-screen flex">
         {/* Menu Lateral */}
         <MenuLateral />
 
@@ -118,8 +118,8 @@ const CourseDetail = () => {
           </div>
 
           {/* About Section */}
-          <section className="py-16 px-20">
-            <div className="max-w-screen-2xl mx-auto grid gap-x-40 grid-cols-1 lg:grid-cols-2 gap-6">
+          <section className="py-16 lg:px-20 px-4 bg-gray-100">
+            <div className="max-w-screen-2xl mx-auto grid lg:gap-x-40 grid-cols-1 lg:grid-cols-2 gap-6">
               <div>
                 <h2 className="text-2xl font-bold text-blue-900">
                   Por que estudar {course.title} pode impulsionar sua carreira na
@@ -150,7 +150,7 @@ const CourseDetail = () => {
                   Risus commodo viverra maecenas accumsan lacus vel facilisis.
                 </p>
               </div>
-              <div className="bg-white shadow-xl rounded-2xl p-8 flex flex-col items-center text-center border border-gray-200 w-4/6 lg:h-[70vh] sticky top-20">
+              <div className="bg-white shadow-xl rounded-2xl p-8 flex flex-col items-center text-center border border-gray-200 lg:w-4/6 w-full lg:h-[70vh] sticky top-20">
                 <img src="/logo.png" alt="Cetma Logo" className="w-24 h-24" />
                 <h2 className="text-2xl font-bold text-blue-900 mb-4">{course.title}</h2>
                 <ul className="mt-4 text-gray-700 text-left space-y-2">
@@ -180,8 +180,8 @@ const CourseDetail = () => {
               </div>
             </div>
           </section>
-          <section className="py-16 px-20 text-black ">
-            <span className="text-4xl font-extrabold text-blue-900">Cursos recomendados</span>
+          <section className="lg:py-16 lg:px-20 text-black py-4 ">
+            <span className="text-3xl font-extrabold text-blue-900 pl-3">Cursos recomendados</span>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
               {courses.map((course, index) => (
                 <motion.div
