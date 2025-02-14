@@ -3,11 +3,13 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { useParams } from "next/navigation";
 
-const ModulesSidebar = ({ currentLessonIndex, changeVideo }) => {
+const ModulesSidebar = ({ currentLessonIndex, changeVideo = () => {} }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [lessons, setLessons] = useState([]);
+  const { id } = useParams();
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -22,16 +24,34 @@ const ModulesSidebar = ({ currentLessonIndex, changeVideo }) => {
   useEffect(() => {
     const fetchLessons = async () => {
       try {
-        const response = await fetch("https://api.exemplo.com/lessons");
+        const response = await fetch(`https://crud-usuario.vercel.app/api/curso/${id}`);
         const data = await response.json();
-        setLessons(data);
+
+        // Cria um array iniciando com o curso principal, se os dados existirem
+        let lessonsData = [];
+        if (data && data.videoUrl && data.title) {
+          lessonsData.push({
+            id: data.id,
+            title: data.title,
+            description: data.description,
+            videoUrl: data.videoUrl,
+            // Adicione outras propriedades se necessário
+          });
+        }
+
+        // Concatena os subcursos, se existirem
+        if (data.subCourses && Array.isArray(data.subCourses)) {
+          lessonsData = lessonsData.concat(data.subCourses);
+        }
+
+        setLessons(lessonsData);
       } catch (error) {
         console.error("Erro ao buscar as aulas:", error);
       }
     };
 
     fetchLessons();
-  }, []);
+  }, [id]);
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
@@ -61,8 +81,12 @@ const ModulesSidebar = ({ currentLessonIndex, changeVideo }) => {
             <motion.button
               key={lesson.id}
               onClick={() => {
-                changeVideo(lesson.videoUrl, index);
-                if (isMobile) toggleMenu();
+                if (lesson.videoUrl) {
+                  changeVideo(lesson.videoUrl, index);
+                  if (isMobile) toggleMenu();
+                } else {
+                  console.error("Video URL não disponível para a aula:", lesson);
+                }
               }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

@@ -103,7 +103,7 @@ const Formulario = () => {
     setMessageType("");
 
     try {
-      const res = await fetch("https://lorrade-be.vercel.app/enviar-email", {
+      const res = await fetch("http://localhost:3004/enviar-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

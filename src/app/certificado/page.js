@@ -86,7 +86,7 @@ export default function CertificatePage() {
     <div className="flex flex-col md:flex-row min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
       <MenuLateral />
       <div className="flex-grow p-4 sm:p-6 lg:p-8">
-        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
           <header className="bg-gradient-to-r from-blue-600 to-blue-500 p-6 text-white">
             <h1 className="text-2xl sm:text-3xl font-extrabold text-center">
               Gerar Certificado
@@ -104,7 +104,7 @@ export default function CertificatePage() {
               <p className="text-center text-gray-600">Carregando dados do usuário...</p>
             ) : (
               <div>
-                <h2 className="text-lg sm:text-xl font-semibold mb-4 text-center text-black">
+                <h2 className="text-lg sm:text-xl font-semibold mb-4 text-center text-gray-800">
                   Selecione um curso para gerar o certificado:
                 </h2>
                 <div className="space-y-4">
@@ -126,9 +126,7 @@ export default function CertificatePage() {
                       </div>
                     ))
                   ) : (
-                    <p className="text-center text-gray-600">
-                      Nenhum curso encontrado.
-                    </p>
+                    <p className="text-center text-gray-600">Nenhum curso encontrado.</p>
                   )}
                 </div>
               </div>
@@ -144,12 +142,8 @@ export default function CertificatePage() {
 
                 <div
                   ref={certificateRef}
-                  className="relative mx-auto rounded-xl overflow-hidden border-4 border-blue-600 shadow-2xl bg-cover bg-center bg-no-repeat p-4 sm:p-6 lg:p-8"
-                  style={{
-                    maxWidth: "100%",
-                    sm: "maxWidth: '900px'",
-                    backgroundImage: "url('/certificado-base.png')",
-                  }}
+                  className="relative mx-auto max-w-[900px] w-full rounded-xl overflow-hidden border-4 border-blue-600 shadow-2xl bg-cover bg-center bg-no-repeat p-6"
+                  style={{ backgroundImage: "url('/certificado-base.png')" }}
                 >
                   <div className="text-center">
                     <img
@@ -164,10 +158,8 @@ export default function CertificatePage() {
                     </h1>
                     <p className="mt-4 sm:mt-6 text-base sm:text-xl leading-relaxed text-gray-700">
                       Certificamos que{" "}
-                      <strong className="font-semibold">{userData.nome}</strong>{" "}
-                      concluiu com êxito o curso{" "}
-                      <strong className="font-semibold">{selectedCourse}</strong> no
-                      dia{" "}
+                      <strong className="font-semibold">{userData.nome}</strong> concluiu com êxito o curso{" "}
+                      <strong className="font-semibold">{selectedCourse}</strong> no dia{" "}
                       <strong className="font-semibold">{dataAtual}</strong>.
                     </p>
                   </div>
@@ -191,8 +183,8 @@ export default function CertificatePage() {
                   </div>
                 </div>
 
-                {/* Botões de ação (Download e Fechar) */}
-                <div className="mt-6 text-center flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                {/* Botões de ação */}
+                <div className="mt-6 text-center flex flex-col sm:flex-row justify-center items-center gap-4">
                   <button
                     onClick={handleDownloadPDF}
                     className="bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition-colors duration-300"
