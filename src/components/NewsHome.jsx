@@ -39,7 +39,36 @@ const NewsHome = () => {
       comment:
         "O curso me preparou para os desafios da área de enfermagem com muita confiança.",
     },
+    {
+      id: 6,
+      name: "Lucas Pereira",
+      rating: 5,
+      comment:
+        "Ótimo curso, aprendi muito e me senti seguro para aplicar na prática!",
+    },
+    {
+      id: 7,
+      name: "Isabela Santos",
+      rating: 5,
+      comment:
+        "Conteúdo completo e instrutores muito capacitados. Amei cada aula!",
+    },
+    {
+      id: 8,
+      name: "Rafael Carvalho",
+      rating: 5,
+      comment:
+        "Experiência incrível, recomendo a todos que buscam se aperfeiçoar na enfermagem.",
+    },
+    {
+      id: 9,
+      name: "Patrícia Rodrigues",
+      rating: 5,
+      comment:
+        "O suporte e a atenção recebida superaram minhas expectativas, excelente!",
+    },
   ];
+  
 
   // Função para renderizar as estrelas com base na avaliação
   const renderStars = (rating) => (
