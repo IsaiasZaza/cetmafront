@@ -164,7 +164,6 @@ const Formulario = () => {
           Não <span className="text-[#00C6FF]"> encontrou</span> o curso que procurava?
         </h2>
         <p className="mt-4 text-gray-300 text-lg">
-          Fique por dentro de todas as novidades e tenha acesso a conteúdos exclusivos que podem transformar sua carreira.
           Caso não encontre o curso que deseja, envie sua sugestão! Nossa equipe, junto ao CEO, irá analisá-la e, quem sabe,
           sua ideia poderá se tornar realidade.
         </p>

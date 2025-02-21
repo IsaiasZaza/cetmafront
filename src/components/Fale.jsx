@@ -23,7 +23,7 @@ const FaleConosco = () => {
             Tire suas dúvidas com <br /> a equipe da <span className="font-extrabold text-blue-400">CETMA</span>
           </h1>
           <p className="mt-4 text-xs sm:text-sm md:text-base text-gray-200">
-            Nesta página você encontra os meios de <br /> falar com a equipe de atendimento <br /> CETMA.
+          
           </p>
         </div>
       </section>
@@ -34,23 +34,23 @@ const FaleConosco = () => {
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {[
             {
-              icon: <MdEmail className="text-blue-500 text-6xl mb-4" />,
+              icon: <MdEmail className="text-blue-500 text-5xl mb-4" />,
               title: "Fale conosco através do nosso email.",
               buttonText: "Envie um e-mail",
-              buttonColor: "bg-blue-500 hover:bg-blue-600",
+              buttonColor: "bg-blue-500 w-full py-3 hover:bg-blue-600",
             },
             {
-              icon: <MdPhone className="text-blue-500 text-6xl mb-4" />,
+              icon: <MdPhone className="text-blue-500 text-5xl mb-4" />,
               title: "Ligue e fale com a CETMA.",
-              description: "Segunda a sexta das 08h às 17h.",
+              description: "",
               buttonText: "Fale com a CETMA",
-              buttonColor: "bg-blue-500 hover:bg-blue-600",
+              buttonColor: "bg-blue-500 w-full py-3 hover:bg-blue-600",
             },
             {
-              icon: <MdWhatsapp className="text-green-500 text-6xl mb-4" />,
+              icon: <MdWhatsapp className="text-green-500 text-5xl mb-4" />,
               title: "Mande mensagem através do nosso WhatsApp.",
               buttonText: "WhatsApp",
-              buttonColor: "bg-green-500 hover:bg-green-600",
+              buttonColor: "bg-green-500 w-full py-3 hover:bg-green-600",
             },
           ].map((card, index) => (
             <div

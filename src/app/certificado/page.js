@@ -85,7 +85,7 @@ export default function CertificatePage() {
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
       <MenuLateral />
-      <div className="flex-grow p-4 sm:p-6 lg:p-8">
+      <div className="flex-grow p-4 md:p-8">
         <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
           <header className="bg-gradient-to-r from-blue-600 to-blue-500 p-6 text-white">
             <h1 className="text-2xl sm:text-3xl font-extrabold text-center">
@@ -104,7 +104,7 @@ export default function CertificatePage() {
               <p className="text-center text-gray-600">Carregando dados do usuário...</p>
             ) : (
               <div>
-                <h2 className="text-lg sm:text-xl font-semibold mb-4 text-center text-gray-800">
+                <h2 className="text-lg font-semibold mb-4 text-center text-gray-800">
                   Selecione um curso para gerar o certificado:
                 </h2>
                 <div className="space-y-4">
@@ -112,14 +112,12 @@ export default function CertificatePage() {
                     userData.courses.map((course) => (
                       <div
                         key={course.id || course.title}
-                        className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+                        className="flex flex-col sm:flex-row justify-between items-center bg-white p-4 rounded-lg shadow hover:shadow-lg transition-transform duration-300 transform "
                       >
-                        <span className="text-gray-800 font-medium mb-2 sm:mb-0">
-                          {course.title}
-                        </span>
+                        <span className="text-gray-800 font-medium">{course.title}</span>
                         <button
                           onClick={() => handleSelectCourse(course.title)}
-                          className="bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors duration-300"
+                          className="mt-2 sm:mt-0 bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors"
                         >
                           Gerar Certificado
                         </button>
@@ -134,15 +132,12 @@ export default function CertificatePage() {
 
             {selectedCourse && (
               <div className="mt-10">
-                <div className="text-center mb-4">
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-800">
-                    Pré-visualização do Certificado
-                  </h3>
-                </div>
-
+                <h3 className="text-xl font-bold text-gray-800 text-center mb-4">
+                  Pré-visualização do Certificado
+                </h3>
                 <div
                   ref={certificateRef}
-                  className="relative mx-auto max-w-[900px] w-full rounded-xl overflow-hidden border-4 border-blue-600 shadow-2xl bg-cover bg-center bg-no-repeat p-6"
+                  className="relative mx-auto max-w-4xl w-full rounded-xl overflow-hidden border-4 border-blue-600 shadow-2xl bg-cover bg-center bg-no-repeat p-6"
                   style={{ backgroundImage: "url('/certificado-base.png')" }}
                 >
                   <div className="text-center">
@@ -187,13 +182,13 @@ export default function CertificatePage() {
                 <div className="mt-6 text-center flex flex-col sm:flex-row justify-center items-center gap-4">
                   <button
                     onClick={handleDownloadPDF}
-                    className="bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition-colors duration-300"
+                    className="bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition-colors"
                   >
                     Download PDF
                   </button>
                   <button
                     onClick={handleCloseCertificate}
-                    className="bg-red-600 text-white px-6 py-3 rounded-lg shadow hover:bg-red-700 transition-colors duration-300"
+                    className="bg-red-600 text-white px-6 py-3 rounded-lg shadow hover:bg-red-700 transition-colors"
                   >
                     Fechar
                   </button>

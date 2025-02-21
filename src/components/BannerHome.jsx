@@ -15,7 +15,7 @@ export default function BannerHome() {
 
       {/* Conteúdo principal */}
       <div className="relative text-center text-white p-4 sm:p-8 rounded-lg max-w-4xl z-10">
-        <h1 className="text-3xl sm:text-4xl lg:text-4xl mb-4 font-extrabold font-poppins leading-tight lg:mt-12">
+        <h1 className="text-3xl mt-8 sm:text-4xl lg:text-4xl mb-4 font-extrabold font-poppins leading-tight lg:mt-12">
           Seja o Melhor na Enfermagem<br /> com a{" "}
           <span className="font-extrabold text-blue-300">CETMA</span>
         </h1>
