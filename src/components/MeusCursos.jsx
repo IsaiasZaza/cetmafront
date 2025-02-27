@@ -24,7 +24,8 @@ const HomePage = () => {
             try {
                 const response = await fetch("https://crud-usuario.vercel.app/api/cursos");
                 const data = await response.json();
-                setCourses(data);
+                const mainCourses = data.filter((course) => !course.parentCourseId);
+                setCourses(mainCourses);
             } catch (error) {
                 console.error("Erro ao carregar cursos:", error);
             } finally {

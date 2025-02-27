@@ -7,11 +7,13 @@ import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useRouter } from "next/navigation";
 
 const Novidades = () => {
   const [courses, setCourses] = useState([]);
   const [activeCourse, setActiveCourse] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -38,6 +40,11 @@ const Novidades = () => {
 
   const toggleDescription = (id) => {
     setActiveCourse((prev) => (prev === id ? null : id));
+  };
+
+
+  const handleRedirect = (url) => {
+    router.push(url);
   };
 
   return (
@@ -72,7 +79,9 @@ const Novidades = () => {
               <SwiperSlide key={course.id}>
                 <div
                   className="relative w-full h-80 rounded-lg overflow-hidden shadow-md bg-white cursor-pointer transition-transform duration-300"
-                  onClick={() => toggleDescription(course.id)}
+                  onMouseEnter={() => toggleDescription(course.id)}
+                  onMouseLeave={() => toggleDescription(course.id)}
+                  onClick={() => handleRedirect(`/cursosAluno/${course.id}`)}
                 >
                   <img
                     src={course.coverImage || "/default-image.jpg"}

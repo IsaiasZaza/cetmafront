@@ -89,7 +89,7 @@ const CourseDetail = () => {
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
                         </p>
                     </div>
-                    <div className="bg-white shadow-xl rounded-2xl p-8 flex flex-col items-center text-center border border-gray-200 w-4/6 h-2/3 sticky top-20">
+                    <div className="bg-white shadow-xl rounded-2xl p-8 flex flex-col items-center text-center border border-gray-200 w-4/6 h-[70vh] sticky top-20">
                         <img src="/logo.png" alt="Cetma Logo" className="w-24 h-24 " />
                         <h2 className="text-2xl font-bold text-blue-900 mb-4">{course.title}</h2>
                         <ul className="mt-4 text-gray-700 text-left space-y-2">
