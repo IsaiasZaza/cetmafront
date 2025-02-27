@@ -1,5 +1,5 @@
 import { FaFacebookF, FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
-import { SiVisa, SiMastercard, SiElo } from "react-icons/si";
+import { SiVisa, SiMastercard } from "react-icons/si";
 import FAQ from "./Faq"; // Importando o componente FAQ
 
 const Footer = () => {
@@ -14,16 +14,20 @@ const Footer = () => {
           {/* Seção principal */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 border-b border-white pb-8">
             {/* Logo e slogan */}
-            <div className="flex flex-col items-center lg:border-r md:border-r hidden:border-r md:items-start border-b sm:border-b-0 border-white md:col-span-1">
-              <img src="/logo_branca.png" alt="CETMA Logo" className="h-48 w-48 -mt-14 mb-4" />
+            <div className="flex flex-col items-center md:items-start border-b sm:border-b-0 md:border-r border-white">
+              <img
+                src="/logo_branca.png"
+                alt="CETMA Logo"
+                className="h-48 w-48 -mt-14 mb-4"
+              />
               <p className="text-gray-300 text-center md:text-left">
                 Mudando a forma que <br /> você olhará a enfermagem
               </p>
-              <div className="mt-6 md:mt-10 ">
+              <div className="mt-6">
                 <h4 className="text-white font-bold border-b pb-1 border-blue-500 mb-4 text-center md:text-left">
                   Acompanhe a CETMA
                 </h4>
-                <div className="flex justify-center md:justify-start mb-4 gap-4">
+                <div className="flex justify-center md:justify-start gap-4">
                   <a href="#" className="text-blue-500 hover:text-white text-2xl">
                     <FaFacebookF />
                   </a>
@@ -49,14 +53,24 @@ const Footer = () => {
                     Home
                   </a>
                 </li>
-                <li className="mb-2">
-                  <a href="/meusCursos" className="text-gray-300 hover:text-white">
-                    Cursos
-                  </a>
-                </li>
                 <li>
                   <a href="/sobre" className="text-gray-300 hover:text-white">
                     Sobre nós
+                  </a>
+                </li>
+                <li>
+                  <a href="/Ebook" className="text-gray-300 hover:text-white">
+                    Ebook
+                  </a>
+                </li>
+                <li>
+                  <a href="/beneficios" className="text-gray-300 hover:text-white">
+                    Porque ser um aluno CETMA?
+                  </a>
+                </li>
+                <li>
+                  <a href="/login" className="text-gray-300 hover:text-white">
+                    Acesso ao aluno
                   </a>
                 </li>
               </ul>
@@ -72,8 +86,8 @@ const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="/cardiologia" className="text-gray-300 hover:text-white">
-                    Cardiologia e Hemodinâmica
+                  <a href="/CursosEmpresa" className="text-gray-300 hover:text-white mb-2">
+                    Cursos para empresas
                   </a>
                 </li>
               </ul>
@@ -93,15 +107,15 @@ const Footer = () => {
           </div>
 
           {/* Informações adicionais */}
-          <div className="flex flex-col sm:flex-row justify-center items-center mt-8 pt-8">
+          <div className="flex flex-col sm:flex-row justify-center items-center mt-8 pt-8 gap-8">
             {/* Compra segura */}
-            <div className="flex flex-col sm:mr-10 items-center mb-6 sm:mb-0">
+            <div className="flex flex-col items-center">
               <h4 className="text-blue-500 font-bold mb-4">Compra segura</h4>
               <img src="/mercado.png" alt="Compra Segura" className="h-8" />
             </div>
 
             {/* Formas de Pagamento */}
-            <div className="flex flex-col sm:mr-10 items-center mb-6 sm:mb-0">
+            <div className="flex flex-col items-center">
               <h4 className="text-blue-500 font-bold mb-4">Formas de pagamento</h4>
               <div className="flex gap-4">
                 <SiVisa className="text-blue-500 text-3xl" />
@@ -117,7 +131,7 @@ const Footer = () => {
 
           {/* Direitos reservados */}
           <div className="mt-8 text-center text-gray-400 text-sm">
-            Todos os direitos reservados aos <a className="text-blue-500">3 Jovens</a>
+            Todos os direitos reservados aos <a href="#" className="text-blue-500">3 Jovens</a>
           </div>
         </div>
       </footer>

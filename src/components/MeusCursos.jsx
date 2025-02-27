@@ -55,7 +55,7 @@ const HomePage = () => {
                         <span className="font-extrabold"><span className="text-blue-400">30% de desconto</span></span>
                     </p>
                     <p className="text-md md:text-lg text-gray-200">
-                        
+
                     </p>
                 </div>
             </div>
@@ -96,28 +96,37 @@ const HomePage = () => {
                         {courses.map((course, index) => (
                             <SwiperSlide
                                 key={index}
-                                className="flex flex-col justify-between border rounded-xl p-6 text-center shadow-lg hover:shadow-xl hover:-translate-y-2 transition transform duration-300 h-[400px] bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600"
+                                className="relative flex flex-col justify-between border rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-2 transition transform duration-300 h-[400px]"
+                                style={{
+                                    backgroundImage: `url(${course.coverImage || "/default-image.jpg"})`,
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    height: '400px',
+                                }}
                             >
-                                <div className="flex flex-col flex-grow h-[250px]">
-                                    <h4 className="text-2xl text-white mb-2">
-                                        {course.title}
-                                    </h4>
-                                    <p className="text-lg mt-2 text-white/90 flex-grow line-clamp-3">
-                                        {course.description}
-                                    </p>
-                                </div>
-                                <div className="mt-4">
+                                {/* Camada de overlay para melhorar a legibilidade do conteúdo */}
+                                <div className="absolute inset-0 bg-black opacity-40 rounded-xl"></div>
+
+                                {/* Conteúdo do card posicionado sobre a imagem */}
+                                <div className="relative z-10 flex flex-col justify-between p-6 text-center h-full">
+                                    <div>
+                                        <h4 className="text-2xl text-white mb-2">
+                                            {course.title}
+                                        </h4>
+                                        <p className="text-lg mt-2 text-white/90 line-clamp-3">
+                                            {course.description}
+                                        </p>
+                                    </div>
                                     <button
                                         className="bg-white text-blue-600 py-3 px-6 rounded-lg shadow hover:bg-blue-500 hover:text-white hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out"
                                         onClick={() => handleRedirect(`/cursosAluno/${course.id}`)}
                                     >
-
                                         Saiba mais sobre
                                     </button>
-
                                 </div>
                             </SwiperSlide>
                         ))}
+
                     </Swiper>
                 )}
             </div>
