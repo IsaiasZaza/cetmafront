@@ -58,7 +58,7 @@ const CursosEmp = () => {
                         <span className="font-extrabold"><span className="text-blue-400">Empresa?</span></span>
                     </p>
                     <p className="text-xm md:text-lg text-gray-200">
-                        Nessa página você pode aprender cursos para facilitar <br /> a gestão da sua empresa e também pode fazer <br /> a solicitação de algum curso.
+                        
                     </p>
                 </div>
             </div>

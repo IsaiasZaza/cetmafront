@@ -68,7 +68,7 @@ const BeneficiosCards = () => {
         <div className="mt-12 text-center">
           <a
             href="/login"
-            className="px-32 py-4 bg-blue-500 text-white text-lg font-bold rounded-full shadow-md hover:bg-blue-600 transition duration-300"
+            className="px-12 py-4 w-full bg-blue-500 text-white text-lg font-bold rounded-full shadow-md hover:bg-blue-600 transition duration-300"
           >
             Torne-se Aluno
           </a>

@@ -50,12 +50,12 @@ const Footer = () => {
                   </a>
                 </li>
                 <li className="mb-2">
-                  <a href="/cursos" className="text-gray-300 hover:text-white">
+                  <a href="/meusCursos" className="text-gray-300 hover:text-white">
                     Cursos
                   </a>
                 </li>
                 <li>
-                  <a href="/sobre-nos" className="text-gray-300 hover:text-white">
+                  <a href="/sobre" className="text-gray-300 hover:text-white">
                     Sobre nós
                   </a>
                 </li>
@@ -67,12 +67,12 @@ const Footer = () => {
               <h4 className="text-blue-500 font-bold mb-4 text-center md:text-left">Cursos</h4>
               <ul className="text-center md:text-left">
                 <li className="mb-2">
-                  <a href="/cursos-em-geral" className="text-gray-300 hover:text-white">
+                  <a href="/meusCursos" className="text-gray-300 hover:text-white">
                     Cursos em geral
                   </a>
                 </li>
                 <li>
-                  <a href="/cardiologia-hemodinamica" className="text-gray-300 hover:text-white">
+                  <a href="/cardiologia" className="text-gray-300 hover:text-white">
                     Cardiologia e Hemodinâmica
                   </a>
                 </li>
@@ -84,7 +84,7 @@ const Footer = () => {
               <h4 className="text-blue-500 font-bold mb-4 text-center md:text-left">Atendimento</h4>
               <ul className="text-center md:text-left">
                 <li className="mb-2">
-                  <a href="/cursos-em-geral" className="text-gray-300 hover:text-white">
+                  <a href="/fale" className="text-gray-300 hover:text-white">
                     Fale Conosco
                   </a>
                 </li>

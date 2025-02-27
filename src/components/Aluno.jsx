@@ -8,13 +8,8 @@ import MenuLateral from "./MenuLateral";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 
-// Componente CardCurso
 const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, link }) => {
-  const router = useRouter(); // Definir router dentro do componente
-
-  const handleRedirect = (url) => {
-    router.push(url);
-  };
+  const router = useRouter();
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
@@ -37,14 +32,12 @@ const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, lin
             <p>{`${aulasConcluidas}/${totalAulas}`}</p>
           </div>
         </div>
-        <div>
-          <button
-            onClick={() => handleRedirect(link)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow-md transition-transform duration-200 hover:scale-105"
-          >
-            Continuar
-          </button>
-        </div>
+        <button
+          onClick={() => router.push(link)}
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow-md transition-transform duration-200 hover:scale-105"
+        >
+          Continuar
+        </button>
       </div>
     </div>
   );
@@ -60,7 +53,6 @@ const Aluno = () => {
 
   const router = useRouter();
   const { id } = useParams();
-  const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -68,10 +60,9 @@ const Aluno = () => {
       try {
         const response = await fetch(`https://crud-usuario.vercel.app/api/curso/${id}`);
         const data = await response.json();
-        setCourse(data);
+        setLoading(false);
       } catch (error) {
         console.error("Erro ao buscar curso:", error);
-      } finally {
         setLoading(false);
       }
     };
@@ -85,14 +76,14 @@ const Aluno = () => {
         const token = localStorage.getItem("token");
 
         if (!token) {
-          window.location.href = "/login";
+          router.push("/login");
           return;
         }
 
         const decodedToken = decodeJwt(token);
 
         if (!decodedToken || !decodedToken.id) {
-          window.location.href = "/login";
+          router.push("/login");
           return;
         }
 
@@ -114,7 +105,7 @@ const Aluno = () => {
         });
       } catch (error) {
         console.error("Erro ao buscar dados do usuário:", error);
-        window.location.href = "/login";
+        router.push("/login");
       }
     };
 
@@ -122,12 +113,12 @@ const Aluno = () => {
   }, []);
 
   return (
-    <div className="flex h-screen" style={{ background: "linear-gradient(120deg, #f8fafc 0%, #e7ebf0 100%)" }}>
+    <div className="flex flex-col md:flex-row h-auto min-h-screen bg-gradient-to-b from-gray-100 to-gray-300">
       <MenuLateral />
 
-      <main className="flex-grow p-8">
-        <section className="p-6 flex flex-col md:flex-row items-center gap-6 mb-8 border-b-2 border-gray-300">
-          <div className="relative w-40 h-40 rounded-lg overflow-hidden shadow-lg">
+      <main className="flex-grow p-6">
+        <section className="p-4 flex flex-col md:flex-row items-center gap-6 mb-8 border-b-2 border-gray-300">
+          <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg">
             <img
               src={`https://crud-usuario.vercel.app/${userData.profilePicture}`}
               alt="Foto do usuário"
@@ -135,17 +126,17 @@ const Aluno = () => {
             />
           </div>
 
-          <div className="w-full md:w-1/2 text-center md:text-left space-y-4">
-            <h1 className="text-3xl text-gray-900 font-semibold">{userData.nome}</h1>
-            <p className="text-xl text-gray-600">{userData.estado}</p>
-            <p className="text-md text-gray-500 mt-2">{userData.sobre}</p>
+          <div className="w-full md:w-2/3 text-center md:text-left space-y-2">
+            <h1 className="text-2xl md:text-3xl text-gray-900 font-semibold">{userData.nome}</h1>
+            <p className="text-lg text-gray-600">{userData.estado}</p>
+            <p className="text-md text-gray-500">{userData.sobre}</p>
           </div>
         </section>
 
         <section>
-          <h2 className="text-4xl font-bold mb-4 text-center text-blue-900">Meus Cursos</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center text-blue-900">Meus Cursos</h2>
           {userData.courses.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {userData.courses.map((course) => (
                 <CardCurso
                   key={course.id}
@@ -159,11 +150,11 @@ const Aluno = () => {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center text-center bg-white shadow-md rounded-lg p-8 mt-8">
-              <h3 className="text-xl font-semibold text-gray-700">
+            <div className="flex flex-col items-center text-center bg-white shadow-md rounded-lg p-6 mt-6">
+              <h3 className="text-lg md:text-xl font-semibold text-gray-700">
                 Você ainda não está matriculado em nenhum curso.
               </h3>
-              <p className="text-gray-500 mt-2">
+              <p className="text-gray-500 mt-2 text-sm md:text-base">
                 Explore nossos cursos disponíveis e comece a aprender hoje mesmo!
               </p>
               <a

@@ -1,77 +1,149 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
-import 'swiper/css/autoplay';
+import "swiper/css/autoplay";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const courses = [
-  { id: 1, title: "Curso 1", description: "Descrição do curso 1.", image: "/teste-cursos.jpg" },
-  { id: 2, title: "Curso 2", description: "Descrição do curso 2.", image: "/teste-cursos.jpg" },
-  { id: 3, title: "Curso 3", description: "Descrição do curso 3.", image: "/teste-cursos.jpg" },
-  { id: 4, title: "Curso 4", description: "Descrição do curso 4.", image: "/teste-cursos.jpg" },
-  { id: 5, title: "Curso 5", description: "Descrição do curso 5.", image: "/teste-cursos.jpg" },
-  { id: 6, title: "Curso 6", description: "Descrição do curso 6.", image: "/teste-cursos.jpg" },
-  { id: 7, title: "Curso 7", description: "Descrição do curso 7.", image: "/teste-cursos.jpg" },
-];
-
 const NewsHome = () => {
-  const [activeCourse, setActiveCourse] = useState(null);
+  // Array de feedbacks com comentários positivos de alunos
+  const feedbacks = [
+    {
+      id: 1,
+      name: "Maria Silva",
+      rating: 5,
+      comment:
+        "Curso excelente, conteúdo bem didático e professores muito atenciosos!",
+    },
+    {
+      id: 3,
+      name: "Ana Oliveira",
+      rating: 5,
+      comment:
+        "Transformou minha carreira, recomendo para todos que querem ingressar na enfermagem.",
+    },
+    {
+      id: 4,
+      name: "Carlos Almeida",
+      rating: 5,
+      comment:
+        "A metodologia do curso é inovadora e super fácil de acompanhar. Recomendo para todos!",
+    },
+    {
+      id: 5,
+      name: "Fernanda Lima",
+      rating: 5,
+      comment:
+        "O curso me preparou para os desafios da área de enfermagem com muita confiança.",
+    },
+    {
+      id: 6,
+      name: "Lucas Pereira",
+      rating: 5,
+      comment:
+        "Ótimo curso, aprendi muito e me senti seguro para aplicar na prática!",
+    },
+    {
+      id: 7,
+      name: "Isabela Santos",
+      rating: 5,
+      comment:
+        "Conteúdo completo e instrutores muito capacitados. Amei cada aula!",
+    },
+    {
+      id: 8,
+      name: "Rafael Carvalho",
+      rating: 5,
+      comment:
+        "Experiência incrível, recomendo a todos que buscam se aperfeiçoar na enfermagem.",
+    },
+    {
+      id: 9,
+      name: "Patrícia Rodrigues",
+      rating: 5,
+      comment:
+        "O suporte e a atenção recebida superaram minhas expectativas, excelente!",
+    },
+  ];
+  
 
-  const toggleDescription = (id) => {
-    setActiveCourse((prev) => (prev === id ? null : id));
-  };
+  // Função para renderizar as estrelas com base na avaliação
+  const renderStars = (rating) => (
+    <div className="flex">
+      {[...Array(5)].map((_, i) => (
+        <svg
+          key={i}
+          className={`w-5 h-5 ${i < rating ? "text-blue-500" : "text-gray-300"}`}
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.561-.955L10 0l2.951 5.955 6.561.955-4.756 4.635 1.122 6.545z" />
+        </svg>
+      ))}
+    </div>
+  );
 
   return (
-    <div className="flex flex-col items-center py-10 bg-gray-50">
-      <h1 className="text-4xl font-bold mb-4 text-blue-500 text-center">Novidades</h1>
-      <p className="text-lg mb-8 text-center text-gray-700 max-w-3xl">
-        Descubra as últimas novidades dos nossos cursos e atualizações.
-      </p>
-
-      <div className="w-full max-w-6xl px-4">
+    <section className="py-16 bg-gradient-to-r from-gray-50 to-gray-200">
+      <div className="max-w-6xl mx-auto px-4">
+        {/* Título da seção de feedback */}
+        <h2 className="text-4xl font-bold text-center mb-10 text-gray-800">
+          O que nossos alunos dizem
+        </h2>
+        {/* Componente Swiper para exibição dos feedbacks */}
         <Swiper
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
-          spaceBetween={20}
+          modules={[Navigation, Pagination, Autoplay]}
+          navigation
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          spaceBetween={30}
           slidesPerView={1}
-          modules={[Navigation, Autoplay, Pagination]}
           breakpoints={{
-            640: { slidesPerView: 2 },
-            1024: { slidesPerView: 4 },
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
           }}
-          loop={true}
-          className="w-full"
+          className="pb-10" // Espaço extra para a paginação
         >
-          {courses.map((course) => (
-            <SwiperSlide key={course.id}>
-              <div
-                className="relative w-full h-80 rounded-lg overflow-hidden shadow-md bg-white cursor-pointer transition-transform duration-300"
-                onClick={() => toggleDescription(course.id)}
-              >
-                <img
-                  src={course.image}
-                  alt={course.title}
-                  className="w-full h-full object-cover"
-                  aria-label={`Curso: ${course.title}`}
-                />
-                <div
-                  className={`absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black via-transparent to-transparent p-4 transition-opacity duration-300 ${activeCourse === course.id ? "opacity-100" : "opacity-0 hover:opacity-100"}`}
-                >
-                  <h2 className="text-lg font-semibold text-white mb-1">{course.title}</h2>
-                  <p className="text-sm text-gray-200">{course.description}</p>
+          {feedbacks.map((feedback) => (
+            <SwiperSlide key={feedback.id}>
+              {/* Card com tamanho fixo, hover e transição */}
+              <div className="bg-white p-6 rounded-xl shadow-lg flex flex-col w-88 h-64 mx-auto transform transition-all duration-300">
+                <div className="flex items-center mb-4">
+                  {renderStars(feedback.rating)}
+                  <span className="ml-2 text-sm text-gray-600">
+                    {feedback.rating}/5
+                  </span>
                 </div>
+                <p className="text-gray-700 flex-grow italic">
+                  “{feedback.comment}”
+                </p>
+                <p className="mt-6 text-gray-900 font-semibold text-right">
+                  - {feedback.name}
+                </p>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-    </div>
+      {/* Estilos globais customizados para os elementos do Swiper */}
+      <style jsx global>{`
+        .swiper-pagination-bullet {
+          background: #cbd5e1;
+          opacity: 1;
+        }
+        .swiper-pagination-bullet-active {
+          background: #3b82f6;
+        }
+        .swiper-button-next,
+        .swiper-button-prev {
+          color: #3b82f6;
+        }
+      `}</style>
+    </section>
   );
 };
 

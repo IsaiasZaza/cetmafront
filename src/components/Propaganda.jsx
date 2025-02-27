@@ -6,7 +6,7 @@ import { FiArrowRight } from "react-icons/fi";
 export default function Propaganda() {
   return (
     <div
-      className="relative bg-cover bg-center text-white h-[100vh] min-h-[70vh] 2xl:h-[60vh] flex flex-col md:flex-row items-center bg-home-mobile lg:bg-propaganda"
+      className="relative bg-cover bg-center text-white h-[100vh] min-h-[75vh] 2xl:h-[70vh] flex flex-col md:flex-row items-center bg-home-mobile lg:bg-propaganda"
     >
       {/* Gradiente de sobreposição */}
       <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-blue-900/30 to-transparent"></div>

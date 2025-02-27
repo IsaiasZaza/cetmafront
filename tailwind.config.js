@@ -24,6 +24,7 @@ module.exports = {
         "ebooks": "url('/Retangulo_23.png')",
         "beneficios-aluno": "url('/Retangulo_22.png')",
         "fale": "url('/fale.png')",
+        "modulos": "url('/banner_pag_topicos_dos_cursos.png')",
       },
     },
   },

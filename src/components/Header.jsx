@@ -103,7 +103,7 @@ const Header = () => {
             href="/login"
             className="flex items-center text-gray-800 border border-black rounded px-3 py-1 hover:text-blue-500 hover:border-blue-500"
           >
-            <FaUser className="text-xl mr-2" /> Login
+            <FaUser className="text-xl mr-2" /> Entrar
           </a>
         </div>
 
@@ -155,7 +155,7 @@ const Header = () => {
               href="/login"
               className="block text-gray-800 border border-black rounded px-6 py-2 mt-2 hover:text-blue-500 hover:border-blue-500 w-fit mx-auto"
             >
-              <FaUser className="text-xl mr-2 inline" /> Login
+              <FaUser className="text-xl mr-2 inline" /> Entrar
             </a>
           </nav>
         </div>

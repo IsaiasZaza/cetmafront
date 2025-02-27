@@ -29,10 +29,9 @@ const Beneficios = () => {
             Beneficios de alunos da CETMA
           </h2>
           <h1 className="text-2xl md:text-4xl lg:text-3xl xl:text-3xl 2xl:text-5xl font-extrabold leading-tight break-words">
-            Pensa em se tornar aluno e <br /> quer saber mais sobre <br/> <span className="font-extrabold text-blue-400">SEUS BENEFICIOS?</span>
+            Pensa em se tornar aluno e quer saber mais sobre <br/> <span className="font-extrabold text-blue-400">SEUS BENEFICIOS?</span>
           </h1>
           <p className="mt-4 text-xs sm:text-sm md:text-base text-gray-200">
-            Essa página é didicada para mostrar a você que quer  <br /> os beneficios dos alunoss da CETMA.<br />
           </p>
         </div>
       </section>

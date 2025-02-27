@@ -55,7 +55,7 @@ const HomePage = () => {
                         <span className="font-extrabold"><span className="text-blue-400">30% de desconto</span></span>
                     </p>
                     <p className="text-md md:text-lg text-gray-200">
-                        Aproveite esta oferta especial para começar a sua jornada <br /> de aprendizado com os melhores cursos do mercado. <br /> Invista no seu futuro hoje mesmo!
+                        
                     </p>
                 </div>
             </div>
