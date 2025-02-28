@@ -28,17 +28,11 @@ const Footer = () => {
                   Acompanhe a CETMA
                 </h4>
                 <div className="flex justify-center md:justify-start gap-4">
-                  <a href="#" className="text-blue-500 hover:text-white text-2xl">
-                    <FaFacebookF />
-                  </a>
-                  <a href="#" className="text-blue-500 hover:text-white text-2xl">
+                  <a href="https://www.instagram.com/cetmaeducacional/" target="_blank" className="text-blue-500 hover:text-white text-2xl">
                     <FaInstagram />
                   </a>
-                  <a href="#" className="text-blue-500 hover:text-white text-2xl">
+                  <a href="https://wa.me/61992441951" target="_blank" className="text-blue-500 hover:text-white text-2xl">
                     <FaWhatsapp />
-                  </a>
-                  <a href="#" className="text-blue-500 hover:text-white text-2xl">
-                    <FaYoutube />
                   </a>
                 </div>
               </div>
@@ -53,22 +47,22 @@ const Footer = () => {
                     Home
                   </a>
                 </li>
-                <li>
+                <li className="mb-2">
                   <a href="/sobre" className="text-gray-300 hover:text-white">
                     Sobre nós
                   </a>
                 </li>
-                <li>
-                  <a href="/Ebook" className="text-gray-300 hover:text-white">
+                <li className="mb-2">
+                  <a href="/ebookPage" className="text-gray-300 hover:text-white">
                     Ebook
                   </a>
                 </li>
-                <li>
+                <li className="mb-2">
                   <a href="/beneficios" className="text-gray-300 hover:text-white">
                     Porque ser um aluno CETMA?
                   </a>
-                </li>
-                <li>
+                </li >
+                <li className="mb-2">
                   <a href="/login" className="text-gray-300 hover:text-white">
                     Acesso ao aluno
                   </a>
@@ -131,7 +125,7 @@ const Footer = () => {
 
           {/* Direitos reservados */}
           <div className="mt-8 text-center text-gray-400 text-sm">
-            Todos os direitos reservados aos <a href="#" className="text-blue-500">3 Jovens</a>
+            Todos os direitos reservados aos <a href="https://www.instagram.com/os3jovens/" className="text-blue-500">3 Jovens</a>
           </div>
         </div>
       </footer>
