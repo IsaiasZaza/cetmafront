@@ -30,8 +30,10 @@ const FaleConosco = () => {
       <WhatsappVoador />
       {/* Opções de Contato */}
       <section className="bg-gray-100 pb-10">
-        <p className="text-3xl text-gray-800 text-center py-16">Nossos canais de <span className="text-blue-500 font-bold">atendimento</span></p>
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <p className="text-3xl text-gray-800 text-center py-16">
+          Nossos canais de <span className="text-blue-500 font-bold">atendimento</span>
+        </p>
+        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 justify-items-center items-center">
           {[
             {
               icon: <MdEmail className="text-blue-500 text-5xl mb-4" />,
@@ -42,7 +44,7 @@ const FaleConosco = () => {
             },
             {
               icon: <FaWhatsapp className="text-green-500 text-5xl mb-4" />,
-              title: "Mande mensagem através do nosso WhatsApp.",
+              title: "Mande mensagem no nosso WhatsApp.",
               buttonText: "WhatsApp",
               buttonColor: "bg-green-500 w-full py-3 hover:bg-green-600",
               link: "https://wa.link/wggbtg",
@@ -50,9 +52,9 @@ const FaleConosco = () => {
           ].map((card, index) => (
             <div
               key={index}
-              className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center justify-between h-auto sm:h-72 lg:h-70"
+              className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center justify-between text-center h-auto sm:h-72 lg:h-70"
             >
-              <div className="flex flex-col items-center text-center">
+              <div className="flex flex-col items-center">
                 {card.icon}
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">{card.title}</h3>
               </div>
@@ -68,6 +70,7 @@ const FaleConosco = () => {
           ))}
         </div>
       </section>
+
 
       <Footer />
     </div>
