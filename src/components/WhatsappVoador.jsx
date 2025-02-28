@@ -1,7 +1,7 @@
 import React from "react";
 
 const WhatsappVoador = () => {
-  const whatsappNumber = "5511999999999"; // Substitua pelo número do WhatsApp com DDI e DDD
+  const whatsappNumber = "61992441951"; // Substitua pelo número do WhatsApp com DDI e DDD
   const message = "Olá! Gostaria de saber mais informações."; // Mensagem padrão
 
   return (
