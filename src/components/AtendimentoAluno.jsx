@@ -6,9 +6,9 @@ import MenuLateral from "./MenuLateral";
 import { motion } from "framer-motion";
 
 const AtendimentoAluno = () => {
-  const email = "contato@example.com";
-  const whatsappNumber = "+559199999999";
-  const phoneNumber = "+55 (91) 99999-9999";
+  const email = "https://cetmacetma7@gmail.com";
+  const whatsappNumber = "https://www.instagram.com/os3jovens/";
+  const phoneNumber = "61992441951";
 
   return (
     <div className="flex flex-col md:flex-row h-screen bg-gray-100">
