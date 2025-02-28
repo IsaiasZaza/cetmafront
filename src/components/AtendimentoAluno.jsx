@@ -7,8 +7,7 @@ import { motion } from "framer-motion";
 
 const AtendimentoAluno = () => {
   const email = "https://cetmacetma7@gmail.com";
-  const whatsappNumber = "https://www.instagram.com/os3jovens/";
-  const phoneNumber = "61992441951";
+  const whatsappNumber = "61992441951";
 
   return (
     <div className="flex flex-col md:flex-row h-screen bg-gray-100">
@@ -73,14 +72,7 @@ const AtendimentoAluno = () => {
               <FaWhatsapp size={24} />
               Chamar no WhatsApp
             </motion.a>
-            <motion.a
-              href={`tel:${phoneNumber.replace(/\D/g, "")}`}
-              className="flex items-center justify-center gap-4 bg-gradient-to-r from-gray-600 to-gray-800 text-white py-3 px-5 md:py-4 md:px-6 rounded-lg shadow-lg text-lg md:text-xl hover:scale-105 transform transition w-full"
-              whileHover={{ scale: 1.1 }}
-            >
-              <FaPhoneAlt size={24} />
-              Ligar para Nós
-            </motion.a>
+            
           </div>
 
           {/* Decorative Elements */}

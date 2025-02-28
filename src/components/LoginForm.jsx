@@ -2,7 +2,10 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { FaEnvelope, FaEye, FaEyeSlash, FaUser, FaLock, FaArrowAltCircleLeft, FaBriefcase, FaIdCard } from "react-icons/fa";
+import { 
+  FaEnvelope, FaEye, FaEyeSlash, FaUser, FaLock, 
+  FaArrowAltCircleLeft, FaBriefcase, FaIdCard 
+} from "react-icons/fa";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,8 +18,15 @@ const LoginForm = () => {
   const [profissao, setProfissao] = useState(""); // Estado para profissão
   const [cpf, setCpf] = useState(""); // Estado para CPF
   const [message, setMessage] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+
+  // Redireciona para /aluno se já houver token salvo
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.replace("/aluno");
+    }
+  }, [router]);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -31,38 +41,6 @@ const LoginForm = () => {
     e.preventDefault();
     setMessage(null);
 
-
-
-    useEffect(() => {
-      async function checkTokenAndFetchCursos() {
-        try {
-          const token = localStorage.getItem("token");
-          // Se existir o token, redireciona para "/aluno" e não busca os cursos.
-          if (token) {
-            window.location.href = "/aluno";
-            return;
-          }
-          
-          // Se não houver token, realiza a chamada para buscar os cursos.
-          const response = await fetch("https://crud-usuario.vercel.app/api/cursos", {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-    
-          if (!response.ok) throw new Error("Erro ao buscar cursos");
-    
-          const data = await response.json();
-          // Filtra para exibir somente os cursos principais (sem parentCourseId)
-          const cursosPrincipais = data.filter((curso) => !curso.parentCourseId);
-          setCursos(cursosPrincipais);
-        } catch (error) {
-          console.error("Erro ao buscar cursos:", error);
-        }
-      }
-      checkTokenAndFetchCursos();
-    }, []);
-
     try {
       const response = await fetch("https://crud-usuario.vercel.app/api/forgot-password", {
         method: "POST",
@@ -72,8 +50,11 @@ const LoginForm = () => {
 
       const data = await response.json();
       if (response.ok) {
-        setMessage({ type: "success", text: "Verifique seu e-mail para redefinir a senha." });
-        handleFormSwitch("login");
+        setMessage({ type: "success", text: "Recuperação de senha bem-sucedida! Verifique seu e-mail para redefinir a senha." });
+        // Após 3 segundos, troca para o formulário de login
+        setTimeout(() => {
+          handleFormSwitch("login");
+        }, 3000);
       } else {
         setMessage({ type: "error", text: data.message });
       }
@@ -105,7 +86,6 @@ const LoginForm = () => {
         setTimeout(() => {
           handleFormSwitch("login");
         }, 3000);
-
       } else {
         setMessage({ type: "error", text: data.message });
       }
@@ -177,8 +157,6 @@ const LoginForm = () => {
                 <FaEyeSlash className="text-gray-400 cursor-pointer mr-3" onClick={togglePasswordVisibility} />
               )}
             </div>
-            {/* Função */}
-
             {/* Botão */}
             <button
               type="submit"
@@ -188,9 +166,14 @@ const LoginForm = () => {
             </button>
             <div className="text-xs text-gray-500 flex justify-between w-4/5">
               <span>
-                Não tem conta? <span className="text-blue-600 cursor-pointer hover:underline" onClick={() => handleFormSwitch("register")}>Cadastre-se</span>
+                Não tem conta?{" "}
+                <span className="text-blue-600 cursor-pointer hover:underline" onClick={() => handleFormSwitch("register")}>
+                  Cadastre-se
+                </span>
               </span>
-              <span className="text-blue-600 cursor-pointer hover:underline" onClick={() => handleFormSwitch("forgotPassword")}>Esqueci minha senha</span>
+              <span className="text-blue-600 cursor-pointer hover:underline" onClick={() => handleFormSwitch("forgotPassword")}>
+                Esqueci minha senha
+              </span>
             </div>
           </form>
         );
@@ -244,7 +227,6 @@ const LoginForm = () => {
                 required
                 className={inputStyle}
               />
-
             </div>
             {/* Campo de senha */}
             <div className={inputContainerStyle}>
@@ -283,15 +265,11 @@ const LoginForm = () => {
             </button>
             <p className="text-sm text-gray-500">
               Já tem uma conta?{" "}
-              <span
-                className="text-blue-600 cursor-pointer hover:underline"
-                onClick={() => handleFormSwitch("login")}
-              >
+              <span className="text-blue-600 cursor-pointer hover:underline" onClick={() => handleFormSwitch("login")}>
                 Entrar
               </span>
             </p>
           </form>
-
         );
       case "forgotPassword":
         return (
@@ -315,10 +293,7 @@ const LoginForm = () => {
             </button>
             <p className="text-sm text-gray-500">
               Lembrou a senha?{" "}
-              <span
-                className="text-blue-600 cursor-pointer hover:underline"
-                onClick={() => handleFormSwitch("login")}
-              >
+              <span className="text-blue-600 cursor-pointer hover:underline" onClick={() => handleFormSwitch("login")}>
                 Entrar
               </span>
             </p>
@@ -334,7 +309,7 @@ const LoginForm = () => {
       {/* Banner (aparece só no desktop) */}
       <div
         className="absolute inset-0 hidden md:block bg-cover bg-center"
-        style={{ backgroundImage: "url('banner3.jpg')" }}
+        style={{ backgroundImage: "url('LOGIN_PAG.jpg')" }}
       ></div>
 
       {/* Conteúdo (sempre visível) */}
@@ -350,10 +325,11 @@ const LoginForm = () => {
           {renderForm()}
           {message && (
             <div
-              className={`mt-4 px-4 py-2 w-4/5 rounded-md ${message.type === "error"
-                ? "bg-red-100 text-red-500 border border-red-500"
-                : "bg-green-100 text-green-500 border border-green-500"
-                }`}
+              className={`mt-4 px-4 py-2 w-4/5 rounded-md ${
+                message.type === "error"
+                  ? "bg-red-100 text-red-500 border border-red-500"
+                  : "bg-green-100 text-green-500 border border-green-500"
+              }`}
             >
               {message.text}
             </div>

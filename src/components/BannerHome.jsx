@@ -25,14 +25,16 @@ export default function BannerHome() {
         </p>
         <div className="mb-6">
           <div className="w-full max-w-[480px] mx-auto">
-            <iframe
+            <video
               className="rounded-lg w-full h-[240px]"
-              src="https://www.youtube.com/embed/338LKGdz6SY?si=wEGIW7tiHtWPquL8"
-              title="YouTube video"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+              src="/videos/adam.mp4"
+              loop
+              autoPlay
+              muted
+              controls
+            >
+              Seu navegador não suporta a tag de vídeo.
+            </video>
             {/* Botão ajustado à largura do vídeo */}
             <a
               href="/login"

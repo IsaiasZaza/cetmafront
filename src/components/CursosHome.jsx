@@ -42,21 +42,33 @@ const Novidades = () => {
     setActiveCourse((prev) => (prev === id ? null : id));
   };
 
-
   const handleRedirect = (url) => {
     router.push(url);
   };
 
   return (
     <div className="flex flex-col items-center py-10 mb-4">
-      <h1 className="lg:text-4xl md:text-3xl text-2xl font-bold mb-4 text-blue-500 text-center">Cursos</h1>
-      <p className="lg:text-lg text-base mb-8 text-center text-gray-700 max-w-3xl px-4">
-        Explore nossos cursos e descubra como eles podem ajudá-lo a alcançar seus objetivos. Clique nas imagens para mais informações!
-      </p>
+      <h1 className="lg:text-4xl md:text-3xl text-2xl font-bold mb-4 text-blue-500 text-center">
+        Cursos
+      </h1>
 
       {isLoading ? (
         <div className="flex justify-center items-center w-full h-64">
           <ImSpinner8 className="animate-spin text-blue-500 text-4xl" />
+        </div>
+      ) : courses.length === 0 ? (
+        <div className="mt-4 flex flex-col items-center">
+          <div className="bg-blue-50 border border-blue-300 text-gray-950 px-4 sm:px-8 py-6 rounded-lg shadow-md max-w-full sm:max-w-md w-full mx-2">
+            <h2 className="text-xl sm:text-2xl font-bold mb-2 text-center">
+              Novos cursos em breve!
+            </h2>
+            <p className="text-center text-sm sm:text-base">
+              Estamos preparando conteúdos incríveis para você. Fique atento às nossas novidades.
+            </p>
+            <p className="mt-4 text-center font-medium text-sm sm:text-base">
+              Atenciosamente, Equipe CETMA
+            </p>
+          </div>
         </div>
       ) : (
         <div className="w-full max-w-6xl px-4">
@@ -91,11 +103,13 @@ const Novidades = () => {
                   />
                   <div
                     className={`absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black via-transparent to-transparent p-4 transition-opacity duration-300 ${activeCourse === course.id
-                      ? "opacity-100"
-                      : "opacity-0 hover:opacity-100"
+                        ? "opacity-100"
+                        : "opacity-0 hover:opacity-100"
                       }`}
                   >
-                    <h2 className="text-lg font-semibold text-white mb-1">{course.title}</h2>
+                    <h2 className="text-lg font-semibold text-white mb-1">
+                      {course.title}
+                    </h2>
                     <p className="text-sm text-gray-200">{course.description}</p>
                   </div>
                 </div>

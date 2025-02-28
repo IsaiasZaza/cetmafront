@@ -62,7 +62,7 @@ const ProfilePage = () => {
           sobre: data.user.sobre || "Sobre não disponível",
           cpf: data.user.cpf || "CPF não disponível",
           profissao: data.user.profissao || "Profissão não disponível",
-          profilePicture: data.user.profilePicture || "https://via.placeholder.com/150",
+          profilePicture:  "logo.png",
         });
       } catch (error) {
         console.error("Erro ao buscar dados do usuário:", error);
@@ -152,16 +152,11 @@ const ProfilePage = () => {
           <div className="flex flex-col md:flex-row gap-6 items-center border-b pb-6">
             <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-xl overflow-hidden shadow-xl">
               <img
-                src={`https://crud-usuario.vercel.app${userData.profilePicture}`}
+                src={`/${userData.profilePicture}`}
                 alt="Foto do Perfil"
                 className="w-full h-full object-cover"
               />
-              <label
-                htmlFor="photo-upload"
-                className="absolute bottom-2 right-2 bg-blue-600 p-2 rounded-full text-white shadow-lg cursor-pointer hover:bg-blue-700 transition-colors"
-              >
-                <FaCamera />
-              </label>
+
               <input
                 id="photo-upload"
                 type="file"
@@ -174,14 +169,6 @@ const ProfilePage = () => {
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">{userData.nome}</h1>
               <p className="text-gray-600">{userData.estado}</p>
               <p className="text-gray-500 mt-2 text-sm">{userData.sobre}</p>
-              <div className="mt-4 flex justify-center md:justify-start items-center gap-4">
-                <button
-                  className="text-blue-600 flex items-center gap-2 hover:underline transition-colors"
-                  onClick={handleRemovePhoto}
-                >
-                  <FaTrash /> Remover foto
-                </button>
-              </div>
             </div>
           </div>
 

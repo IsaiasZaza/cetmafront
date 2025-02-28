@@ -50,9 +50,9 @@ const HomePage = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
                 {/* Conteúdo do banner */}
                 <div className="relative w-full  text-left space-y-6">
-                    <p className="text-2xl md:text-4xl lg:text-3xl xl:text-3xl 2xl:text-5xl font-bold leading-tight">
-                        Na compra de 2 cursos <br /> o segundo sai com <br />{" "}
-                        <span className="font-extrabold"><span className="text-blue-400">30% de desconto</span></span>
+                    <p className="text-3xl md:text-4xl lg:text-4xl font-bold leading-tight">
+                        Chegou a hora de mudar <span className="text-blue-500">sua vida</span>
+                        <p className="text-3xl md:text-4xl lg:text-4xl font-bold leading-tight"> junto com a CETMA. </p>
                     </p>
                     <p className="text-md md:text-lg text-gray-200">
 
@@ -72,6 +72,20 @@ const HomePage = () => {
                 {loading ? (
                     <div className="flex flex-col items-center justify-center mt-12">
                         <ImSpinner8 className="animate-spin text-blue-500 text-6xl" />
+                    </div>
+                ) : courses.length === 0 ? (
+                    <div className="mt-12 flex flex-col items-center">
+                        <div className="bg-blue-50 border border-blue-300 text-gray-950 px-4 sm:px-8 py-6 rounded-lg shadow-md max-w-full sm:max-w-md w-full mx-2">
+                            <h2 className="text-xl sm:text-2xl font-bold mb-2 text-center">
+                                Novos cursos em breve!
+                            </h2>
+                            <p className="text-center text-sm sm:text-base">
+                                Estamos preparando conteúdos incríveis para você. Fique atento às nossas novidades.
+                            </p>
+                            <p className="mt-4 text-center font-medium text-sm sm:text-base">
+                                Atenciosamente, Equipe CETMA
+                            </p>
+                        </div>
                     </div>
                 ) : (
                     <Swiper
@@ -126,7 +140,6 @@ const HomePage = () => {
                                 </div>
                             </SwiperSlide>
                         ))}
-
                     </Swiper>
                 )}
             </div>

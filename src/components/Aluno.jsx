@@ -100,7 +100,7 @@ const Aluno = () => {
           nome: data.user.nome || "Nome não disponível",
           estado: data.user.estado || "Estado não disponível",
           sobre: data.user.sobre || "Sobre não disponível",
-          profilePicture: data.user.profilePicture || null,
+          profilePicture:  "logo.png",
           courses: data.user.courses || [],
         });
       } catch (error) {
@@ -120,7 +120,7 @@ const Aluno = () => {
         <section className="p-4 flex flex-col md:flex-row items-center gap-6 mb-8 border-b-2 border-gray-300">
           <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg">
             <img
-              src={`https://crud-usuario.vercel.app/${userData.profilePicture}`}
+              src={`/${userData.profilePicture}`}
               alt="Foto do usuário"
               className="w-full h-full object-cover"
             />

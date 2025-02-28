@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from "react";
-import { MdEmail, MdPhone, MdWhatsapp } from "react-icons/md";
+import { ImSpinner8 } from "react-icons/im";
 import Header from "./Header";
 import Footer from "./Footer";
 import WhatsappVoador from "./WhatsappVoador";
@@ -32,7 +32,8 @@ const Ebook = () => {
   return (
     <div>
       <Header />
-      {/* Hero Section */}
+
+      {/* Seção Hero */}
       <section className="relative bg-mobile-padrao lg:bg-ebooks bg-cover bg-center h-[50vh] sm:h-[60vh] md:h-[50vh] lg:h-[60vh] text-white flex flex-col justify-center items-start px-6 md:px-20 lg:px-40">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-900/60 to-transparent"></div>
         <div className="relative w-full sm:w-3/4 lg:w-2/3 space-y-4">
@@ -40,24 +41,39 @@ const Ebook = () => {
             E-books gratuitos pra você
           </h2>
           <h1 className="text-2xl md:text-4xl lg:text-3xl xl:text-3xl 2xl:text-5xl font-extrabold leading-tight w-full">
-            Pensando no <span className="text-blue-400">MELHOR</span><br/> para você
-            preparamos
-            E-books
+            Pensando no <span className="text-blue-400">MELHOR</span> para você<br />
+            preparamos E-books
           </h1>
         </div>
       </section>
 
       <WhatsappVoador />
 
-      {/* Ebook Cards */}
+      {/* Seção de Cards de Ebooks */}
       <section className="bg-gray-100 py-20 px-6 sm:px-12 lg:px-24">
         <h2 className="text-2xl lg:text-4xl text-center mb-12 text-gray-800">
           Confira alguns benefícios que nossos alunos têm:
         </h2>
         {loading ? (
-          <p className="text-center text-gray-600">Carregando...</p>
+          <div className="flex justify-center items-center">
+            <ImSpinner8 className="animate-spin text-blue-500 text-4xl" />
+          </div>
         ) : error ? (
           <p className="text-center text-red-600">Erro: {error}</p>
+        ) : ebooks.length === 0 ? (
+          <div className="mt-12 flex flex-col items-center">
+            <div className="bg-blue-50 border border-blue-300 text-gray-950 px-4 sm:px-8 py-6 rounded-lg shadow-md max-w-full sm:max-w-md w-full mx-2">
+              <h2 className="text-xl sm:text-2xl font-bold mb-2 text-center">
+                Novos e-books em breve!
+              </h2>
+              <p className="text-center text-sm sm:text-base">
+                Estamos preparando conteúdos incríveis para você. Fique atento às nossas novidades.
+              </p>
+              <p className="mt-4 text-center font-medium text-sm sm:text-base">
+                Atenciosamente, Equipe CETMA
+              </p>
+            </div>
+          </div>
         ) : (
           <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {ebooks.map((ebook, index) => (
