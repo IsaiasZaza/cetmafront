@@ -108,9 +108,9 @@ const CourseDetail = () => {
                         </ul>
                         <div className="mt-6 text-blue-900 text-center">
                             <p className="line-through text-lg flex items-center justify-center gap-2">
-                                <IoMdPricetag className="text-red-500" /> de R$ 1299,99
+                                <IoMdPricetag className="text-red-500" /> de R$ {course.price * 0.8}
                             </p>
-                            <p className="text-4xl font-extrabold">R$ 999,99</p>
+                            <p className="text-4xl font-extrabold">R$ {course.price}</p>
                             <p className="text-sm font-medium">em até 6x sem juros</p>
                         </div>
                         <a

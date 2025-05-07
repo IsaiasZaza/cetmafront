@@ -7,6 +7,33 @@ import {
   FaArrowAltCircleLeft, FaBriefcase, FaIdCard 
 } from "react-icons/fa";
 
+
+const useAutoLogout = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const authData = JSON.parse(localStorage.getItem("auth"));
+    if (!authData) return;
+
+    const { expiresAt } = authData;
+    const now = Date.now();
+
+    if (now >= expiresAt) {
+      localStorage.removeItem("auth");
+      router.replace("/login");
+      return;
+    }
+
+    const timeoutId = setTimeout(() => {
+      localStorage.removeItem("auth");
+      router.replace("/login");
+    }, expiresAt - now); // Tempo restante até expiração
+
+    return () => clearTimeout(timeoutId); // Limpa timeout se o componente desmontar
+  }, []);
+};
+
+
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formType, setFormType] = useState("login"); // 'login', 'register', 'forgotPassword'
@@ -305,6 +332,8 @@ const LoginForm = () => {
   };
 
   return (
+    useAutoLogout(), // Chama o hook de logout automático
+
     <div className="min-h-screen flex justify-between items-stretch">
       {/* Banner (aparece só no desktop) */}
       <div

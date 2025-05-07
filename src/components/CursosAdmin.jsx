@@ -92,7 +92,7 @@ export default function Cursos() {
   // Função para adicionar curso com subcursos
   const handleAddCursoWithSubcourses = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/courses", {
+      const response = await fetch("https://api-only-mu.vercel.app/api/courses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -126,7 +126,7 @@ export default function Cursos() {
 
   const handleAddParentCurso = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/courses", {
+      const response = await fetch("https://api-only-mu.vercel.app/api/courses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

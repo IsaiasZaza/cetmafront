@@ -96,7 +96,7 @@ const Admin = () => {
     const decodedToken = decodeJwt(token);
 
     try {
-      const response = await fetch(`http://localhost:3001/api/removerCurso`, {
+      const response = await fetch(`https://api-only-mu.vercel.app/api/removerCurso`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

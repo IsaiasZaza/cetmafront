@@ -52,14 +52,14 @@ export default function VideoPlayer() {
   const lessons = course
     ? course.videoUrl
       ? [
-          {
-            id: course.id,
-            title: `Introdução: ${course.title}`,
-            description: course.description,
-            videoUrl: course.videoUrl,
-          },
-          ...(course.subCourses || []),
-        ]
+        {
+          id: course.id,
+          title: `Introdução: ${course.title}`,
+          description: course.description,
+          videoUrl: course.videoUrl,
+        },
+        ...(course.subCourses || []),
+      ]
       : (course.subCourses || [])
     : [];
 
@@ -167,52 +167,25 @@ export default function VideoPlayer() {
             <button
               onClick={goToPreviousLesson}
               disabled={currentLessonIndex === 0}
-              className={`lg:p-4 p-2 text-white rounded-lg text-xl flex items-center justify-center transition-all ${
-                currentLessonIndex === 0
+              className={`lg:p-4 p-2 text-white rounded-lg text-xl flex items-center justify-center transition-all ${currentLessonIndex === 0
                   ? "bg-[#4A90E2]/50 cursor-not-allowed"
                   : "bg-[#4A90E2] hover:bg-[#357ABD]"
-              }`}
+                }`}
             >
               <FaChevronLeft />
             </button>
             <button
               onClick={goToNextLesson}
               disabled={currentLessonIndex === lessons.length - 1}
-              className={`lg:p-4 p-2 text-white rounded-lg text-xl flex items-center justify-center transition-all ${
-                currentLessonIndex === lessons.length - 1
+              className={`lg:p-4 p-2 text-white rounded-lg text-xl flex items-center justify-center transition-all ${currentLessonIndex === lessons.length - 1
                   ? "bg-[#4A90E2]/50 cursor-not-allowed"
                   : "bg-[#4A90E2] hover:bg-[#357ABD]"
-              }`}
+                }`}
             >
               <FaChevronRight />
             </button>
           </div>
-        </div>
-
-        {/* Feedback */}
-        <div className="container mx-auto px-4">
-  <div className="mt-8 p-6 bg-gradient-to-br from-[#1A2635] to-[#0F1A27] rounded-2xl shadow-xl border border-[#4A90E2]/30">
-    <h3 className="text-center text-base lg:text-2xl font-bold text-[#4A90E2] mb-4">
-      Deixe seu feedback sobre a aula
-    </h3>
-    <form onSubmit={handleFeedbackSubmit} className="flex flex-col gap-4">
-      <textarea
-        value={feedback}
-        onChange={(e) => setFeedback(e.target.value)}
-        rows="5"
-        placeholder="Escreva seu feedback aqui..."
-        className="w-full p-4 bg-[#0A1F2C] border border-[#4A90E2]/50 rounded-xl text-white text-lg resize-none focus:outline-none transition-all duration-300"
-      />
-      <button
-        type="submit"
-        className="px-6 py-3 bg-[#4A90E2] hover:bg-[#357ABD] active:scale-95 transition-all duration-300 text-white font-semibold rounded-xl text-lg shadow-md hover:shadow-lg"
-      >
-        Enviar Feedback
-      </button>
-    </form>
-  </div>
-</div>
-
+        </div>  
       </div>
 
       {/* Seção de módulos (menu) */}
@@ -237,11 +210,10 @@ export default function VideoPlayer() {
             onClick={() => changeVideo(lesson.videoUrl, index)}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            className={`w-full flex items-center justify-start px-4 py-3 mb-4 rounded-xl font-bold text-lg transition transform ${
-              currentLessonIndex === index
+            className={`w-full flex items-center justify-start px-4 py-3 mb-4 rounded-xl font-bold text-lg transition transform ${currentLessonIndex === index
                 ? "bg-gradient-to-r from-[#357ABD] to-[#4A90E2] ring-2 ring-[#4A90E2]"
                 : "bg-[#1A3A55] hover:bg-[#357ABD]"
-            } text-white`}
+              } text-white`}
           >
             {lesson.title}
           </motion.button>

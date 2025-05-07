@@ -14,7 +14,7 @@ const CheckoutButton = ({ courseId, userId }) => {
     setLoading(true);
     try {
       // Chama sua API que cria a sessão do Stripe
-      const response = await fetch('http://localhost:3003/api/checkout', {
+      const response = await fetch('https://api-only-mu.vercel.app/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ courseId, userId }),

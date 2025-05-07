@@ -8,8 +8,43 @@ import MenuLateral from "./MenuLateral";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 
-const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, link }) => {
+const useAutoLogout = () => {
   const router = useRouter();
+
+  useEffect(() => {
+    const authData = JSON.parse(localStorage.getItem("auth"));
+    if (!authData) return;
+
+    const { expiresAt } = authData;
+    const now = Date.now();
+
+    if (now >= expiresAt) {
+      localStorage.removeItem("auth");
+      router.replace("/login");
+      return;
+    }
+
+    const timeoutId = setTimeout(() => {
+      localStorage.removeItem("auth");
+      router.replace("/login");
+    }, expiresAt - now); // Tempo restante até expiração
+
+    return () => clearTimeout(timeoutId); // Limpa timeout se o componente desmontar
+  }, []);
+};
+
+
+// Componente de cartão de curso
+const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, link, tipo, id }) => {
+  const router = useRouter();
+
+  const handleRedirect = () => {
+    if (tipo === "PRESENTIAL") {
+      router.push(`/cursoPresencialModulo/${id}`);
+    } else {
+      router.push(link); // Online
+    }
+  };
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
@@ -17,10 +52,17 @@ const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, lin
         {status === "Concluído" ? <FaCheckCircle /> : <FiClock />}
         <p>{status}</p>
       </div>
+
       <h3 className="text-lg text-gray-900 font-bold border-b-2 pb-3 mt-2 border-gray-300">{titulo}</h3>
+
+      <p className="text-sm text-gray-600 mt-1 italic">
+        Tipo: {tipo === "ONLINE" ? "Curso Online" : tipo === "PRESENTIAL" ? "Curso Presencial" : "Não informado"}
+      </p>
+
       <div className="w-full bg-gray-300 h-2 rounded-full mt-2">
         <div className="bg-blue-500 h-2 rounded-full" style={{ width: progresso }}></div>
       </div>
+
       <div className="flex items-center justify-between mt-4 text-gray-700">
         <div className="flex gap-4">
           <div className="flex items-center gap-1">
@@ -33,7 +75,7 @@ const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, lin
           </div>
         </div>
         <button
-          onClick={() => router.push(link)}
+          onClick={handleRedirect}
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow-md transition-transform duration-200 hover:scale-105"
         >
           Continuar
@@ -43,6 +85,7 @@ const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, lin
   );
 };
 
+// Página do Aluno
 const Aluno = () => {
   const [userData, setUserData] = useState({
     nome: "Carregando...",
@@ -60,6 +103,7 @@ const Aluno = () => {
       try {
         const response = await fetch(`https://crud-usuario.vercel.app/api/curso/${id}`);
         const data = await response.json();
+        console.log(data);
         setLoading(false);
       } catch (error) {
         console.error("Erro ao buscar curso:", error);
@@ -100,9 +144,11 @@ const Aluno = () => {
           nome: data.user.nome || "Nome não disponível",
           estado: data.user.estado || "Estado não disponível",
           sobre: data.user.sobre || "Sobre não disponível",
-          profilePicture:  "logo.png",
+          profilePicture: "logo.png",
           courses: data.user.courses || [],
         });
+
+        console.log(data.user.courses);
       } catch (error) {
         console.error("Erro ao buscar dados do usuário:", error);
         router.push("/login");
@@ -113,6 +159,7 @@ const Aluno = () => {
   }, []);
 
   return (
+    useAutoLogout(),
     <div className="flex flex-col md:flex-row h-auto min-h-screen bg-gradient-to-b from-gray-100 to-gray-300">
       <MenuLateral />
 
@@ -140,12 +187,14 @@ const Aluno = () => {
               {userData.courses.map((course) => (
                 <CardCurso
                   key={course.id}
+                  id={course.id}
                   status="Progresso"
                   titulo={course.title}
                   progresso="0%"
                   aulasConcluidas={0}
                   totalAulas={10}
                   link={`/moduloCurso/${course.id}`}
+                  tipo={course.type}
                 />
               ))}
             </div>
