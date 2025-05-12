@@ -1,44 +1,41 @@
-"use client"
-
+'use client';
 
 import { useState } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
 
-// Carrega a chave publicável do Stripe (definida como variável de ambiente)
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-
-const CheckoutButton = ({ courseId, userId }) => {
+const CheckoutButton = ({ courseId, userId, title, price }) => {
   const [loading, setLoading] = useState(false);
 
   const handleCheckout = async () => {
     setLoading(true);
     try {
-      // Chama sua API que cria a sessão do Stripe
-      const response = await fetch('https://api-only-mu.vercel.app/api/checkout', {
+      const response = await fetch('http://localhost:3002/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ courseId, userId }),
+        body: JSON.stringify({ courseId, userId, title, price }),
       });
 
-      const { sessionId } = await response.json();
+      const data = await response.json();
+      console.log('Resposta da API:', data);
 
-      // Obtém a instância do Stripe e redireciona para o Checkout
-      const stripe = await stripePromise;
-      const result = await stripe.redirectToCheckout({ sessionId });
-
-      if (result.error) {
-        // Caso ocorra algum erro durante o redirecionamento
-        console.error(result.error.message);
+      if (data.init_point) {
+        window.location.href = data.init_point;
+      } else {
+        console.error('init_point não encontrado:', data);
+        alert('Erro ao iniciar o checkout.');
       }
     } catch (error) {
       console.error('Erro ao iniciar o checkout:', error);
+      alert('Erro ao processar o checkout.');
     }
     setLoading(false);
   };
 
   return (
-    <button                   className="mt-6 inline-block bg-gradient-to-r w-full from-blue-500 to-blue-700 text-white px-8 py-3 rounded-full font-bold text-lg hover:from-blue-600 hover:to-blue-800 transition-transform transform hover:scale-105"
-    onClick={handleCheckout} disabled={loading}>
+    <button
+      className="mt-6 inline-block bg-gradient-to-r w-full from-blue-500 to-blue-700 text-white px-8 py-3 rounded-full font-bold text-lg hover:from-blue-600 hover:to-blue-800 transition-transform transform hover:scale-105"
+      onClick={handleCheckout}
+      disabled={loading}
+    >
       {loading ? 'Carregando...' : 'Comprar'}
     </button>
   );

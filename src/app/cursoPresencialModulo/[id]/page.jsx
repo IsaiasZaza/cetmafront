@@ -19,6 +19,8 @@ const CursoPresencial = () => {
         const response = await fetch(`https://crud-usuario.vercel.app/api/curso/${id}`);
         if (!response.ok) throw new Error("Erro ao buscar curso");
         const data = await response.json();
+
+        console.log("Curso Presencial:", data);
         setCurso(data);
       } catch (error) {
         console.error("Erro ao carregar o curso:", error);
@@ -59,11 +61,11 @@ const CursoPresencial = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-gray-700 mb-8">
               <div className="flex items-center gap-3">
                 <FiClock className="text-blue-600" size={20} />
-                <span><strong>Duração:</strong> {curso.duration || "Não informado"}</span>
+                <span><strong>Duração:</strong> {curso.periodoCurso || "Não informado"}</span>
               </div>
               <div className="flex items-center gap-3">
                 <FiBookOpen className="text-blue-600" size={20} />
-                <span><strong>Carga Horária:</strong> {curso.workload || "Não informado"}</span>
+                <span><strong>Carga Horária:</strong> {curso.durationHours || "Não informado"}</span>
               </div>
               <div className="flex items-center gap-3">
                 <FiMapPin className="text-blue-600" size={20} />
@@ -75,10 +77,10 @@ const CursoPresencial = () => {
               </div>
             </div>
 
-            {curso.materialUrl && (
+            {curso.material && (
               <div className="mb-8">
                 <a
-                  href={curso.materialUrl}
+                  href={curso.material}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 transition text-white px-5 py-2.5 rounded-lg shadow"
