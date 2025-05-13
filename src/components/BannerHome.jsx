@@ -45,15 +45,15 @@ export default function BannerHome() {
       <div className="relative text-white p-4 sm:p-8 rounded-lg max-w-4xl z-10 text-start">
         <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight font-poppins mb-4">
           Torne-se uma referência em <br className="hidden sm:block" />
-          <span className="text-blue-300">Enfermagem Profissional</span>
+          <span className="text-blue-400">Enfermagem Profissional</span>
         </h1>
         <p className="text-lg lg:text-xl mb-8 text-start">
           Aprimore sua carreira com os melhores <strong>cursos online de enfermagem. </strong><br />
-          Tenha acesso a especialistas renomados e transforme seu futuro com a <strong className="text-blue-300">CETMA</strong>.
+          Tenha acesso a especialistas renomados e transforme seu futuro com a <strong className="text-blue-400">CETMA</strong>.
         </p>
         <div className="mb-6">
           <p className="text-xl font-bold mb-2">OFERTAS EXCLUSIVAS, SÓ HOJE!</p>
-          <p className="text-3xl font-semibold tracking-widest text-blue-300">{timeLeft}</p>
+          <p className="text-3xl font-semibold tracking-widest text-blue-400">{timeLeft}</p>
         </div>
         <div className="mb-6">
           <div className="w-full max-w-[480px]">
