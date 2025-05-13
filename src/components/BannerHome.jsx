@@ -1,56 +1,68 @@
 "use client";
 import { useState, useEffect } from "react";
+import { FaArrowRight } from "react-icons/fa";
+
 
 export default function BannerHome() {
   const [bgImage, setBgImage] = useState("");
+  const [timeLeft, setTimeLeft] = useState("");
+
+  useEffect(() => {
+    const updateTimer = () => {
+      const now = new Date();
+      const endOfDay = new Date();
+      endOfDay.setHours(23, 59, 59, 999);
+      const diff = endOfDay - now;
+
+      if (diff <= 0) {
+        setTimeLeft("00:00:00");
+        return;
+      }
+
+      const hours = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, "0");
+      const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, "0");
+      const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, "0");
+
+      setTimeLeft(`${hours}:${minutes}:${seconds}`);
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
 
 
   return (
     <section
-      className="relative bg-home-mobile lg:bg-home lg: flex items-center bg-cover bg-center lg:h-[85vh]"
+      className="relative bg-home-mobile lg:bg-home lg: flex items-center bg-cover bg-center h-[85vh]"
 
     >
       {/* Gradiente de sobreposição */}
       <div className="absolute inset-0bg-gradient-to-r from-blue-900/80 via-blue-900/60 to-transparent"></div>
 
       {/* Conteúdo principal */}
-      <div className="relative text-center text-white p-4 sm:p-8 rounded-lg max-w-4xl z-10">
-        <h1 className="text-3xl mt-8 sm:text-4xl lg:text-4xl mb-4 font-extrabold font-poppins leading-tight lg:mt-12">
-          Seja o Melhor na Enfermagem<br /> com a{" "}
-          <span className="font-extrabold text-blue-300">CETMA</span>
+      <div className="relative text-white p-4 sm:p-8 rounded-lg max-w-4xl z-10 text-start">
+        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight font-poppins mb-4">
+          Torne-se uma referência em <br className="hidden sm:block" />
+          <span className="text-blue-300">Enfermagem Profissional</span>
         </h1>
-        <p className="text-lg mb-6 lg:w-1/2 mx-auto md:w-full">
-          Cursos online com os melhores especialistas em enfermagem. Conquiste
-          seu certificado MEC e invista no seu futuro com o CETMA.
+        <p className="text-lg lg:text-xl mb-8 text-start">
+          Aprimore sua carreira com os melhores <strong>cursos online de enfermagem. </strong><br />
+          Tenha acesso a especialistas renomados e transforme seu futuro com a <strong className="text-blue-300">CETMA</strong>.
         </p>
         <div className="mb-6">
-          <div className="w-full max-w-[480px] mx-auto">
-            <video
-              className="rounded-lg w-full h-[240px]"
-              src="/videos/adam.mp4"
-              loop
-              autoPlay
-              muted
-              controls
-            >
-              Seu navegador não suporta a tag de vídeo.
-            </video>
-            {/* Botão ajustado à largura do vídeo */}
+          <p className="text-xl font-bold mb-2">OFERTAS EXCLUSIVAS, SÓ HOJE!</p>
+          <p className="text-3xl font-semibold tracking-widest text-blue-300">{timeLeft}</p>
+        </div>
+        <div className="mb-6">
+          <div className="w-full max-w-[480px]">
             <a
               href="/login"
-              className="bg-blue-500 text-white py-3 px-6 mt-4 rounded-lg font-extrabold hover:bg-blue-600 transition flex items-center justify-center gap-2 shadow-lg w-full"
+              className="uppercase bg-blue-500 text-white py-3 px-6 mt-4 rounded-lg font-extrabold hover:bg-blue-600 transition flex items-center justify-center gap-2 shadow-lg w-full"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-              </svg>
-              Matrícula-se
+              
+              Garantir minha vaga <FaArrowRight className="text-xl" />
             </a>
           </div>
         </div>
