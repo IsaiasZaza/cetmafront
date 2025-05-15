@@ -14,44 +14,98 @@ const CoursesPage = () => {
   const [presentialCourses, setPresentialCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
+
 
   const handleRedirect = (url) => {
     router.push(url);
   };
 
   useEffect(() => {
-    AOS.init({ duration: 1000 });
+    const verificarToken = async () => {
+      const token = localStorage.getItem("token");
 
-    const fetchCourses = async () => {
+      if (!token) {
+        router.replace("/login");
+        return;
+      }
+
       try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          window.location.href = "/login";
+        const res = await fetch("https://crud-usuario.vercel.app/api/api/validar-token", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          localStorage.removeItem("token");
+          router.replace("/login");
           return;
         }
 
-        // Cursos online
+      } catch (error) {
+        console.error("Erro ao validar token:", error);
+        localStorage.removeItem("token");
+        router.replace("/login");
+      }
+    };
+
+    verificarToken();
+  }, [router]);
+
+
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+
+    const validateTokenAndFetchCourses = async () => {
+      const token = localStorage.getItem("token");
+
+      // Se não houver token, redireciona para o login
+      if (!token) {
+        setMessage({ type: "error", text: "Você precisa estar logado para acessar os cursos." });
+        router.replace("/login");
+        return;
+      }
+
+      try {
+        // Valida o token
+        const res = await fetch("https://crud-usuario.vercel.app/api/api/validar-token", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          setMessage({ type: "error", text: "Sessão expirada. Faça login novamente." });
+          router.replace("/login");
+          return;
+        }
+
+        // Token válido, agora busca os cursos
         const response = await fetch("https://crud-usuario.vercel.app/api/cursos");
-        if (!response.ok) throw new Error("Erro ao buscar cursos online");
+
+        if (!response.ok) throw new Error("Erro ao buscar cursos");
+
         const data = await response.json();
 
         const mainCourses = data.filter((course) => !course.parentCourseId);
-
         const online = mainCourses.filter((course) => course.type === "ONLINE");
         const presential = mainCourses.filter((course) => course.type === "PRESENTIAL");
 
         setOnlineCourses(online);
         setPresentialCourses(presential);
+
       } catch (err) {
-        console.error("Erro ao buscar cursos:", err);
-        setError("Não foi possível carregar os cursos. Por favor, tente novamente mais tarde.");
+        console.error("Erro:", err);
+        setError("Erro ao carregar os cursos. Tente novamente mais tarde.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCourses();
+    validateTokenAndFetchCourses();
   }, []);
+
 
   return (
     <div className="min-h-screen flex" style={{ background: "linear-gradient(120deg, #f8fafc 0%, #e7ebf0 100%)" }}>
@@ -139,10 +193,10 @@ const CoursesPage = () => {
                   </div>
                   <h3 className="text-lg font-semibold text-blue-900 truncate">{course.title}</h3>
                   <p className="text-sm text-gray-900">Local: <span className="font-medium">{course.location || "Presencial"}</span></p>
-                  <p className="text-xl font-bold text-green-700">{`R$ ${course.price.toFixed(2).replace('.', ',')}`}</p>
+                  <p className="text-xl font-bold text-blue-700">{`R$ ${course.price.toFixed(2).replace('.', ',')}`}</p>
                   <button
-                    className="w-full mt-3 bg-green-600 text-white font-bold py-2 rounded-full hover:bg-green-700 flex items-center justify-center gap-2"
-                    onClick={() => handleRedirect(`/cursos-presencial/${course.id}`)}
+                    className="w-full mt-3 bg-blue-600 text-white font-bold py-2 rounded-full hover:bg-blue-700 flex items-center justify-center gap-2"
+                    onClick={() => handleRedirect(`/courses/${course.id}`)}
                   >
                     Saiba Mais <FaArrowRight />
                   </button>

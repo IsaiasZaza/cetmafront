@@ -50,9 +50,9 @@ const CourseDetail = () => {
             {/* Header */}
             <Header />
             {/* Hero Section */}
-            <div className="relative bg-[url('/Fita_aprentacao_de_cada_curso.png')] bg-cover bg-center h-[45vh] text-white flex flex-col justify-center items-start px-6 md:px-20 lg:px-40">
+            <div className="relative bg-[url('/Fita_aprentacao_de_cada_curso.png')] bg-cover bg-center h-[45vh] text-white flex flex-col justify-center items-start px-6 lg:px-20 2xl:px-40">
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
-                <div className="relative w-full md:w-1/2 text-left space-y-6">
+                <div className="relative w-full md:full 2xl:w-1/2 text-left space-y-4">
                     <p className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
                         {course.title}
                     </p>
@@ -63,16 +63,12 @@ const CourseDetail = () => {
             </div>
 
             {/* About Section */}
-            <section className="py-16 px-6">
-                <div className="lg:px-36 mx-auto grid gap-x-60 grid-cols-1 lg:grid-cols-2 gap-6  ">
+            <section className="py-16 lg:px-20 px-4 bg-gray-100">
+                <div className="max-w-screen-2xl gap-x-60  mx-auto  grid xl:grid-cols-2 grid-cols-1 gap-6">
                     <div>
-                        <h2 className="text-2xl font-bold text-blue-900">Por que estudar {course.title} pode impulsionar sua carreira na enfermagem?</h2>
-                        <p className="mt-6 text-gray-700 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
-                        </p>
-                        <p className="mt-6 text-gray-700 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
-                        </p>
+                        <h2 className="text-2xl font-bold text-blue-900">
+                            Por que estudar {course.title} pode impulsionar sua carreira?
+                        </h2>
                         <div className="h-96">
                             <iframe
                                 src="https://www.youtube.com/embed/KT3WDc2B_q8?si=XRS-vSd5DAm8dG72"
@@ -83,14 +79,31 @@ const CourseDetail = () => {
                             </iframe>
                         </div>
                         <p className="mt-6 text-gray-700 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
+                            <span className="font-semibold text-xl block mb-4 text-blue-900">
+                                Aprimore sua Carreira com os Melhores Cursos Online do Brasil
+                            </span>
+
+                            Se você está em busca de crescimento profissional e deseja se destacar na área da saúde, a CETMA oferece cursos de alta qualidade, ministrados por especialistas renomados. Nossos cursos são totalmente online, permitindo que você aprenda no seu ritmo, com acesso a conteúdos atualizados e práticas essenciais para o seu sucesso.
+
+                            <span className="font-semibold text-lg block mt-6 mb-2 text-blue-900">Por que escolher a CETMA?</span>
+
+                            <ul className="list-disc pl-6 mb-4">
+                                <li><strong>Expertise de profissionais qualificados:</strong> Aprenda com os melhores da área.</li>
+                                <li><strong>Flexibilidade:</strong> Cursos online para você estudar a qualquer hora e de qualquer lugar.</li>
+                                <li><strong>Certificação reconhecida:</strong> Ao concluir, você receberá um certificado válido e reconhecido no mercado.</li>
+                                <li><strong>Conteúdo de qualidade:</strong> Aulas práticas e teóricas que abordam as principais competências exigidas no mercado de trabalho.</li>
+                            </ul>
+
+                            <span className="font-semibold text-lg block mt-6 mb-2 text-blue-900">Descrição do Curso</span>
+                            <p>{course.description}</p>
+                            <p className="mx-auto font-bold text-lg text-center mt-8">Invista em seu futuro. Inscreva-se agora!</p>
                         </p>
-                        <p className="mt-6 text-gray-700 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
-                        </p>
+
+
                     </div>
-                    <div className="bg-white shadow-xl rounded-2xl p-8 flex flex-col items-center text-center border border-gray-200 w-4/6 h-[70vh] sticky top-20">
-                        <img src="/logo.png" alt="Cetma Logo" className="w-24 h-24 " />
+                    <div className="bg-white shadow-xl rounded-2xl p-8 flex flex-col items-center text-center border border-gray-200 
+              w-full lg:w-[350px] lg:h-[90vh] xl:w-[400px] xl:h-[80vh] 2xl:h-[70vh] sticky top-20 mx-auto">
+                        <img src="/logo.png" alt="Cetma Logo" className="w-24 h-24" />
                         <h2 className="text-2xl font-bold text-blue-900 mb-4">{course.title}</h2>
                         <ul className="mt-4 text-gray-700 text-left space-y-2">
                             {[
@@ -99,7 +112,7 @@ const CourseDetail = () => {
                                 "Professores para tirar dúvidas",
                                 "100% Online",
                                 "Certificados aprovados pelo MEC",
-                                "E muito mais"
+                                "E muito mais",
                             ].map((item, index) => (
                                 <li key={index} className="flex items-center gap-2">
                                     <FaCheckCircle className="text-blue-500" /> {item}
@@ -108,8 +121,9 @@ const CourseDetail = () => {
                         </ul>
                         <div className="mt-6 text-blue-900 text-center">
                             <p className="line-through text-lg flex items-center justify-center gap-2">
-                                <IoMdPricetag className="text-red-500" /> de R$ {course.price * 0.8}
+                                <IoMdPricetag className="text-red-500" /> {`de R$ ${(course.price * 1.2).toFixed(2)}`}
                             </p>
+
                             <p className="text-4xl font-extrabold">R$ {course.price}</p>
                             <p className="text-sm font-medium">em até 6x sem juros</p>
                         </div>
@@ -119,6 +133,7 @@ const CourseDetail = () => {
                         >
                             Aprenda Agora
                         </a>
+
                     </div>
                 </div>
             </section>

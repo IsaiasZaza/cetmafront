@@ -5,6 +5,9 @@ import MenuLateral from "@/components/MenuLateral";
 import { decodeJwt } from "jose";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
+import { useRouter } from "next/navigation";
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+
 
 export default function CertificatePage() {
   const [userData, setUserData] = useState(null);
@@ -12,6 +15,10 @@ export default function CertificatePage() {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [dataAtual, setDataAtual] = useState("");
   const certificateRef = useRef(null);
+  const router = useRouter();
+  const [showMaintenanceModal, setShowMaintenanceModal] = useState(false);
+
+
 
   // Define a data atual automaticamente (formato dd/mm/aaaa)
   useEffect(() => {
@@ -21,6 +28,36 @@ export default function CertificatePage() {
     const ano = hoje.getFullYear();
     setDataAtual(`${dia}/${mes}/${ano}`);
   }, []);
+
+  useEffect(() => {
+    const verificarToken = async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        router.replace("/login");
+        return;
+      }
+
+      try {
+        const res = await fetch("https://crud-usuario.vercel.app/api/api/validar-token", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          localStorage.removeItem("token");
+          router.replace("/login");
+        }
+      } catch (error) {
+        console.error("Erro ao validar token:", error);
+        localStorage.removeItem("token");
+        router.replace("/login");
+      }
+    };
+
+    verificarToken();
+  }, [router]);
 
   // Busca os dados do usuário automaticamente com base no token
   useEffect(() => {
@@ -42,8 +79,11 @@ export default function CertificatePage() {
         if (!response.ok) {
           throw new Error("Erro ao buscar dados do usuário");
         }
-        const data = await response.json();
+        const dataTeste = await response.json();
+
+        const data = dataTeste
         setUserData(data.user || data);
+
       } catch (err) {
         console.error("Erro ao buscar dados do usuário:", err);
         setError("Erro ao carregar dados do usuário");
@@ -116,7 +156,7 @@ export default function CertificatePage() {
                       >
                         <span className="text-gray-800 font-medium">{course.title}</span>
                         <button
-                          onClick={() => handleSelectCourse(course.title)}
+                          onClick={() => setShowMaintenanceModal(true)}
                           className="mt-2 sm:mt-0 bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors"
                         >
                           Gerar Certificado
@@ -198,6 +238,42 @@ export default function CertificatePage() {
           </div>
         </div>
       </div>
+      {showMaintenanceModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity duration-300">
+    <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 sm:p-8 transform transition-all duration-300 scale-95 opacity-0 animate-[fadeIn_0.3s_ease-out_forwards]">
+      <div className="flex flex-col items-center text-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-12 h-12 text-yellow-500 mb-4"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 9v2.25m0 3.75h.008v.008H12v-.008zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <h2 className="text-xl font-semibold text-gray-800 mb-2">Em manutenção</h2>
+        <p className="text-gray-600 mb-6">
+          A geração de certificados está temporariamente indisponível.
+          <br/>
+          Estamos trabalhando para resolver isso o mais rápido possível.
+        </p>
+        <button
+          onClick={() => setShowMaintenanceModal(false)}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md transition shadow"
+        >
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+
     </div>
   );
 }

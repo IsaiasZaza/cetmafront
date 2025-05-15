@@ -65,13 +65,10 @@ const CardCurso = ({ status, titulo, progresso, aulasConcluidas, totalAulas, lin
 
       <div className="flex items-center justify-between mt-4 text-gray-700">
         <div className="flex gap-4">
-          <div className="flex items-center gap-1">
-            <BsFileText />
-            <p>{progresso}</p>
-          </div>
+
           <div className="flex items-center gap-1">
             <BsPlayCircle />
-            <p>{`${aulasConcluidas}/${totalAulas}`}</p>
+
           </div>
         </div>
         <button

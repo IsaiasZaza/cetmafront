@@ -124,12 +124,10 @@ const HomePage = () => {
                                 {/* Conteúdo do card posicionado sobre a imagem */}
                                 <div className="relative z-10 flex flex-col justify-between p-6 text-center h-full">
                                     <div>
-                                        <h4 className="text-2xl text-white mb-2">
+                                        <h4 className="text-xl text-white mb-2 font-semibold">
                                             {course.title}
                                         </h4>
-                                        <p className="text-lg mt-2 text-white/90 line-clamp-3">
-                                            {course.description}
-                                        </p>
+                                      
                                     </div>
                                     <button
                                         className="bg-white text-blue-600 py-3 px-6 rounded-lg shadow hover:bg-blue-500 hover:text-white hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out"

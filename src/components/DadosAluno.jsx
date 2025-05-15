@@ -5,6 +5,7 @@ import { FaEdit, FaCamera, FaTrash, FaLock } from "react-icons/fa";
 import { decodeJwt } from "jose";
 import MenuLateral from "./MenuLateral";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const ProfilePage = () => {
   const [profilePhoto, setProfilePhoto] = useState("https://via.placeholder.com/150");
@@ -23,6 +24,7 @@ const ProfilePage = () => {
   const [senhaAtual, setSenhaAtual] = useState("");
   const [novaSenha, setNovaSenha] = useState("");
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const router = useRouter()
 
   const formatCPF = (cpf) => {
     if (!cpf) return "";
@@ -35,6 +37,36 @@ const ProfilePage = () => {
     setEditingField(field);
     setModalValue(userData[field] || "");
   };
+
+  useEffect(() => {
+    const verificarToken = async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        router.replace("/login");
+        return;
+      }
+
+      try {
+        const res = await fetch("https://crud-usuario.vercel.app/api/api/validar-token", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          localStorage.removeItem("token");
+          router.replace("/login");
+        }
+      } catch (error) {
+        console.error("Erro ao validar token:", error);
+        localStorage.removeItem("token");
+        router.replace("/login");
+      }
+    };
+
+    verificarToken();
+  }, [router]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -62,7 +94,7 @@ const ProfilePage = () => {
           sobre: data.user.sobre || "Sobre não disponível",
           cpf: data.user.cpf || "CPF não disponível",
           profissao: data.user.profissao || "Profissão não disponível",
-          profilePicture:  "logo.png",
+          profilePicture: "logo.png",
         });
       } catch (error) {
         console.error("Erro ao buscar dados do usuário:", error);

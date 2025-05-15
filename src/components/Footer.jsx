@@ -21,7 +21,7 @@ const Footer = () => {
                 className="h-48 w-48 -mt-14 mb-4"
               />
               <p className="text-gray-300 text-center md:text-left">
-                Mudando a forma que <br /> você olhará a enfermagem
+                Mudando a forma que <br /> você olhará a Saúde
               </p>
               <div className="mt-6">
                 <h4 className="text-white font-bold border-b pb-1 border-blue-500 mb-4 text-center md:text-left">

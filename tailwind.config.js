@@ -10,9 +10,18 @@ module.exports = {
       fontFamily: {
         poppins: ["var(--font-poppins)", "sans-serif"],
       },
+      animation: {
+        fadeIn: 'fadeIn 0.3s ease-out forwards',
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
       },
       backgroundImage: {
         "home": "url('/banner-home2.png')",

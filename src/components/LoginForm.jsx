@@ -1,40 +1,18 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
+
 import Image from "next/image";
+
 import { useRouter } from "next/navigation";
-import { 
-  FaEnvelope, FaEye, FaEyeSlash, FaUser, FaLock, 
-  FaArrowAltCircleLeft, FaBriefcase, FaIdCard 
+
+import {
+  FaEnvelope, FaEye, FaEyeSlash, FaUser, FaLock,
+  FaArrowAltCircleLeft, FaBriefcase, FaIdCard
 } from "react-icons/fa";
 
 
-const useAutoLogout = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    const authData = JSON.parse(localStorage.getItem("auth"));
-    if (!authData) return;
-
-    const { expiresAt } = authData;
-    const now = Date.now();
-
-    if (now >= expiresAt) {
-      localStorage.removeItem("auth");
-      router.replace("/login");
-      return;
-    }
-
-    const timeoutId = setTimeout(() => {
-      localStorage.removeItem("auth");
-      router.replace("/login");
-    }, expiresAt - now); // Tempo restante até expiração
-
-    return () => clearTimeout(timeoutId); // Limpa timeout se o componente desmontar
-  }, []);
-};
-
-
-const LoginForm = () => {
+export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [formType, setFormType] = useState("login"); // 'login', 'register', 'forgotPassword'
   const [password, setPassword] = useState("");
@@ -46,6 +24,41 @@ const LoginForm = () => {
   const [cpf, setCpf] = useState(""); // Estado para CPF
   const [message, setMessage] = useState(null);
   const router = useRouter();
+
+
+  useEffect(() => {
+    const verificarToken = async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        router.replace("/login");
+        return;
+      }
+
+      try {
+        const res = await fetch("https://crud-usuario.vercel.app/api/api/validar-token", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          localStorage.removeItem("token");
+          router.replace("/login");
+          return;
+        }
+
+      } catch (error) {
+        console.error("Erro ao validar token:", error);
+        localStorage.removeItem("token");
+        router.replace("/login");
+      }
+    };
+
+    verificarToken();
+  }, [router]);
+
+
 
   // Redireciona para /aluno se já houver token salvo
   useEffect(() => {
@@ -134,9 +147,24 @@ const LoginForm = () => {
       });
 
       const data = await response.json();
+
       if (response.ok) {
+        const token = data.token;
+
+        // Verifica o token antes de salvar e redirecionar
+        const validateRes = await fetch("https://crud-usuario.vercel.app/api/api/validar-token", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!validateRes.ok) {
+          setMessage({ type: "error", text: "Token inválido. Tente novamente." });
+          return;
+        }
+
+        localStorage.setItem("token", token);
         setMessage({ type: "success", text: "Login realizado com sucesso!" });
-        localStorage.setItem("token", data.token);
         router.replace("/aluno");
       } else {
         setMessage({ type: "error", text: data.message });
@@ -146,6 +174,7 @@ const LoginForm = () => {
       console.error("Erro inesperado:", error);
     }
   };
+
 
   const inputContainerStyle = "w-4/5 flex items-center border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-400";
   const inputStyle = "w-full h-12 px-4 outline-none";
@@ -332,8 +361,6 @@ const LoginForm = () => {
   };
 
   return (
-    useAutoLogout(), // Chama o hook de logout automático
-
     <div className="min-h-screen flex justify-between items-stretch">
       {/* Banner (aparece só no desktop) */}
       <div
@@ -354,11 +381,10 @@ const LoginForm = () => {
           {renderForm()}
           {message && (
             <div
-              className={`mt-4 px-4 py-2 w-4/5 rounded-md ${
-                message.type === "error"
-                  ? "bg-red-100 text-red-500 border border-red-500"
-                  : "bg-green-100 text-green-500 border border-green-500"
-              }`}
+              className={`mt-4 px-4 py-2 w-4/5 rounded-md ${message.type === "error"
+                ? "bg-red-100 text-red-500 border border-red-500"
+                : "bg-green-100 text-green-500 border border-green-500"
+                }`}
             >
               {message.text}
             </div>
@@ -368,5 +394,3 @@ const LoginForm = () => {
     </div>
   );
 };
-
-export default LoginForm;

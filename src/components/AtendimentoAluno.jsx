@@ -1,13 +1,45 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react"; // Corrigido aqui
 import { FaEnvelope, FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import MenuLateral from "./MenuLateral";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const AtendimentoAluno = () => {
   const email = "https://cetmacetma7@gmail.com";
   const whatsappNumber = "61992441951";
+  const router = useRouter();
+
+  useEffect(() => {
+      const verificarToken = async () => {
+        const token = localStorage.getItem("token");
+  
+        if (!token) {
+          router.replace("/login");
+          return;
+        }
+  
+        try {
+          const res = await fetch("https://crud-usuario.vercel.app/api/api/validar-token", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+  
+          if (!res.ok) {
+            localStorage.removeItem("token");
+            router.replace("/login");
+          }
+        } catch (error) {
+          console.error("Erro ao validar token:", error);
+          localStorage.removeItem("token");
+          router.replace("/login");
+        }
+      };
+  
+      verificarToken();
+    }, [router]);
 
   return (
     <div className="flex flex-col md:flex-row h-screen bg-gray-100">

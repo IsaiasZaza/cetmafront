@@ -52,7 +52,7 @@ const Header = () => {
         </a>
 
         {/* Menu Desktop */}
-        <nav className="hidden lg:flex space-x-6 items-center">
+        <nav className="hidden xl:flex space-x-6 items-center">
           {menuItems.map((item) => (
             <div
               key={item.label}
@@ -98,7 +98,7 @@ const Header = () => {
         </nav>
 
         {/* Botão Login */}
-        <div className="hidden lg:flex">
+        <div className="hidden xl:flex">
           <a
             href="/login"
             className="flex items-center text-gray-800 border border-black rounded px-3 py-1 hover:text-blue-500 hover:border-blue-500"
@@ -108,7 +108,7 @@ const Header = () => {
         </div>
 
         {/* Menu Mobile */}
-        <div className="lg:hidden">
+        <div className="xl:hidden">
           <button onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <FaTimes className="h-6 w-6 text-blue-500" /> : <FaBars className="h-6 w-6 text-blue-500" />}
           </button>
@@ -117,7 +117,7 @@ const Header = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="lg:hidden bg-white shadow-lg py-4 transition-all duration-300">
+        <div className="xl:hidden bg-white shadow-lg py-4 transition-all duration-300">
           <nav className="space-y-4 text-left">
             {menuItems.map((item) => (
               <div key={item.label} className="px-6">
