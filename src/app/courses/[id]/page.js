@@ -169,7 +169,7 @@ export default function cursosPresencial() {
                 </ul>
                 <div className="mt-6 text-blue-900 text-center">
                   <p className="line-through text-lg flex items-center justify-center gap-2">
-                    <IoMdPricetag className="text-red-500" /> {`de R$ ${(course.price * 1.2).toFixed(2)}`}
+                    <IoMdPricetag className="text-red-500" /> {`de R$ ${(course.price * 1.2).toFixed(2)} para:`}
                   </p>
 
                   <p className="text-4xl font-extrabold">R$ {course.price}</p>
