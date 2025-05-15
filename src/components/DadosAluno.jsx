@@ -24,6 +24,9 @@ const ProfilePage = () => {
   const [senhaAtual, setSenhaAtual] = useState("");
   const [novaSenha, setNovaSenha] = useState("");
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [mensagem, setMensagem] = useState('');
+  const [tipoMensagem, setTipoMensagem] = useState(''); // 'sucesso' ou 'erro'
+
   const router = useRouter()
 
   const formatCPF = (cpf) => {
@@ -133,7 +136,7 @@ const ProfilePage = () => {
     if (!token) return;
 
     try {
-      const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}`, {
+      const response = await fetch(`http://localhost:3002/api/user/${userId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -157,21 +160,36 @@ const ProfilePage = () => {
     }
   };
 
-  const handleRemovePhoto = async () => {
+  const handleChangePassword = async () => {
     const token = localStorage.getItem("token");
-    if (!token) return;
+    if (!token || !senhaAtual || !novaSenha) return;
+
     try {
-      const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}/profile-picture`, {
-        method: "DELETE",
-        headers: { "Authorization": `Bearer ${token}` },
+      const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}/change-password`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          senhaAtual,
+          novaSenha,
+        }),
       });
-      if (!response.ok) throw new Error("Erro ao remover foto de perfil");
-      setUserData((prev) => ({
-        ...prev,
-        profilePicture: "https://via.placeholder.com/150",
-      }));
+
+      if (!response.ok) {
+        const erro = await response.json();
+        alert(erro.message || "Erro ao alterar a senha.");
+        return;
+      }
+
+      alert("Senha alterada com sucesso!");
+      setSenhaAtual("");
+      setNovaSenha("");
+      setIsPasswordModalOpen(false);
     } catch (error) {
-      console.error("Erro ao remover foto de perfil:", error);
+      console.error("Erro ao alterar a senha:", error);
+      alert("Erro ao alterar a senha.");
     }
   };
 
@@ -279,46 +297,72 @@ const ProfilePage = () => {
       {/* Modal de Alteração de Senha */}
       {isPasswordModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-2xl w-11/12 max-w-sm">
-            <h3 className="text-xl font-semibold mb-4 text-center">Alterar Senha</h3>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-gray-700">Senha Atual</label>
-                <input
-                  type="password"
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                  value={senhaAtual}
-                  onChange={(e) => setSenhaAtual(e.target.value)}
-                />
+          <div className="bg-white rounded-lg p-6 shadow-lg max-w-md w-full">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">Alterar Senha</h2>
+
+            {/* Mensagens de feedback */}
+            {mensagem && (
+              <div
+                className={`mb-4 px-4 py-2 rounded text-sm ${tipoMensagem === 'erro'
+                  ? 'bg-red-100 text-red-700'
+                  : 'bg-green-100 text-green-700'
+                  }`}
+              >
+                {mensagem}
               </div>
-              <div>
-                <label className="block text-gray-700">Nova Senha</label>
-                <input
-                  type="password"
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                  value={novaSenha}
-                  onChange={(e) => setNovaSenha(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="mt-4 flex justify-between items-center">
+            )}
+
+            <label className="block text-gray-700 mb-2">Senha Atual</label>
+            <input
+              type="password"
+              className="w-full border border-gray-300 p-2 rounded mb-4 text-black"
+              value={senhaAtual}
+              onChange={(e) => setSenhaAtual(e.target.value)}
+            />
+
+            <label className="block text-gray-700 mb-2">Nova Senha</label>
+            <input
+              type="password"
+              className="w-full border border-gray-300 p-2 rounded mb-4 text-black"
+              value={novaSenha}
+              onChange={(e) => setNovaSenha(e.target.value)}
+            />
+
+            <div className="flex justify-end gap-2">
               <button
-                className="text-red-600 hover:underline transition-colors"
                 onClick={() => setIsPasswordModalOpen(false)}
+                className="px-4 py-2 bg-red-600 rounded hover:bg-gray-300 text-white "
               >
                 Cancelar
               </button>
               <button
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:shadow-xl transition-colors"
-                onClick={handleSaveField}
-                disabled={isSubmitting}
+                onClick={async () => {
+                  try {
+                    await handleChangePassword(); // supondo que essa função lança erro se falhar
+                    setMensagem('Senha alterada com sucesso!');
+                    setTipoMensagem('sucesso');
+                    setSenhaAtual('');
+                    setNovaSenha('');
+                    // Fechar o modal depois de um tempo, opcional:
+                    setTimeout(() => {
+                      setIsPasswordModalOpen(false);
+                      setMensagem('');
+                    }, 2000);
+                  } catch (err) {
+                    setMensagem('Erro ao alterar a senha. Verifique os dados e tente novamente.');
+                    setTipoMensagem('erro');
+                  }
+                }}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
               >
-                {isSubmitting ? "Salvando..." : "Salvar"}
+                Salvar
               </button>
             </div>
           </div>
         </div>
       )}
+
+
 
       {/* Modal de Edição de Campo */}
       {editingField && (

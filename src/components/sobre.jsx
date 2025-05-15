@@ -38,8 +38,8 @@ const SobreNos = () => {
           <h2 className="text-sm sm:text-base md:text-lg font-semibold tracking-wider uppercase text-blue-300">
             CENTRO EDUCACIONAL TÉCNICO MÉDICO ASSISTENCIAL
           </h2>
-          <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-extrabold leading-tight break-words">
-            De um sonhador à <br /> enfermeiro renomado
+          <h1 className="text-2xl sm:text-4xl  lg:text-3xl 2xl:text-5xl font-extrabold leading-tight font-poppins mb-4">
+            A inspiração existe, porém temos que encontrá-la<br /> trabalhando.
           </h1>
           <p className="mt-4 text-md sm:text-md md:text-base text-gray-200">
 

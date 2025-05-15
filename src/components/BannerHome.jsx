@@ -43,7 +43,7 @@ export default function BannerHome() {
 
       {/* Conteúdo principal */}
       <div className="relative text-white p-4 sm:p-8 rounded-lg max-w-4xl z-10 text-start">
-        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight font-poppins mb-4">
+        <h1 className="text-2xl sm:text-4xl  lg:text-3xl 2xl:text-5xl font-extrabold leading-tight font-poppins mb-4">
           Torne-se uma referência em <br className="hidden sm:block" />
           <span className="text-blue-400">Saúde no Brasil</span>
         </h1>

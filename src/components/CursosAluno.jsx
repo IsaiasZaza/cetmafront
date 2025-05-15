@@ -116,7 +116,7 @@ const CoursesPage = () => {
         <div className="relative xl:bg-banner-cursos bg-mobile-padrao bg-cover bg-center h-[60vh] lg:h-[50vh] text-white flex flex-col justify-center items-start px-6 md:px-12">
           <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
           <div className="relative w-full md:w-1/2 text-left space-y-6">
-            <p className="text-3xl md:text-4xl lg:text-4xl font-bold leading-tight">
+            <p className="text-2xl sm:text-4xl lg:text-2xl 2xl:text-5xl  font-bold leading-tight">
               Chegou a hora de mudar <span className="text-blue-500">sua vida</span>
               <p> junto com a CETMA. </p>
             </p>

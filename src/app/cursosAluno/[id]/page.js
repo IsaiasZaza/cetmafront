@@ -18,6 +18,7 @@ const CourseDetail = () => {
             try {
                 const response = await fetch(`https://crud-usuario.vercel.app/api/curso/${id}`);
                 const data = await response.json();
+                console.log(data)
                 setCourse(data);
             } catch (error) {
                 console.error("Erro ao buscar curso:", error);
@@ -63,80 +64,78 @@ const CourseDetail = () => {
             </div>
 
             {/* About Section */}
+            {/* About Section */}
+            {/* About Section */}
             <section className="py-16 lg:px-20 px-4 bg-gray-100">
-                <div className="max-w-screen-2xl gap-x-60  mx-auto  grid xl:grid-cols-2 grid-cols-1 gap-6">
+                <div className="max-w-screen-2xl gap-x-60 mx-auto grid xl:grid-cols-2 grid-cols-1 gap-6">
                     <div>
                         <h2 className="text-2xl font-bold text-blue-900">
                             Por que estudar {course.title} pode impulsionar sua carreira?
                         </h2>
-                        <div className="h-96">
-                            <iframe
-                                src="https://www.youtube.com/embed/KT3WDc2B_q8?si=XRS-vSd5DAm8dG72"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                                className="w-full h-full py-12">
-                            </iframe>
-                        </div>
-                        <p className="mt-6 text-gray-700 leading-relaxed">
-                            <span className="font-semibold text-xl block mb-4 text-blue-900">
-                                Aprimore sua Carreira com os Melhores Cursos Online do Brasil
-                            </span>
 
-                            Se você está em busca de crescimento profissional e deseja se destacar na área da saúde, a CETMA oferece cursos de alta qualidade, ministrados por especialistas renomados. Nossos cursos são totalmente online, permitindo que você aprenda no seu ritmo, com acesso a conteúdos atualizados e práticas essenciais para o seu sucesso.
+                        <div className="mt-8 space-y-4 text-gray-700 leading-relaxed">
+                            <p className="text-xl font-semibold text-blue-900">
+                                🚀 Curso Presencial CETMA
+                            </p>
+                            <p>
+                                Do Básico ao Clínico: Como o ECG Guia o Raciocínio Médico.
+                                Se você busca crescimento profissional e deseja se destacar na medicina, este curso é a oportunidade ideal! A CETMA oferece formação de alta qualidade, com foco prático e direcionada por especialistas reconhecidos.
+                            </p>
 
-                            <span className="font-semibold text-lg block mt-6 mb-2 text-blue-900">Por que escolher a CETMA?</span>
+                            <p className="font-semibold text-blue-900 mt-6">🎯 Objetivo do Curso</p>
+                            <p>
+                                Aprimorar o conhecimento médico na avaliação assertiva do ECG, conectando o traçado eletrocardiográfico com o raciocínio clínico e a tomada de decisão diagnóstica.
+                            </p>
 
-                            <ul className="list-disc pl-6 mb-4">
-                                <li><strong>Expertise de profissionais qualificados:</strong> Aprenda com os melhores da área.</li>
-                                <li><strong>Flexibilidade:</strong> Cursos online para você estudar a qualquer hora e de qualquer lugar.</li>
-                                <li><strong>Certificação reconhecida:</strong> Ao concluir, você receberá um certificado válido e reconhecido no mercado.</li>
-                                <li><strong>Conteúdo de qualidade:</strong> Aulas práticas e teóricas que abordam as principais competências exigidas no mercado de trabalho.</li>
+                            <p className="font-semibold text-blue-900 mt-6">✅ Por que escolher a CETMA?</p>
+                            <ul className="list-disc pl-6 space-y-2">
+                                <li><strong>👨‍🏫 Especialistas com reconhecimento (RQE):</strong> Curso ministrado por {course.instructorName}, {course.instructorTitle} ({course.instructorCRM}).</li>
+                                <li><strong>📘 Material exclusivo:</strong> Acompanhamento presencial com guia de aprendizagem prático.</li>
+                                <li><strong>🎓 Certificação reconhecida nacionalmente:</strong> Você recebe um certificado válido no mercado de trabalho.</li>
+                                <li><strong>💡 Conteúdo clínico de verdade:</strong> Aulas teóricas integradas a casos clínicos reais, reforçando a avaliação holística do paciente e o papel central do ECG no diagnóstico.</li>
                             </ul>
-
-                            <span className="font-semibold text-lg block mt-6 mb-2 text-blue-900">Descrição do Curso</span>
-                            <p>{course.description}</p>
-                            <p className="mx-auto font-bold text-lg text-center mt-8">Invista em seu futuro. Inscreva-se agora!</p>
-                        </p>
-
-
+                            <p className="mx-auto font-bold text-lg text-center mt-8">Invista na sua carreira médica. Inscreva-se agora!</p>
+                        </div>
                     </div>
+
+                    {/* Card de Informações */}
                     <div className="bg-white shadow-xl rounded-2xl p-8 flex flex-col items-center text-center border border-gray-200 
-              w-full lg:w-[350px] lg:h-[90vh] xl:w-[400px] xl:h-[80vh] 2xl:h-[70vh] sticky top-20 mx-auto">
+      w-full lg:w-[350px]  xl:w-[400px] xl:h-[80vh] 2xl:h-[70vh] sticky top-20 mx-auto">
                         <img src="/logo.png" alt="Cetma Logo" className="w-24 h-24" />
                         <h2 className="text-2xl font-bold text-blue-900 mb-4">{course.title}</h2>
                         <ul className="mt-4 text-gray-700 text-left space-y-2">
                             {[
-                                "Acesso vitalício",
-                                "Acesso imediato",
-                                "Professores para tirar dúvidas",
-                                "100% Online",
-                                "Certificados aprovados pelo MEC",
-                                "E muito mais",
+                                "Curso Presencial",
+                                "Instrutor especializado",
+                                "Disponibilização de material de apoio ",
+                                "Certificado validado",
+                                
                             ].map((item, index) => (
                                 <li key={index} className="flex items-center gap-2">
                                     <FaCheckCircle className="text-blue-500" /> {item}
                                 </li>
                             ))}
                         </ul>
+
                         <div className="mt-6 text-blue-900 text-center">
                             <p className="line-through text-lg flex items-center justify-center gap-2">
                                 <IoMdPricetag className="text-red-500" /> {`de R$ ${(course.price * 1.2).toFixed(2)}`}
                             </p>
-
                             <p className="text-4xl font-extrabold">R$ {course.price}</p>
-                            <p className="text-sm font-medium">em até 6x sem juros</p>
+                            <p className="text-sm font-medium">em até 12x</p>
                         </div>
+
                         <a
                             href="/login"
                             className="mt-6 inline-block bg-gradient-to-r w-full from-blue-500 to-blue-700 text-white px-8 py-3 rounded-full font-bold text-lg hover:from-blue-600 hover:to-blue-800 transition-transform transform hover:scale-105"
                         >
-                            Aprenda Agora
+                            Inscreva-se Agora
                         </a>
-
                     </div>
                 </div>
             </section>
+
+
 
             {/* Footer */}
             <Footer />

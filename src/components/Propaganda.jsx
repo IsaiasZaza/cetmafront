@@ -12,7 +12,7 @@ export default function Propaganda() {
       <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-blue-900/30 to-transparent"></div>
 
       {/* Conteúdo principal */}
-      <div className="relative w-full lg:w-1/2 p-4 sm:p-10 lg:p-16 text-start flex flex-col items-center md:items-center md:w-full justify-center h-full z-10">
+      <div className="relative w-full 2xl:w-1/2 p-4 sm:p-10 lg:p-16 text-start flex flex-col items-center md:items-center md:w-full justify-center h-full z-10">
         <h1 className="text-xl md:text-2xl lg:text-3xl leading-tight text-center md:text-center lg:text-left">
           Depois de um tempo planejando a{" "}
           <span className="text-blue-400 font-bold">MELHOR </span>

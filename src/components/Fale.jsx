@@ -19,7 +19,7 @@ const FaleConosco = () => {
           <h2 className="text-sm sm:text-base md:text-lg font-semibold tracking-wider uppercase text-blue-400">
             Fale conosco
           </h2>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight break-words">
+          <h1 className="text-2xl sm:text-4xl  lg:text-3xl 2xl:text-5xl font-extrabold leading-tight font-poppins mb-4 break-words">
             Tire suas dúvidas com <br /> a equipe da <span className="font-extrabold text-blue-400">CETMA</span>
           </h1>
           <p className="mt-4 text-xs sm:text-sm md:text-base text-gray-200">
