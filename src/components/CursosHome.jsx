@@ -24,10 +24,17 @@ const Novidades = () => {
           throw new Error("Erro ao buscar os cursos.");
         }
         const data = await response.json();
+        const comingSoonCourse = {
+          id: "em-breve",
+          title: "Curso em Breve",
+          description: "Novos cursos estão chegando!",
+          coverImage: "/catate.jpg", // coloque essa imagem em /public
+        };
 
         // Filtrar para exibir apenas os cursos principais
         const mainCourses = data.filter((course) => !course.parentCourseId);
-        setCourses(mainCourses);
+        setCourses([...mainCourses, comingSoonCourse]);
+
       } catch (error) {
         console.error("Erro ao carregar os cursos:", error.message);
       } finally {
@@ -42,9 +49,11 @@ const Novidades = () => {
     setActiveCourse((prev) => (prev === id ? null : id));
   };
 
-  const handleRedirect = (url) => {
-    router.push(url);
+  const handleRedirect = (id) => {
+    if (id === "em-breve") return; // não redireciona
+    router.push(`/cursosAluno/${id}`);
   };
+
 
   return (
     <div className="flex flex-col items-center py-10 mb-4">
@@ -93,7 +102,7 @@ const Novidades = () => {
                   className="relative w-full h-80 rounded-lg overflow-hidden shadow-md bg-white cursor-pointer transition-transform duration-300"
                   onMouseEnter={() => toggleDescription(course.id)}
                   onMouseLeave={() => toggleDescription(course.id)}
-                  onClick={() => handleRedirect(`/cursosAluno/${course.id}`)}
+                  onClick={() => handleRedirect(course.id)}
                 >
                   <img
                     src={course.coverImage || "/default-image.jpg"}
@@ -103,8 +112,8 @@ const Novidades = () => {
                   />
                   <div
                     className={`absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black via-transparent to-transparent p-4 transition-opacity duration-300 ${activeCourse === course.id
-                        ? "opacity-100"
-                        : "opacity-0 hover:opacity-100"
+                      ? "opacity-100"
+                      : "opacity-0 hover:opacity-100"
                       }`}
                   >
                     <h2 className="text-lg font-semibold text-white mb-1">
