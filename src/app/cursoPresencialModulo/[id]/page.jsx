@@ -60,6 +60,7 @@ export default function CursoPresencial() {
           {/* Detalhes do Curso */}
           <section className="bg-white p-6 md:p-8 rounded-2xl shadow-lg space-y-8 border border-gray-100">
             <h2 className="text-2xl font-bold text-blue-800 border-b pb-2">Detalhes do Curso</h2>
+            <h3 className="text-xl font-bold text-gray-700  pb-2">{curso.title}</h3>
             <div className="text-gray-700 space-y-4">
               {curso.description && <p>{curso.description}</p>}
 
