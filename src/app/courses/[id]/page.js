@@ -177,12 +177,8 @@ export default function cursosPresencial() {
                   <p className="text-sm font-medium">em até 12x</p>
                 </div>
 
-                <a
-                  href="/login"
-                  className="mt-6 inline-block bg-gradient-to-r w-full from-blue-500 to-blue-700 text-white px-8 py-3 rounded-full font-bold text-lg hover:from-blue-600 hover:to-blue-800 transition-transform transform hover:scale-105"
-                >
-                  Inscreva-se Agora
-                </a>
+                <CheckoutButton courseId={course.id}
+                  userId={userId} />
               </div>
             </div>
           </section>

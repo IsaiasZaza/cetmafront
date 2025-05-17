@@ -8,7 +8,7 @@ const CheckoutButton = ({ courseId, userId, title, price }) => {
   const handleCheckout = async () => {
     setLoading(true);
     try {
-      const response = await fetch('https://crud-usuario.vercel.app/api/checkout', {
+      const response = await fetch('http://localhost:3002/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ courseId, userId, title, price }),
