@@ -136,7 +136,7 @@ const ProfilePage = () => {
     if (!token) return;
 
     try {
-      const response = await fetch(`http://localhost:3002/api/user/${userId}`, {
+      const response = await fetch(`https://crud-usuario.vercel.app/api/user/${userId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
