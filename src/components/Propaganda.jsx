@@ -20,7 +20,7 @@ export default function Propaganda() {
           <span className="text-blue-400 font-bold">VOCÊ</span> cursos de{" "}
           <span className="bg-gradient-to-r text-blue-400 bg-clip-text font-bold">
             QUALIDADE
-          </span>.
+          </span>
         </h1>
         <p className="mt-4 text-base sm:text-lg md:text-xl text-center md:text-left">
           Aqui vão os pontos que nós{" "}
